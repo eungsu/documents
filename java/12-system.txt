@@ -1,0 +1,41 @@
+System 클래스
+	- 자바실행환경이 설치된 시스템(컴퓨터)에 대한 유용한 값과 객체를
+          제공하는 클래스다.
+	- java.lang 패키지에 속해있다.
+	- System 클래스의 모든 필드와 모든 메소드는 정적필드, 정적메소드다.
+	- 제공하는 것
+		1. 표준입력장치, 표준출력장치, 표준에러출력장치와 연결된 스트림
+		   System.in     System.out    System.err
+		2. 컴퓨터의 환경변수, 프로퍼티 값을 제공한다.
+		3. 컴퓨터의 현재시간정보를 제공한다.
+
+	- System.currentTimeMillis()
+		- 현재 시간에 대한 유닉스타임을 제공한다.
+		  * 유닉스타임:1970/1/1 00:00:00부터 지금까지의 시간을 1/1000초 단위로 표현한 값
+		- 난수발생, 파일의 이름중복 방지, 프로그램의 실행시간 체크 등에 활용
+	- System.arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
+		- 배열을 요소를 다른 배열에 복사한다.
+		- src:원본배열, srcPos:원본배열의 복사시작위치
+		  dest:대상배열, destPos:대상배열의 저장시작위치, length: 복사할 요소의 갯수
+	- System.exit(int status)
+		- 프로그램을 종료시킨다.
+		- 정상적인 종료일 때는 status값을 0으로 설정한다.
+	- System.getenv(String name)
+		- 시스템의 환경변수 설정값을 조회한다.
+	- System.getProperty(String name)
+		- 운영체제의 설정정보를 조회한다.
+		- 운영체제명, 운영체제버전,운영체제의 국가설정, .....
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	

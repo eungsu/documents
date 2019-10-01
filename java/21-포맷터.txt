@@ -1,0 +1,55 @@
+포맷 클래스
+	- 날짜(Date), 숫자(int, long, double)를 지정된 패턴의 텍스트로 변환하거나,
+	  지정된 패턴의 텍스트(숫자, 날짜)를 날짜(Date), 숫자(int, long, double)로 변환한다.
+	예)
+		1000000     ----> "1,000,000"  (숫자 ---> 특정패턴의 텍스트)
+		"1,000,000" ----> 1000000      (특정패턴의 텍스트 ---> 숫자)
+
+		Data객체     ----> "2019-09-25"  (Date객체 ---> 특정패턴의 텍스트)
+		"2019-09-25" ----> Date객체      (특정패턴의 텍스트 ---> Date객체)
+
+	- DecimalFormat
+		- 숫자 <----> 포맷팅텍스트 
+		- 패턴 문자
+			# : 숫자, 0의 생략
+			0 : 숫자
+			, : 자릿수
+			. : 소숫점
+		- 작성예)
+			DecimalFormat df = new DecimalFormat("#,###");
+			DecimalFormat df = new DecimalFormat("0,000");
+			String text = df.format(10000000);
+			text <---- "10,000,000"
+
+	- SimpleDateFormat
+		- Date객체 <----> 포맷팅텍스트
+		- 패턴문자
+			y : 년도
+			M : 월
+			d : 일
+			E : 요일
+			a : 오전/오후
+			h : 시간(1-12)
+			H : 시간(0-23)
+			m : 분
+			s : 초
+			S : 밀리초
+		- 작성예)
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String text = sdf.format(now);
+			text <---- "2019-09-25"
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+			String text = sdf.format(now);
+			text <---- "2019-9-25"
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 EEE a h시 m분 s초");
+			String text = sdf.format(now);
+			text <---- "2019년 9월 25일 수요일 오후 4시 7분 30초"
+
+
+
+
+			
+

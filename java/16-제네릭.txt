@@ -1,0 +1,163 @@
+제네릭(Generic)
+	- 소스 레벨에서 데이터 타입이 결정되지 않고, 별칭(타입파라미터)만 지정한다.
+	  * 데이터 타입은 필드의 타입, 매개변수 타입, 리턴타입 등이다.
+	- 객체 생성싯점, 구현클래스 구현싯점, 메소드 실행싯점에 별칭을 대신할 데이터 타입을
+          외부에서 지정하는 것이다.
+	- 제네릭은 <> 다이아몬드 표기법으로 타입파라미터(별칭)를 지정한다.
+	  * 객체 생성싯점, 구현클래스 구현싯점, 메소드 실행싯점에 데이터타입을 지정한다.
+	  * 데이터타입은 클래스 혹은 인터페이스 타입만 가능하다.
+            (기본 자료형은 제네릭의 데이터 타입으로 지정할 수 없다.)
+
+	  * 예)
+		public class Sample<T> {
+			private T data; 
+			public void setData(T t) { this.data = t; }
+		}
+
+		Sample<String> s1 = new Sample<String>();		(정상)
+		Sample<Customer> s2 = new Sample<Customer>();		(정상)
+		Sample<Box<Apple>> s3 = new Sample<Box<Apple>>();	(정상)
+		Sample s4 = new Sample();				(정상)
+		Sample<Object> s5 = new Sample<Object>()		(정상)
+		* new Sample()과 new Sampe<Object>()가 동일한 객체를 생성한다.
+
+		Sample<int> s4 = new Sample<int>();			(오류)
+		Sample<Integer> s5 = new Sample<Integer>();		(정상)
+
+		// 오토박싱/오토언박싱
+		Sample<Integer> s = new Sample<Integer>();
+		public class Sample<Integer> {
+			private Integer data;
+			public void setData(Integer t) {
+				this.data = t;
+			}
+		}
+		// 사용
+		s.setData(new Integer(10));
+		s.setData(10);			// 오토박싱
+				
+		 
+
+- 클래스에서 제네릭 사용하기
+	- 클래스내부에서 사용할 데이터의 타입을 외부에서 지정하는 것이다.
+	- 객체 생성싯점에 데이터 타입을 지정한다.
+		Box<Apple> appleBox = new Box<Apple>();
+		Box<Banana> bananaBox = new Box<Banana>();
+	- 예)
+		// 사과만 담을 수 있는 박스
+		public class Box {
+			private Apple fruit;
+			public void setFruit(Apple fruit) {
+				this.fruit = fruit;
+			}
+			public Apple getFruit() {
+				return fruit;
+			}
+		}
+		
+		// 다양한 과일을 담을 수 있는 박스
+		public class Box {
+			private Object fruit;
+			public void setFruit(Object fruit) {
+				this.fruit = fruit;
+			}
+			public Object getFruit() {
+				return fruit;
+			}
+		}	
+		* 과일만 저장된다는 보장이 없다.
+		* 한 종류의 과일만 저장된다는 보장이 없다.
+		* 꺼냈을 때 어떤 과일이 나올지 예상할 수 없다.
+
+		// 외부에서 지정한 타입의 과일만 담을 수 있는 박스
+		public class Box<T> {
+			private T fruit;
+			public void setFruit(T fruit) {
+				this.fruit = fruit;
+			}
+			public T getFruit() {
+				return fruit;
+			}
+		}
+		* 제네릭을 활용해서 Box클래스를 구현한 경우의 잇점
+			- 원하지 않는 자료형의 값이 입력되는 것을 컴파일 싯점에 알아낼 수 있다.
+			- 값을 꺼낼 때 타입변환이 필요없다.
+	
+		Box<Apple> box = new Box<Apple>();
+		* 실제 생성된 객체 <--- 제네릭 클래스의 T가 Apple로 대체되었다.
+		public class Box<Apple> {
+			private Apple fruit;
+			public void setFruit(Apple fruit) {
+				this.fruit = fruit;
+			}
+			public Apple getFruit() {
+				return fruit;
+			}
+		}
+
+		Box<Banana> box = new Bax<Banana>();
+		* 실제 생성된 객체 <--- 제네릭 클래스의 T가 Banana로 대체되었다.
+		public class Box<Banana> {
+			private Banana fruit;
+			public void setFruit(Banana fruit) {
+				this.fruit = fruit;
+			}
+			public Banana getFruit() {
+				return fruit;
+			}
+		}
+
+- 인터페이스에 제네릭 사용하기
+	- 구현 클래스가 사용할 데이터타입을 외부에서 지정하게 하는 것
+	- 제네릭 타입 지정하기
+		* 구현클래스 정의 싯점에 데이터타입을 지정하기
+		public inteface Comparable<T> {
+			int compareTo(T other);
+		}
+		* 제네릭 인터페이스를 구현한 클래스의 T가 Product로 대체된다.
+		public class Product implements Comparable<Product> {
+			private String name;
+			private int price;
+
+			public int compareTo(Product other) {
+				return this.price - other.price;
+			}
+		}
+		* Product는 제네릭 클래스가 아니다.
+		Product product = new Product();
+
+		
+		* 구현클래스 정의 싯점에 데이터타입을 지정하지 않고, 객체 생성싯점에 지정하게 하기
+		public interface Collection<E> {
+			void add(E e);
+		}
+		public class ArrayList<E> implements Collection<E> {
+			// 필드 정의
+
+			public void add(E e) {
+				// 구현코드
+			}
+		}
+		* ArrayList는 제네릭 클래스다.(객체 생성싯점에 데이터타입 지정)
+		ArrayList<Product> list = new ArrayList<Product>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

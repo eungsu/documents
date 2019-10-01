@@ -1,0 +1,25 @@
+Comparable<T> 인터페이스
+	- Comparable<T> 인터페이스를 구현한 객체는 오름차순으로 정렬가능한 객체가 된다.
+	- Comparable<T>의 int compareTo(T other)메소드를 사용해서 사용자가
+          정렬기준을 구현하면 된다.
+	- compareTo(T other)가 미리 정의되어 있는 클래스
+	  * 대표적인 클래스 : String, 모든 Wrapper 클래스, Date 등
+	  예) "응수".compareTo("길동") ---> 양수
+              "응수".compareTo("응수") ---> 0
+	      "길동".compareTo("응수") ---> 음수
+	- Arrays.sort(배열), Collections.sort(리스트) 메소드를 사용해서 정렬할 수 있다.
+
+	
+	
+
+public class Score implements Comparable<Score> {
+
+	int kor;
+	int eng;
+	int math;
+	int total;
+
+	public int compareTo(Score t) {
+		return this.total - t.total;
+	}
+}

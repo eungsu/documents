@@ -1,0 +1,57 @@
+Wrapper 클래스
+	- 기본자료형 타입에 대응되는 클래스다.
+	- 기본자료형 값을 가지고 있는 객체를 만들 수 있다.
+	- java.lang 패키지에 정의되어 있다.
+
+	- 사용해야 할 때
+		- 기본자료값이 아닌 객체로 저장해야할 때
+		- 호출할 메소드의 매개변수가 객체를 요구할 때
+		- 사용자의 입력값을 저장하는 변수를 만들 때
+		  * 사용자의 입력여부에 따라서 실제입력값 혹은 null을 저장할 수 있기 때문에
+		- 해당 기본자료형값에 대한 다양한 기능을 실행해야 할 때
+	- 지원하는 Wrapper 클래스
+		Byte, Short, Integer, Long
+		Float, Double
+		Character
+		Boolean
+
+오토박싱/오토언박싱
+	- JAVA 1.5버전부터 도입된 기능
+	- 기본자료형 타입과 Wrapper객체 타입간의 변환을 자동으로 지원한다.
+	예) 오토박싱
+		Integer a = new Integer(10);	// 박싱
+
+		Integer b = 10;			// 오토박싱
+		* Integer b = new Integer(10);	// 변수의 타입이 Wrapper 클래스 타입이면
+						// 컴파일러가 자동으로 Wrapper객체를 생성해서
+						// 값을 담는다.
+	예) 오토언박싱
+		Integer a = new Integer(10);	// 박싱
+		int x = a.intValue();		// 언박싱
+
+		int y = a;			// 오토언박싱
+		* int y = a.intValue()		// 변수의 타입이 기본자료형 타입이면
+						// 컴파일러가 자동으로 Wrapper객체의
+						// xxxValue()를 실행해서 그 값을 대입한다.
+	
+
+	작성예)
+		void x(int a) { ... }
+		void y(Integer b) { ... }
+ 
+		1.5버전 이전
+			x(10);
+			y(new Integer(10));
+
+		1.5버전 이후
+			x(10);	    변환
+			y(10); -------------> y(new Integer(10));
+				   오토박싱
+
+
+
+
+
+
+
+	
