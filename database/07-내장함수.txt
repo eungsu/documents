@@ -86,6 +86,44 @@
 			  예) 커미션포인트가 적용된 직원의 연봉 계산하기
 			      (급여 + 급여*커미션포인트)*12에서 커미션포인트가 null인 직원은 연봉이 null 계산됨
 			      (급여 + 급여*nvl(커미션포인트, 0))*12 와 같은 방식으로 활용된다.
+		- case
+			- 제시된 조건에 따라서 다른 조회결과를 제공받을 수 있다.
+			- java의 switch나 if ~ else if ~ else과 유사한다.
+			예) 
+			   사용법1 : 제시된 조건식과 만족하면 then에 정의된 반환값이 반환된다.
+			   select column, column, 
+				  case
+					when 조건식1 then 반환값1
+					when 조건식2 then 반환값2
+					when 조건식3 then 반환값3
+					else 반환값4
+				  end
+			   from table;
+			   * equal비교, 크다/작다 비교 가능하다.
+
+			   사용법2 : 제시된 column3의 값과 일치하는 비교값을 가진 then에 정의된 반환값이 반환된다.
+			   select column1, column2,
+				case column3
+					when 비교값1 then 반환값1
+					when 비교값2 then 반환값2
+					when 비교값3 then 반환값3
+					else 반환값4
+				end
+			   from table
+			   * equal비교
+		- decode
+			- 제시된 조건에 따라서 다른 조회결과를 제공받을 수 있다.
+			- java의 switch와 유사한다.
+			  사용법 : column3의 값과 일치하는 비교값 다음의 반환값이 반환된다.
+                                   일치하는 비교값이 존재하지 않으면 반환값4가 반환된다. 
+			  select column1, column2,
+				 decode(column3, 비교값1, 반환값1,
+						 비교값2, 반환값2,
+						 비교값3, 반환값3,
+					         반환값4)
+			  from table;
+			  * equal 비교
+
 			
 			
 
