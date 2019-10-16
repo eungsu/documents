@@ -104,7 +104,21 @@ ibatis
 	* queryForList는 List객체를 미리 만들고, resultClass에 지정된 객체를 행의 갯수만큼 생성해서
           값을 저장한 다음 그 객체들을 List에 담고, List객체를 반환한다.
 	* queryForList는 조회된 행이 없으면 비어있는 List객체가 반환된다.(절대로 null이 반환되지 않음)			
-		
+
+	- 파라미터클래스와 리절트클래스가 지원하는 타입과 별칭
+		=======================================================================
+		자바 타입			별칭		parameter	result
+		-----------------------------------------------------------------------
+		java.lang.Boolean		boolean		O		O
+		java.lang.Integer		int		O		O
+		java.lang.Long			long		O		O
+		java.lang.Double		double		O		O
+		java.lang.String		string		O		O
+		java.util.Date			date		O		O
+		java.math.BigDecimal		decimal		O		O
+		java.util.Map			map		O		X
+		java.util.HashMap		hashmap		O		O
+		=======================================================================
 
 
 
