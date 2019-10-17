@@ -1,0 +1,102 @@
+데이터 정의어(DDL)
+	- 오라클 데이터베이스 객체 생성, 변경, 삭제에 사용되는 명령어
+	- CREATE, ALTER, DROP, TRUNCATE
+	- 주요 데이터베이스 객체
+		* 테이블 : 데이터의 기본 저장단위, 행과 열로 구성되어 있다.
+		* 뷰	 : 하나 이상의 테이블을 사용해서 만든 가상의 테이블
+		* 시퀀스 : 일련번호 생성기
+		* 인덱스 : 검색성능을 향상시키기 위해 데이터에 대한 색인을 가지고 있다.
+		* 동의어 : 객체에 대한 다른 이름을 제공한다.
+
+	- 테이블
+		* 테이블과 컬럼의 이름규칙
+			- 문자로 시작, 30자까지 가능, A-Za-z0-9_$# 만 허용, 
+                          오라클 예약어 사용금지
+		* 테이블 생성하기
+			- CREATE TABLE 테이블명 (
+				컬럼명 데이터타입(크기) [DEFAULT 기본값],
+				...
+			  )
+		* 테이블 삭제
+			- DROP TABLE 테이블명
+		* 테이블 변경
+			- 컬럼추가
+				ALTER TABLE 테이블명 ADD (컬럼명 데이터타입(크기) [DEFAULT 기본값]);	
+			- 컬럼수정
+				ALTER TABLE 테이블명 MODIFY (컬럼명 테이터타입(크기) [DEFAULT 기본값]);
+			- 컬럼삭제
+				ALTER TABLE 테이블명 DROP 컬럼명;
+		* 테이블 이름 변경
+			RENAME 테이블명 TO 새테이블명
+		* 테이블 절단하기
+			TRUNCATE TABLE 테이블명
+			* truncate는 테이블에서 모든 행을 제거한다.
+			* 해당 테이블이 사용하는 저장공간을 해제한다.
+			* truncate로 제거된 행은 rollback할 수 없다.
+
+	- 시퀀스
+		- 일련번호를 자동으로 생성하는 데이터베이스 객체다.
+		- 기본키 값(행을 대표하는 값)을 생성하는데 주로 사용됩니다.
+		- 시퀀스 생성
+			CREATE SEQUENCE 시퀀스명;	
+				1부터 1씩 증가하는 번호가 발행된다.
+			CREATE SEQUENCE 시퀀스명
+				[INCREMENT BY a]		a씩 증가한다.
+				[START WITH   b]		b부터 시작한다.
+				[{MAXVALUE c | NOMAXVALUE}]	c가 최대값이다.
+				[{MINVALUE d | NOMINVALUE}]	d가 최소값이다.
+				[{CYCLE | NOCYCLE}]		최대값/최소값이 도달했을 때 반복여부를 결정한다.
+				[{CACHE e | NOCACHE}]		일련번호를 e개 만큼 미리 할당해서 메모리에 캐시하거나,
+                                                                캐시를 활용하지 않는다.
+				* 기본값
+				CREATE SEQUENCE 시퀀스명
+					INCREMENT BY 1		
+					START WITH   1	
+					NOMAXVALUE
+					NOMINVALUE
+					NOCYCLE		
+					CACHE 20;	
+		- 시퀀스의 삭제
+			DROP SEQUENCE 시퀀스명
+		- 시퀀스의 수정
+			ALTER SEQUENCE 시퀀스명
+				[INCREMENT BY a]		
+				[{MAXVALUE c | NOMAXVALUE}]	
+				[{MINVALUE d | NOMINVALUE}]	
+				[{CYCLE | NOCYCLE}]		
+				[{CACHE e | NOCACHE}]		
+			* START WITH를 제외한 나머지 설정을 변경할 수 있다.
+		- 시퀀스의 사용
+			* 시퀀스명.NEXTVAL
+				- 새로운 일련번호를 반환한다.
+			* 시퀀스명.CURRVAL
+				- 현재 시퀀스의 일련번호를 반환한다.
+				- CURRVAL을 사용하려면 해당 시퀀스에 대한 
+				  NEXTVAL이 실행된 후에만 가능한다.
+
+
+
+
+
+
+
+
+					
+				
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
+	

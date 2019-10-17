@@ -37,6 +37,21 @@
 			>, >= 			> any, >= any, > all, >= all
 			<, <=			< any, <= any, < all, <= all
 		---------------------------------------------------------------	
+		- 다중열 서브쿼리
+			* 두 개 이상의 컬럼값이 조회조건으로 반환되는 서브쿼리다.
+			* select column, column, ....
+			  from table1 
+			  where (column1, column2) in (select column1, column2 
+                                                       from table2)
+		- having절에서 서브쿼리 사용하기 
+			* group by 절을 사용해서 그룹화하고 그룹함수를 실행한 결과를 
+			  필터링하는 having 절에도 서브쿼리를 사용할 수 있다.
+			* select column, 그룹함수
+			  from table1
+			  group by column
+			  having 그룹함수 연산자 (select column
+						  from table)
+			
 
 
 
