@@ -203,3 +203,4 @@
 				ALTER TRIGGER 트리거명 DISABLE;
 			- 트리거 삭제하기
 				DROP TRIGGER 트리거명;
+
