@@ -51,6 +51,25 @@
 			  group by column
 			  having 그룹함수 연산자 (select column
 						  from table)
+
+	- 상호연관 서브쿼리
+		- 서브쿼리가 메인쿼리문에서 사용(참조)되는 컬럼을 참조할 때 상호연관 서브쿼리가 된다.
+		- 상호연관 서브쿼리는 메인쿼리문에서 처리되는 각 행에 대해서 한번씩 실행된다. 
+		- 형식
+			select outer.column1, outer.column2, ...
+			from table1 outer
+			where column 연산자 (select column1
+					     from table2
+					     where column = outer.column3)
+			* 서브쿼리에서 메인쿼리에서 사용되는 테이블의 컬럼을 참조한다.
+			* 서브쿼리에서는 메인쿼리의 테이블의 별칭을 사용해서
+                          메인쿼리에서 사용되는 테이블의 컬럼을 참조한다.
+			
+	- 스칼라 서브쿼리
+		- 하나의 행에서 하나의 값만 반환하는 서브쿼리다.
+		  * 다중행 X, 다중열 X, 단일행-단일열 O
+		- 스칼라 서브쿼리는 select절, insert문의 values에서 사용할 수 있다.
+		- 스칼라 서브쿼리는 decode 및, case의 조건 및 표현식에서 사용할 수 있다.
 			
 
 
