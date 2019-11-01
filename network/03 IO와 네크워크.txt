@@ -1,0 +1,133 @@
+I/O와 Network
+	- I/O
+		- 자바 애플리케이션에서 특정 리소스(자원)에서 데이터를 읽어오거나 데이터를 내보내는 것
+		- 자바는 스트림을 사용해서 읽기/쓰기 작업을 수행한다.
+		- 스트림
+			InputStream, Reader	
+				특정 리소스로부터 데이터를 읽어온다.
+			OutputStream, Writer
+				특정 리소스로 데이터를 내보낸다.
+		- 대표 스트림
+			FileInputStream, FileOutputStream, FileReader, FileWriter
+			 * 파일의 내용을 읽고, 쓰기 할때 사용되는 스트림
+			BufferedReader
+			 * readLine() 메소드 제공
+		 	 * 텍스트를 한 줄씩 읽을 수 있는 스트림
+			PrintWriter, PrintStream 
+			 * print(), println(), write(bytes, int, int) 메소드 제공
+			 * 텍스트에 줄바꿈문자를 추가해서 쓰기할 수 있는 스트림
+			DataInputStream, DataOutputStream
+			 * readInt(), readLong(), readDouble(), readUTF(), read()
+			 * writeInt(int), writeLong(long), writeDouble(double), writeUTF(string), write(bytes, int, int)
+			 * 특정 타입의 데이터를 원하는 순서대로 내보내고, 순서대로 읽어올 수 있다.
+			ObjectInputStream, ObjectOutputStream
+			 * readObject(),  writeObject(object)
+			 * writeObject(obj)는 객체를 조각내서 스트림으로 내보낸다.
+		         * readObject() 스트림으로 읽어온 객체 조각으로 원래 객체를 복원한다.
+			 * 직렬화가능한 객체(java.io.Serializable를 구현한 객체)만 읽고 쓸 수 있다.
+			InputStreamReader, OutputStreamWriter
+			 * 브릿지스트림
+			 * 바이트스트림을 문자스트림으로 변환한다.
+			 * InputStream --> Reader, OutputStream --> Writer로 변환
+		- 읽고/쓰기
+			- 읽기 --> 내용을 사용
+				// 획득된 스트림(InputStream, Reader)
+				XXXInputStream is = ?????;	// 생성, 획득했을 때
+				XXXReader       r = ?????;
+				// 획득된 스트림을 BufferedReader로 변환
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+				BufferedReader reader = new BufferedReader(r);
+				// 한 줄씩 읽어서 처리
+				String text = null;
+				while((text=reader.readLine()) != null) {
+					// text에 내용이 한 줄씩 담겨있다.
+					// text를 구분문자로 잘라서 사용한다.
+				}
+				reader.close();
+
+			- 읽기 --> 다른 곳으로 보내기(저장도 포함)
+				// 읽어오는 스트림 획득
+				XXXInputStream in = ?????;	// 생성, 획득한다.
+				XXXOutputStream out = ?????;	// 생성, 획득한다.
+				// 읽어서 다른 곳으로 보내기(항상 똑같은 코드)
+				byte[] buf = new byte[1024*8]
+				int len = 0;				// len은 buf에 저장된 데이터 갯수다.
+				while ((len=in.read(buf)) != -1) {	// buf에 읽어온 데이터가 담긴다.
+					out.write(buf, 0, len);		// buf에 담긴 데이터를 다른 곳으로 내보낸다.
+				}
+				
+				// 위의 코드를 대신하는 라이브러리가 존재한다.
+				IOUtils.copy(in, out);	// commons-io-x.jar
+
+				예) a.txt를 읽어서 a-backup.txt로 저장하기
+				    	FileInputStream in = new FileInputStream("a.txt");
+					FileOutputStream out = new FileOutputStream("a-backup.txt");
+					IOUtils.copy(in, out);
+				예) photo.jpg를 읽어서 다른 컴퓨터에 보내기
+					FileInputStream in = new FileInputStream("photo.jpg");
+					OutputStream out = socket.getOutputStream();
+					IOUtils.copy(in, out);
+
+네트워크
+	- 호스트와 호스트간의 데이터 통신
+	- 서버와 클라이언트간의 데이터 통신을 말한다.
+	- 자바에서는 Socket객체끼리 데이터를 교환한다.
+	- Socket의 주요 메소드
+		InputStream getInputStream()
+			연결된 다른 소켓이 보낸 데이터를 읽어오는 스트림을 반환한다.
+		OutputStream getOutputStream()
+			연결된 다른 소켓으로 데이터를 보내는 스트림을 반환한다.
+		void close()
+			연결을 해제한다.
+	* 자바의 네트워킹
+		- 다른 컴퓨터로 텍스트 데이터 보내기
+			// 쓰기 스트림 획득
+			OutputStream out = socket.getOutputStream();
+			
+			// 텍스트 보내기
+			PrintWriter pw = new PrintWriter(out);
+			pw.println("내용.....");	
+
+		- 다른 컴퓨터로 (파일, 영상, 바이너리 데이터) 보내기
+			// 쓰기 스트림 획득
+			OutputStream out = socket.getOutputStream();
+			// 읽기 스트림 획득
+			xxxInputStream in = new xxxInputStream();
+			// 데이터보내기
+			IOUtils.copy(in, out);
+
+		- 다른 컴퓨터가 보낸 텍스트 데이터 읽기 
+			// 읽기 스트림 획득
+			InputStream in = socket.getInputStream();
+			// 텍스트 읽기
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String text = in.readLine();
+
+		- 다른 컴퓨터가 보낸 (파일, 영상, 바이너리 데이터) 읽기
+			// 읽기 스트림 획득
+			InputStream in = socket.getInputStream();
+			// 쓰기 스트림 획득
+			FileOutputStream fos = new FileOutputStream("파일명");
+			// 데이터보내기
+			IOUtils.copy(in, fos);
+
+				
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
