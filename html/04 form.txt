@@ -1,0 +1,22 @@
+폼과 폼요소
+	- 폼
+		- <form> 태그
+		- 사용자의 입력을 받는 엘리먼트(폼요소)를 모아놓을 때 사용하는 태그
+	- 폼요소
+		- <input>, <select>, <textarea>, <button>
+		- 사용자의 입력을 받을 때 사용하는 엘리먼트
+	- 폼의 작성예)
+		<form>
+			이름       : <input type="text" />
+			아이디     : <input type="text" />		
+			비밀번호   : <input type="password" />
+			나이       : <input type="number" />
+			생일       : <input type="date" />
+			프로필사진 : <input type="file" />
+			학력       : <select>
+					<option> 고등학교졸업</option>
+					<option> 초대졸</option>
+					<option> 4년제 졸</option>
+				     </select>
+			자기 소개  : <textarea></textarea>
+		</form>
