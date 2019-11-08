@@ -1,0 +1,28 @@
+id와 class 속성
+	- id와 class는 모든 태그들이 가지는 공통 속성이다.
+	- id 속성
+		* 특정 엘리먼트(태그)를 식별하기 위한 용도로 사용된다.
+		* 웹문서 전체에서 똑같은 id값을 가진 태그는 없어야 한다.
+                  (id의 값은 고유해야 한다.)
+		* id값은 숫자로 시작할 수 없다.
+		* id 속성의 용도
+			* 특정 아이디값을 가진 태그(엘리먼트)에만 스타일을 지정할 때
+			* 특정 아이디값을 가진 태그를 선택해서 javascript로 조작해야 할 때		
+		* id속성을 잘못 사용한 예
+		        * id값이 고유하지 않다.
+			<div id="container">
+
+			</div>
+			<div id="container">
+
+			</div>
+	- class 속성
+		* 같은 클래스값을 가진 태그는 같은 스타일이 적용되게 하기위한 용도로 사용된다.
+		* class속성은 여러 개의 속성값을 가지는 것이 가능하다.
+		  <div id="container" class="nav navbar navbar-default">
+		  <button class="btn btn-primary btn-sm">등록</button>
+
+
+
+
+	
