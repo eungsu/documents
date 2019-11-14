@@ -1,0 +1,87 @@
+디렉티브
+	- JSP페이지에 대한 설정 정보를 정의한다.
+	- 종류
+		- page 디렉티브
+			<%@ page 속성="속성값" />
+			* jsp페이지에 대한 정보를 설정한다.
+			  (contentType, pageEncoding, import, errorPage, isErrorPage, ...)
+			* page 디렉티브의 필수 설정 속성
+				- contentType
+					* 응답컨텐츠의 타입 및 인코딩방식을 설정
+					* 설정예)
+						contentType="text/html; charset=utf-8"
+						contentType="text/xml; charset=utf-8"
+						contentType="application/json; charset=utf-8"
+						contentType="text/plain; charset=utf-8"
+				- pageEncoding
+					* jsp 파일을 저장할 때 사용할 인코딩방식을 설정
+					* 설정예)
+						pageEncoding="utf-8"
+				- import
+					* jsp 파일에서 사용되는 클래스에 대한 import문 역할 수행
+					* 설정예)
+						import="java.util.List"
+						import="java.util.List, java.util.ArrayList"
+				- errorPage
+					* jsp파일 실행 중 에러 발생시 표시할 페이지를 설정
+					* 설정예)
+						errorPage="serverError.jsp"
+				- isErrorPage
+					* 에러페이지로 사용되는 jsp 페이지인지 여부를 설정
+					* 설정예)
+						isErrorPage="true"
+				- trimDirectiveWhiteSpace
+					* 디렉티브 정의로 발생되는 빈줄을 삭제할지 여부를 설정
+					* 설정예)
+						trimDirectiveWhiteSpace="true"
+		- include 디렉티브
+			<%@ include file="속성값" />
+			* JSP 페이지에 포함시킬 다른 JSP파일을 지정한다.
+			* 설정예)
+				<%@ include file="common/header.jsp" %>
+		- taglib 디렉티브
+			<%@ taglib prefix="속성값" uri="속성값" />
+			* JSP 페이지에서 사용할 커스텀 태그 라이브러리나 JSP표준태그 라이브러리를 정의한다.
+  			* <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+스크립트 요소
+	- JSP에서 로직을 수행하거나, 변수의 값을 출력에 포함시키거나, 메소드를 정의하거나 할 때 사용한다.
+	- 종류
+		- 스크립트릿
+			<%                      %>
+			* JSP 페이지에서 자바코드를 실행할 수 있게 한다.
+			* JSP가 자바파일로 변환될 때, _jspService메소드내에 포함되는 코드를 작성할 수 있게 한다.
+			* 사용예)
+				<%
+					int x = 10;
+					EmployeeService service = new EmployeeService();
+					private int y = 10;	// 오류
+				%>
+		- 표현식
+			<%= %>
+			* 응답컨텐츠에 포함되어서 클라이언트로 전송되게 한다.
+			* 변수에 저장된 값이나, 메소드의 실행결과로 획득되는 반환값을 표현식에서 사용할 수 있다.
+			* 사용예)
+				* 태그의 컨텐츠
+				<td><%=emp.getId() %></td>		// emp.getId()에서 ;를 생략
+				* 속성의 값
+				<td><a href="detail.jsp?id=<%=emp.getId() %>">사원상제 정보</a></td>
+				* 입력필드의 초기값
+				<input type="text" value="<%=emp.getId %>" />
+				* 3항 연산자를 사용한 값의 표현
+				<input type="radio" value="F" <%=emp.getGender().equals("F") ? 'checked' : '' %> />여자
+		- 선언부
+			<%!		%>
+			* JSP페이지에 새로운 필드나 새로운 메소드를 정의(선언)할 때 사용한다.
+			* 사용빈도는 그렇게 높지 않다.
+
+
+
+
+
+
+
+
+
+

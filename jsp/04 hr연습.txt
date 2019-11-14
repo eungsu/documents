@@ -1,0 +1,43 @@
+삭제
+	- 요청URL 
+		deldept.jsp?dept=부서아이디
+	- deldept.jsp에서의 작업
+		* 부서아이디 획득
+		* 해당 부서에 소속된 사원수 조회
+		* 사원이 존재하지 않으면
+			- 해당 부서정보를 삭제한다.
+			- 리다이렉트 응답 보내기
+				deldeptcompleted.jsp?result=success
+		* 사원이 존재하면
+			- 리다이렉트 응답 보내기
+				deldeptcompleted.jsp?result=fail
+	- deldeptcompleted.jsp에서의 작업
+		* 처리결과값 획득
+		* 성공이면
+			- 해당 부서정보가 삭제되었습니다. 표시
+		* 실패면
+			- 해당 부서에 소속된 사원이 존재하기 때문에 부서정보를 삭제할 수 없습니다. 표시
+		* home.jsp를 요청하는 링크 제공
+
+수정
+	- 요청URL
+		modifydeptform.jsp?dept=부서아이디
+	- modifydeptform.jsp에서의 작업
+		* 부서아이디 획득
+		* 부서정보 조회
+		* <form>태그 내부의 입력필드에 부서정보 표시 
+			<form action="modifydept.jsp" method="post">
+		  	부서아이디 <input type="text" name="dept" value="<%=값 %>" readonly="readonly" />
+			부서명	   <input type="text" name="name" value="<%=값 %>" />
+			소재지	   <select name="loc">
+					<option value="1000"> ... </option>
+					<option value="1100" selected> ... </option>
+					<option value="1200"> ... </option>
+				   </select>
+		* submit 버튼 제공
+	- modifydept.jsp에서의 작업
+		* 부서아이디, 부서명, 소재지 아이디 획득
+		* 부서정보 변경 <-- update 쿼리 실행...
+		* 리다이렉트 응답 보내기(home.jsp) 
+	
+	
