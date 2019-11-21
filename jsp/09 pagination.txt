@@ -1,0 +1,49 @@
+페이징 처리
+	- 한 화면에 페이지번호에 맞는 정해진 갯수만큼의 데이터가 표현되고,
+          나머지 데이터는 해당 페이지번호를 클릭할 때 마다 표현될 수 있도록 하는 것
+
+	- 페이징 처리시 꼭 필요한 값
+		* 한 화면당 표현할 레코드(데이터) 갯수
+			int rowsPerPage = 3;
+		* 한 화면당 표현할 페이지 번호 갯수
+			int pagesPerPage = 5;
+		* 요청한 페이지의 번호
+			int pageNo = Integer.parseInt(request.getParameter);
+		* 조건을 만족하는 전체 데이터 갯수
+			int totalRows = xxxDao.getTotalRowsCount();
+
+	- 페이징 처리 계산하기
+		* 조회할 데이터의 범위 구하기 
+			* 조회구간 시작번호
+				* int beginIndex = (pageNo -1)* rowsPerPage + 1;	
+			* 조회구간 끝번호
+				* int endIndex = pageNo * rowsPerPage;
+			(SQL에서 데이터 조회시 사용되는 값)
+
+		* 표현할 페이지번호 구하기
+			* 전체 페이지 갯수
+				int totalPagesCount = Utils.ceil(totalRows, pagesPerPage);
+				예) 22/3 ---> 8 페이지까지 존재함
+			* 전체 구간 갯수
+				int totalBlocksCount = Utils.ceil(totalPagesCount, pagesPerPage);
+				예) 8/5 ---> 2 구간이 존재함
+			* 현재 요청한 페이지가 속한 구간 계산
+				int currentBlockNo = Utils.ceil(pageNo, pagesPerPage);
+				예) 1/5 ---> 1 구간 ------> 1 2 3 4 5
+				    3/5 ---> 1 구간 ------> 1 2 3 4 5
+				    4/5 ---> 1 구간 ------> 1 2 3 4 5
+				    7/5 ---> 2 구간 ------> 6 7 8
+			* 페이지내비게이션에 표현한 페이지번호 범위 구하기
+				* 시작 페이지 번호
+					int beginPage = (currentBlockNo - 1) * pagesPerPage + 1;
+				* 끝 페이지 번호
+					int endPage = currentBlockNo*pagesPerPage;
+					* 현재 페이지가 마지막 구간일 때는 endPage값을 totalPagesCount로 정한다.
+				예) 1구간 ----> 1 2 3 4 5 
+				    2구간 ----> 6 7 8 9 10
+
+			
+
+		
+		
+
