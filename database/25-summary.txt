@@ -280,6 +280,131 @@
 		insert into books (book_no, book_title, book_author, book_price)
 		values (book_seq.nextval, '이것이 자바다', '신용권', 35000)
 
+7. TOP-N 분석과 분석함수
+	- TOP-N 분석은 조건에 맞는 최상위 레코드 n개 혹은 최하위 레코드 n개를
+		  조회하는 쿼리다.
+		- 사용예)
+			* 급여를 가장 많이 받는 사원 3명
+			* 가장 최근에 입사한 사원 5명
+			* 최근 3개월동안 가진 많이 판매된 상품 10 가지
+			* 판매실적이 가장 높은 영업사원 3명
+		- 형식
+			SELECT ROWNUM, column, column, column
+			FROM   (SELET column, column, column
+                                FROM table
+				ORDER BY 분석대상컬럼이 정렬기준이된다)
+			WHERE	ROWNUM <= N
+			* 인라인뷰 :  order by절을 사용해서 데이터를 원하는 순서로 정렬한다.
+			* ROWNUM : 서브쿼리에서 반환되는 각 행에 1부터 시작하는 순번을 할당한다.
+			* WHERE절 : 최종적으로 반환될 행의 갯수를 지정한다.
+	- 분석함수
+		- 테이블의 데이터를 특정 용도로 분석하여 결과를 반환하는 함수
+		- 종류
+			- 순위 함수 : RANK, DENSE_RANK, ROW_NUMBER
+			- 집계 함수 : SUM, MIN, MAX, AVG, COUNT
+		- 형식
+			SELECT 분석함수([컬럼]) OVER ([PARTITION BY 컬럼] [ORDER BY 컬럼])
+			FROM 테이블명
+			* OVER : 분석함수임을 나타내는 키워드
+			* PARTITION BY : 계산 대상을 그룹화한다.
+			* ORDER BY : 정렬한다.
+
+		* 그룹함수와 분석함수의 차이
+			- 그룹함수 : 테이블 전체 혹은 그룹당 결과가 하나 반환된다.
+				select sum(salary)	select department_id, sum(salary)
+				from employees;		from employees 
+							group by department_id;
+				* 테이블당 하나		* 부서당 하나
+
+			- 분석함수 : 행마다 결과가 하나 반환된다.
+				select first_name, sum(salary) over()
+				from employees;
+				* 전체 사원들의 급여 총액이 행마다  표시
+		
+				select first_name, sum(salary) over (partition by department_id)
+				from employees;
+				* 각 부서별 급여 총액이 행마다 표시
+
+8. 권한
+	- 특정 SQL을 실행할 수 있는 권리
+	- 시스템 권한
+		- 데이터베이스를 엑세스 할 수 있는 권한
+		- 데이터베이스 관리자만 시스템권한을 부여/회수할 수 있다..
+		- 대표적인 시스템 권한
+			* CREATE SESSION : 데이터베이스에 연결할 수 있는 권한
+			* CREATE TABLE   : 테이블을 생성할 수 있는 권한
+	- 객체 권한
+		- 데이터베이스 객체의 내용을 조작할 수 있는 권한
+		- 사용자가 소유하고 있는 데이터베이스 객체를 다른 사용자들이 엑세스하거나 
+		  조작할 수 있게 하는 권한
+		- 객체와 객체에 따른 권한
+		-------------------------------------------------------------------------
+		객체권한	테이블		뷰		시퀀스		프로시저
+		-------------------------------------------------------------------------
+		ALTER		O				O
+		INDEX		O
+		EXECUTE								O
+		DELETE		O		O
+		INSERT		O		O
+		SELECT		O		O		O
+		UPDATE		O		O
+		-------------------------------------------------------------------------
+	
+	* 사용자는 시스템권한과 객체권한이 필요한다
+	롤(Role)
+		- 사용자에게 부여할 수 있는 관련 권한을 하나로 묶어서 그룹화하고 이름을 부여한 것
+		- 롤을 사용하면 권한의 부여, 회수, 유지관리가 쉬워진다.
+		- 일반 사용자에게 부여되는 필수적인 롤
+			* connect role
+				- 오라클에 접속할 수 있는 세션 생성 권한.
+			* resource role
+				- PL/SQL을 사용할 수 있는 권한
+				- 테이블을 생성하거나 조회할 수 있는 권한
+				- 가장 일반적인 권한들을 가지고 있다
+				- 일반사용자를 사용자를 생성하면 보통 connect, resource 롤을 부여한다.
+			* dba role
+				- 모든 시스템권한이 부여된 롤
+				- 데이터베이스 관리자에게만 부여해야 함
+
+	스키마(Schema)
+		- 테이블, 뷰, 시퀀스 등과 같은 여러 객체들의 집합이다.
+		- 데이터베이스 사용자가 스키마를 소유하고 있으며, 사용자의 이름과 동일한 이름을 갖는다.
+		- 다른 사용자가 소유하고 있는 객체를 엑세스할 때는 반드시 스키마를 명시해야 한다.
+		- 작성예)
+			* hta 사용자가 hr이 소유하고 있는 employees를 조회하기
+			  select *
+		 	 from hr.employees;
+	
+
+
+	사용자 생성
+		- 데이터베이스 관리자는 사용자를 생성할 수 있다.
+		- CREATE USER 사용자명
+         	  IDENTIFIED BY 비밀번호;
+	사용자 비밀번호 변경
+		- 데이터베이스 관리자는 사용자의 암호를 변경할 수 있다.
+		- ALTER USER 사용자명
+	  	  IDENTIFIED BY 새비밀번호;
+	사용자 삭제
+		- DROP USER 사용자명;
+
+
+사용자에게 시스템 권한 부여하기
+	- GRANT 시스템권한, 롤, ... TO 사용자명;
+사용자에게서 시스템 권한 회수하기
+	- REVOKE 시스템권한, 롤, ... FROM 사용자명;
+
+
+소유자가 다른 사용자에게 객체권한 부여하기
+	- 소유자는 자신에 객체에 대한 특정 권한을 다른 사용자에게 부여할 수 있다.
+	- GRANT 객체권한(컬럼명, 컬럼명)
+ 	  ON 객체명
+	  TO 다른 사용자;
+소유자가 다른 사용자에게 부여한 객체권한 회수하기
+	- REVOKE 객체권한, ...
+	  ON 객체명
+	  FROM 다른사용자, ...
+
 
 
 

@@ -1,0 +1,44 @@
+enctype
+	- 폼의 입력값을 서버로 전송하는 방식이다.
+	- <form enctype="전송방식">
+	- 기본값 
+		* enctype="application/x-www-form-urlencoded"
+		* 폼 입력값을 쿼리스트링의 형태로 만들어서 요청 메세지몸체(Request Message Body)에
+		  담아서 보내는 방식
+		* 첨부파일이 없는 경우(파일 업로드가 없는 폼)에만 사용한다.
+		* 예)
+			username=이응수&userid=hong&userpwd=1234
+	- 첨부파일 있는 경우
+		* 반드시 enctype="multipart/form-data"로 설정한다.
+		* 서버로 폼 입력값을 전달하는 방식이 완전히 달라진다.
+		  (request.getParameter(String name) 메소드로 요청파라미터값을 가져올 수 없다.)
+		* enctype="multipart/form-data"일 때 입력값 조회 및 업로드된 첨부파일을 조회할 수 
+                  있는 별도의 라이브러리가 필요하다.
+			- 대표적인 라이브러리
+				cos.jar
+				apache-commons-fileupload.jar, apache-commons-io.jar
+				서블릿 3.0이상은 별도의 라이브러리 없이 파일업로드처리가 가능하다.
+		* 예) 
+			----WebKitFormBoundaryQtk5bV9PVWAMOkEI
+			Content-Disposition: form-data; name="username"
+			이응수
+
+			----WebKitFormBoundaryQtk5bV9PVWAMOkEI
+			Content-Disposition: form-data; name="userid"
+			hong
+
+			----WebKitFormBoundaryQtk5bV9PVWAMOkEI
+			Content-Disposition: form-data; name="userpwd"
+			1234
+
+			----WebKitFormBoundaryQtk5bV9PVWAMOkEI
+			Content-Disposition: form-data; name="userphofile"; filename="펭귄.jpg"
+			Content-Type: image/jpg
+
+			파일데이터.............
+			----WebKitFormBoundaryQtk5bV9PVWAMOkEI
+
+
+		
+
+
