@@ -1,0 +1,82 @@
+상대주소표기법과 절대주소표기법
+	- 상대주소표기법
+		* 브라우져의 주소표시줄에 표시된 현재 주소를 활용해서 이동할 주소가 결정된다.
+		* 링크의 주소가 "/"로 시작하지 않으면 상대주소표기법이다.
+		* 일반적인 JSP페이지에서는 상대주소표기법으로 링크를 정의한다.
+		* 주소표시줄의 맨 마지막 "/"까지의 주소에 대한 상대적인 경로를 적는 것이다.
+		  예)	주소표기줄의 주소
+			http://localhost/store/goods/book/list.jsp
+			
+			- 이동할 페이지가 같은 폴더에 있는 페이지인 경우
+			  <a href="detail.jsp">링크</a>	
+			  주소창의 현재 경로 		: http://localhost/store/goods/book/
+			  주소계산에 활용되는 경로 	: http://localhost/store/goods/book/	
+			  최종 경로			: http://localhost/store/goods/book/detail.jsp			
+
+			- 이동할 페이지가 상위 폴더에 있는 페이지인 경우
+			  <a href="../home.jsp">링크</a>
+			  주소창의 현재 경로 		: http://localhost/store/goods/book/
+			  주소계산에 활용되는 경로 	: http://localhost/store/goods/
+			  최종 경로			: http://localhost/store/goods/home.jsp
+
+			- 이동할 페이지가 상위의 상위 폴더에 있는 페이지의 경우
+			  <a href="../../home.jsp">링크</a>
+ 			  주소창의 현재 경로 		: http://localhost/store/goods/book/
+			  주소계산에 활용되는 경로 	: http://localhost/store/
+		    	  최종 경로               	: http://localhost/store/home.jsp
+				
+			- 이동할 페이지가 다른 폴더에 있는 페이지의 경우
+			  <a href="../../user/info.jsp">링크</a>
+			  주소창의 현재 경로 		: http://localhost/store/goods/book/
+			  주소계산에 활용되는 경로 	: http://localhost/store/
+			  최종 경로               	: http://localhost/store/user/info.jsp
+	- 절대주소표기법
+
+		* 무조건 호스트명에 링크에 표시된 주소가 더해져서 주소가 결정된다.
+		* 링크의 주소가 "/"로 시작되면 절대주소표기법이다.
+		* 내비게이션, 푸터 등과 같이 여러 다양한 경로의 JSP 페이지에 포함되는 곳에서는 항상
+		  절대주소표기법으로 링크를 정의한다.
+
+
+	- 상대주소표기법의 주소결정
+		* 브라우져의 주소표시줄에 표시된 주소
+			http://localhost/store/book/list.jsp
+
+		* 이동할 url -> http://localhost/store/book/detail.jsp
+			<a href="detail.jsp">링크</a>
+			주소계산 : http://localhost/store/book/ + detail.jsp
+
+		* 이동할 url -> http://localhost/store/new.jsp
+			<a href="../new.jsp">링크</a>			../ -> 한단계 위로
+			주소계산 : http://localhost/store/ + new.jsp
+
+		* 이동할 url -> http://localhost/store/user/info.jsp
+			<a href="../user/info.jsp">링크</a>		../ -> 한단계 위로
+			주소계산 : http://localhost/store/ + user/info.jsp
+
+
+	- 절대주소표기법의 주소결정
+		* 브라우져의 주소표시줄에 표시된 주소
+			http://localhost/store/book/list.jsp
+
+		* 이동할 url -> http://localhost/store/book/detail.jsp
+			<a href="/store/book/detail.jsp">링크</a>
+			주소계산 : http://localhost + /store/book/detail.jsp
+			
+		* 이동할 url -> http://localhost/store/new.jsp
+			<a href="/store/new.jsp">링크</a>	
+			주소계산 : http://localhost + /store/new.jsp		
+
+		* 이동할 url -> http://localhost/store/user/info.jsp
+			<a href="/store/user/info.jsp">링크</a>
+			주소계산 : http://localhost + /store/user/info.jsp
+
+
+
+
+
+
+
+
+
+

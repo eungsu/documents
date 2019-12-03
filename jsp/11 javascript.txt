@@ -1,0 +1,387 @@
+JavaScript
+	- 브라우져 내에서 실행되는 프로그램을 개발할 수 있는 프로그래밍언어다.
+	- java와 문법적 유사성이 많아서 쉽게 배울 수 있다.
+	- 인터프리터(Interpret) 프로그래밍 언어다.
+	  (컴파일 과정없이 소스가 실행파일로 사용된다.)
+	
+JavScript로 할 수 있는 일
+	- HTML 컨텐츠를 변경할 수 있다.
+	  * 브라우저를 통해서 현재 보고 있는 웹 페이지를 변경할 수 있다.
+	- HTML 태그의 속성을 변경할 수 있다.
+	- HTML 컨텐츠의 스타일을 변경할 수 있다.
+	  * CSS 변경할 수 있다.
+	- 사용자 상호작용하는 프로그램을 작성할 수 있다.
+	  * 이벤트모델을 활용한다.
+	- 브라우저의 도움없이 서버와 데이터통신을 할 수 있다.
+	  * AJAX기술을 활용하면 가능하다.
+
+JavaScript의 특징
+	- 스크립트언어(인터프리터 언어)다.
+	- 객체지향프로그래밍 언어다.
+	- 동적데이터타입을 지원한다.(데이터타입이 없다.)
+	- 자바스크립트의 함수(메소드)는 1급시민이다.
+	
+JavaScript 프로그램 작성하기
+	- 스크립트 태그내에서 작성하기
+	  <script>
+		자바스크립트 프로그램
+		자바스크립트 프로그램
+	  </script>
+	- 별도의 자바스크립트 파일을 사용
+	  * app.js와 같은 자바스크립트 파일 작성
+	  * script태그로 웹 문서에 포함시킨다.
+	    <script type="text/javascript" src="app.jsp"></script>
+	  * 주의사항
+		- 실수하기 쉬운 잘못된 <script> 태그 사용법
+			- 별도의 닫기 태그가 없는 경우
+			  <script type="text/javascript" src="app.jsp"/> 
+			- 자바스크립트 파일을 불러오는 태그내에 스크립트 코드를 작성하는 경우
+			  <script type="text/javascript" src="app.js">
+				자바스크립트 프로그램
+			  </script>
+
+JavaScript의 기본 문법
+	- 수행문 작성하기
+		수행문;	// 수행문의 끝은 세미콜론으로 나타낸다.
+		수행문	// 세미콜론을 생략할 수 있다.
+	- javascript의 리터럴
+		- 숫자
+			123
+			3.15
+		- 문자열
+			"안녕하세요"
+			'안녕하세요'
+		- 배열 
+			[1, 2, 3]
+			['홍길동', "김유신", '강감찬']
+		- 불린값
+			true
+			false
+		- 객체	
+			{}
+			{firstName:"홍", lastName:"길동", age:40, married:true}
+	- javascript의 데이터타입
+		- 자바스크립트 변수의 데이터타입은 다이나믹하게 변한다.
+		- number 타입
+			* 기본적으로 java의 double타입과 유사하다.
+			* 정수, 실수를 담을 수 있다.
+		- boolean 타입
+			* true, false 
+		- string 타입
+			* single or double quotos로 표현된 것
+		- array 타입
+			* [값, 값, 값, 값]
+		- object 타입
+			* {이름:값, 이름:값, 이름/값}
+		- undefined 타입
+			* 변수를 선언하고, 값을 할당하지 않으면 
+                          그 변수의 값은 undefined이고, 그 변수의 타입도 undefined다.
+		
+		* null 값
+			* 객체가 할당되지 않았다.
+			* null을 값으로 가지는 변수는 "아무것도 가지고 있지 않다"라는 것을 의미한다.
+			* null이 저장된 변수의 타입의 object 타입이다.	 
+
+	- 변수의 선언과 초기화
+		- 변수의 선언
+			- var x;
+			- var x, y, z;
+			* x와 y와 z는 undefined값을 가지고 있고 타입은 undefined다.
+		- 변수의 초기화
+			- var x;
+			  x = 10;
+			- var x = 10;
+			- var x = 10, y = "홍길동", z = [1, 2, 3];
+	- 자바스크립트의 연산자
+		- 산술연산자
+			+ - * / % ++ --
+		- 대입연산자
+			= += -= *= /= %= 
+		- 관계연산자
+			> >= < <= == === != !==
+			* ==  	 	: 값이 일치하거나, 변환된 값이 일치하면 true 
+			* ===		: 값일 일치하고, 타입도 일치하면 true
+			* !=		: 값이 일치하지 않거나, 변환된 값이 일치하지 않으면 true
+			* !==		: 값이 일치하지 않거나, 타입이 다르면 true
+			
+			5 == 5 		true
+			5 == '5'	true
+			5 === 5		true
+			5 === '5'	false
+			5 != 8		true
+			5 != '8'	true
+			5 !== 5		false(다른게 하나도 없어서 false)
+			5 !== '5'	true
+		- 논리연산자
+			&& || !
+			* 자바스크립트에서 거짓으로 판단하는 값
+				false, undefined, null, 0, ""
+			        * 위의 값들이 논리연산자의 값으로 사용되거나
+				  제어문, 반복문에서 사용될 때 거짓으로 판정된다.
+				* 논리연산자의 연산결과가 true, false일 수 있지만,
+				  true나 false로 판정될 수 있는 1, 100, "vip", null, undefined등이 
+				  될 수도 있다.
+	
+	- 자바스크립트의 함수(function)
+		- 특정 작업을 수행하는 수행문(코드)의 블록을 함수라고 한다.
+		  * 자바의 메소드와 유사하다.
+		- 형식
+			* 이름을 가진 함수
+			function 함수명1(매개변수명, 매개변수명, 매개변수명, ...) {
+				수행문;
+				...
+			}
+			function 함수명2(매개변수명, 매개변수명, 매개변수명, ...) {
+				수행문;
+				...
+				return 반환값;
+			}
+
+			함수명1(값, 값, 값, ...);
+			var 변수 = 함수명2(값, 값, 값, ...);
+			
+			* 이름이 없는 함수			
+			var 변수명1 = function(매개변수명, 매개변수명, ...) {
+				수행문;
+				...
+			}
+			var 변수명2 = function(매개변수명, 매개변수명, ...) {
+				수행문;
+				...
+				return 반환값;
+			}
+			변수명1(값, 값, ...);
+			var 변수 = 변수명2(값, 값, ...);
+
+
+			* 자바와의 차이점
+				- 접근제한자가 없다.		
+				- 반환타입을 지정할 필요가 없다.
+				- 매개변수의 타입을 지정할 필요가 없다.
+				- 함수 중복정의가 소용이 없다.
+
+		- 함수의 실행 방법
+			- 자바스크립트 수행문에서 함수를 실행할 수 있다.
+			  * function myfn() { .... }
+			    myfn();
+			- 이벤트 발생시 함수가 실행되게 할 수 있다.
+			  * function myfn() { .... }
+			    <button onclick="myfn()">클릭</button>
+			- 셀프 실행(즉시 실행함수)
+			   * (function(){
+				수행문;
+				수행문;
+			     })()
+	
+
+
+Java와 JavaScript 수행문의 사용목적
+-----------------------------------------------------------------------------------------------------
+	Java					JavaScript
+-----------------------------------------------------------------------------------------------------
+	클라이언트의 요청 처리			사용자와 상호작용
+	요청파라미터값 조회 및 객체에 담기	폼입력값 유효성 체크
+	업무로직의 실행				이벤트 처리
+	DB 엑세스 작업 실행			HTML 조작
+	응답 컨텐츠 제공			(엘리먼트 선택, 컨텐츠/값 조회, 컨텐츠/값 변경,
+						 스타일 변경)
+-----------------------------------------------------------------------------------------------------
+
+JavaScript Event
+	- Event(이벤트)
+		* HTML 엘리먼트(태그)에서 생겨나는 것
+		* 이벤트가 생기는 원인
+			- 웹 페이지의 로딩이 완료됐을 때
+			- 입력필드의 값이 변경될 때
+			- 사용자가 버튼을 클릭했을 때
+			- 사용자가 마우스을 움직일 때
+			- 사용자가 키보드를 입력할 때
+			- 사용자가 브라우저 창의 크기를 조절할 때
+			- 사용자가 html문서를 스크롤할 때
+		* 이벤트의 처리
+			- 이벤트 발생이 예상되는 엘리먼트를 선정한다.
+			- 해당 엘리먼트에서 발생이 예상되는 이벤트를 선정한다.
+			- 해당 엘리먼트에서 발생이 예상되는 이벤트가 발생했을 때 실행될 함수를 구현한다.
+			- 해당 엘리먼트와 이벤트 발생시 실행될 함수를 바인딩한다.
+			* 이벤트 처리를 통해서 사용자와 상호작용하는 웹 페이지를 제작할 수 있다.
+	- Event의 종류
+		- 마우스 이벤트
+		      * - onclick		엘리먼트를 클릭했을 때
+			- ondbclick		엘리먼트를 더블 클릭했을 때
+			- onmouseover		엘리먼트 위로 마우스가 움직일 때
+			- onmouseout		엘리먼트 밖으로 마우스가 움직일 때
+		      * - onmousenter		엘리먼트 위로 마우스가 움직일 때
+		      * - onmouseleave		엘리먼트 밖으로 마우스가 움직일 때
+			- onmousemove		엘리먼트 위에서 마우스가 움직일 때
+			- onmousedown		엘리먼트에서 마우스의 버튼을 눌렀을 때
+			- onmouseup		엘리먼트에서 마우스의 버튼을 뗐을 때
+
+		- 키보드 이벤트
+			- onkeydown		엘리먼트에서 키보드 키를 누르고 있을 때
+			- onkeypress		엘리먼트에서 키보드 키가 완전히 눌려졌을 때
+		      * - onkeyup		엘리먼트에서 키보드 키가 위로 올라올 때
+
+		- 폼 이벤트 (<form>태그 내의 엘리먼트에서 발생하는 이벤트)
+		      * - onfocus		폼 입력요소가 포커스를 획득했을 때
+		      * - onblur		폼 입력요소가 포커스를 잃었을 때
+		      * - onchange		폼 입력요소의 값이 변경될 때
+			- onselect		폼 입력요소의 텍스트를 선택했을 때
+			- onreset		폼의 리셋버튼이 클릭됐을 때
+		      * - onsubmit		폼이 서버로 제출될 때
+
+		- 윈도우 이벤트
+		      * - onload		브라우져가 페이지의 로딩을 끝마쳤을 때
+			- onresize		브라우져의 윈도우 크기가 변경될 때
+			- onerror		자바스크립트 실행 중 에러가 발생했을 때
+	- Event 객체
+		* 웹페이지나 엘리먼트에서 이벤트가 발생할 때 마다 생겨나는 객체
+		* 이벤트 객체의 주요 API
+			- 프로퍼티(Property)
+			      * target		: 이벤트가 발생된 엘리먼트를 반환한다.
+				type		: 발생한 이벤트의 이름을 반환한다.
+				which		: 마우스이벤트나 키보드이벤트가 발생했을 때
+						  클릭한 마우스 번트의 번호, 입력한 글자의 유니코드값을 반환한다.
+			- 메소드(Method)
+				* preventDefault()		
+					* 이벤트가 발생했을 때 그 이벤트와 관련된 기본동작의 실행을 취소시킨다.
+					* 대표적인 예
+						* "submit"버튼을 클릭했을 때 폼의 입력값이 서버로 제출되는 것을 취소할 수 있다.
+						* "a" 링크를 클릭했을 때 해당 url로 이동하는 것을 취소할 수 있다.
+				* stopPropagation()	
+					* 이벤트 버블링 차단한다.
+				stopImmediatePropagation()
+					* 이벤트 버블링을 차단하고, 
+                                          해당 엘리먼트에 동일한 이벤트를 발생시 실행할 다른 함수를 실행도 즉시 중지한다.
+				* 이벤트 버블링
+					- 이벤트가 발생하면 해당 엘리먼트의 부모 엘리먼트로 이벤트가 전파되는 것을
+					  이벤트 버블링이라고 한다.
+	- 주요 이벤트의 활용
+		* onclick 이벤트
+			- button, a, img, div 등의 엘리먼트를 클릭할 때 정의된 함수가 실행되도록 한다.
+			- 가장 많이 활용되는 이벤트다.
+			- 꼭, button이나 a가 아니어도 상관없다. 어떤 종류에 엘리먼트던지 onclick이벤트 발생시
+			  실행될 함수를 연결지을 수 있다.
+		* onmouseenter, onmouseleave 이벤트
+			- 마우스 포인트가 특정 엘리먼트 영역으로 진입하거나 빠져나올 때 정의된 함수가 실행되도록 한다.
+			- 주 메뉴에 마우스가 진입하면 서브 메뉴가 나오게 하거나,
+			  그림위에 마우스가 진입하면 그림에 대한 설명이나 소개가 나오게 하는 등,
+			  특정 엘리먼트에 진입했을 때 즉시 부가적인 정보나 추가정보가 표출되도록할 때 사용한다.
+		* onkeyup 이벤트
+			- 키보드로 글자를 입력할 때 정의된 함수가 실행되도록한다.
+			- 텍스트필드, 비밀번호필드, textarea에서 값을 입력할 때마다 값을 읽어와서 추가적인 작업을
+			  수행할 때 주로 사용한다.
+			- 아이디 필드에 지정된 문자외의 문자을 사용하는지 체크하거나,
+			  숫자만 입력해야하는 필드에 숫자외의 다른 문자를 입력하는지 체크하는 작업을 수행할 수 있다.
+		* onchange
+			- 폼 입력요소의 입력값이 변경될 때 정의된 함수가 실행된다.
+			- radio, chekbox의 체크된 항목을 바꾸나, select의 선택된 항목을 바꿀때 마다 작업을 수행할 수 있다.
+			- input, textarea등은 최종적으로 입력한 값이 이전 입력값과 비교했을 때 달라진 부분이 있으면 
+			  해당 메소드가 실행된다.
+
+Form 입력요소의 조작
+	- 폼 입력요소의 값을 조회하기
+		* input text, input password, input file, radio, checkbox, textarea, select, input hidden
+		  var 값 = 엘리먼트.value;
+	- 폼 입력요소에 값을 지정하기
+		* input text, input password, radio, checkbox, textarea, select, input hidden
+                  엘리먼트.value = "새로운 값"
+		  단) 1. input file에는 값을 설정할 수 없다.
+		      2. select 박스에는 옵션에 이미 지정되어 있는 값 중에 하나여야 한다.
+		      3. radio나 checkbox의 경우에는 값을 다시 지정하는 경우가 거의 없다.
+	- 폼 입력요소 중 radio와 checkbox의 체크여부 변경하기
+		* 체크하기
+			radio엘리먼트.checked = true
+			checkbox엘리먼트.checked = true
+		* 체크 해제하기
+			checkbox엘리먼트.checked = false
+			단) radio버튼은 체크해제하기를 사용할 일이 없다.    
+	- 폼 입력요소 중  radio와 checkbox의 체크여부 조회하기
+		var 값 = radio엘리먼트.checked;
+		var 값 = checkbox엘리먼트.checked;
+		* 조회된 값은 true 혹은 false 값이다.
+
+일반 엘리먼트의 조작
+	- 엘리먼트의 텍스트 컨텐츠 조회하기
+		<p id="x">안녕하세요</p>
+		var 컨텐츠 = document.querySelector("#x").textContent;
+	- 엘리먼트의 텍스트 컨텐츠 변경하기
+		<p id="x">안녕하세요</p>	---> <p id="x">네 반갑습니다.</p>
+		document.querySelector("#x").textContent = "네 반갑습니다.";
+	- 엘리먼트의 html 컨텐츠 조회하기
+		<div id="box">
+			<h3>메뉴</h3>
+			<ul>
+				<li>짜장면</li>
+				<li>짬뽕</li>
+			</ul>
+		</div>
+		var html컨텐츠 = document.querySelector("#box").innerHTML;
+    			* <h3>메뉴</h3><ul><li>짜장면</li><li>짬뽕</li></ul>   <--- 태그까지 포함해서 읽어온다.
+		
+		var 컨텐츠 = document.querySelector("#box").textContent;	
+			* 메뉴 짜장면 짬뽕					<--- 텍스트만 읽어온다.
+	- 엘리먼트의 html 컨텐츠 변경하기
+		<div id="box"><h1>연습하기</h1></div> ---> <div id="box"><h3>엘리먼트 연습하기</h3></div>
+		document.querySelector("#box").innerHTML = '<h3>엘리먼트 연습하기</h3>';
+
+		<div id="box"><h1>연습하기</h1></div> ---> <div id="box">&lt;h3&gt;엘리먼트 연습하기&lt;/h3&gt;</div>
+		document.querySelector("#box").textContent = '<h3>엘리먼트 연습하기</h3>';
+	- 엘리먼트의 속성값 조회하기
+		<img src="sample.png" alt="샘플 사진" id="photo" />
+		var 속성값 = document.querySelector("#photo").getAttribute("src");	---> "sample.png"
+		var 속성값 = document.querySelector("#photo").getAttribute("alt");	---> "샘플 사진"
+		var 속성값 = document.querySelector("#photo").getAttribute("id");	---> "photo"
+	- 엘리먼트의 속성값 변경하기 및 추가하기
+		* 속성이 이미 존재하면 값을 변경한다.
+		<input type="text" name="username" id="field"/> --> <input type="text" name="customername" id="field"/>
+		document.querySelector("#field").setAttribute("name", "customername");
+		* 속성이 존재하지 않으면 추가한다.
+		<input type="text" id="field"/> --> <input type="text" name="customername" id="field"/>
+		document.querySelector("#field").setAttribute("name", "customername");
+	- 엘리먼트의 속성값 삭제하기
+		<img src="sample.png" alt="샘플 사진" id="photo" /> ---> <img src="sample.png"  id="photo" />
+		document.querySelector("#photo").removeAttribute("alt");
+
+	
+		
+				
+		
+
+
+		
+
+		
+			
+
+	
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+	
+	  
+	
