@@ -1,0 +1,18 @@
+메소드 체이닝(Method Chainning)
+	- 특정 객체를 획득한 후 그 객체의 메소드를 연달아 호출할 수 있는 것
+	사용예)
+		DateTimeBuilder
+			.newBuilder()	// DateTimeBuilder객체 획득
+			.year()		// DateTimeBuilder 반환
+			.month()	// DateTimeBuilder 반환
+			.day()		// DateTimeBuilder 반환
+			.hour()		// DateTimeBuilder 반환
+			.build();	// DateTime 반환
+			
+
+		"WeLcoMe   ".trim()		// 문자열반환
+			    .toLowerCase()	// 문자열반환
+			    .subString(0, 3)	// 문자열반환
+			    .replace("w", "W");	// 문자열반환
+		
+		         
