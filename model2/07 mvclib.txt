@@ -1,0 +1,120 @@
+응수 MVC 라이브러리 사용법
+	1. 필요한 라이브러리 등록하기
+		- mvc-0.9.1-SNAPSHOT.jar
+		- reflections-0.9.11.jar
+		- gson-2.8.5.jar
+	2. web.xml에 프론트컨트롤러 등록
+		<servlet>
+			<servlet-name>fcs</servlet-name>
+			<servlet-class>kr.co.jhta.mvc.servlet.FrontControllerServlet</servlet-class>
+			<init-param>
+				<param-name>packages</param-name>
+				<param-value>컨트롤러 클래스가 정의된 패키지</param-value>
+			</init-param>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>fcs</servlet-name>
+			<url-pattern>*.html</url-pattern>
+		</servlet-mapping>
+
+	3. 컨트롤러 정의하기
+		@Controller // 컨트롤러 클래스에 @Controller를 붙인다.		
+		public class SampleController {
+
+		}
+		* 프론트컨트롤러는 web.xml에서 지정한 패키지에서 @Controller이 표시된 클래스를 
+		  자동으로 검색해서 객체를 생성한다.
+
+	4. 요청URL과 메소드 연결하기
+		@Controller
+		public class SampleController {
+			@RequestMapping("/home.html")
+			public ModelAndView home(HttpServletRequest req, HttpServletRespons resp) {
+				...
+			}
+
+			@RequestMapping("/about.html")
+			public ModelAndView companyInfo(HttpServletRequest req, HttpServletRespons resp) {
+				...
+			}
+		}
+		* 프론트컨트롤러는 자동생성된 컨트롤러 객체에서 @RequestMapping에 설정된 URL경로를
+		  분석해서 해당 URL과 같은 URL요청이 오면 메소드를 자동으로 실행한다.
+
+	5. ModelAndView 
+		- ModelAndView객체는 뷰페이지의 이름을 저장한다.
+		- ModelAndView객체는 뷰페이지에 전달할 값을 name-value의 쌍으로 저장한다.
+		- ModelAndView객체에 저장된 값을 자동으로 요청객체에 옮겨진다.
+		- 프론트컨트롤러는 ModelAndView를 분석해서 
+		  이동방법, 이동할 뷰페이지, 뷰페이지에 전달할 데이터를 처리한다.
+		- 클라이언트의 요청을 처리하는 메소드는 반드시 ModelAndView객체를 반환해야 한다.
+		- 주요 API
+			void setViewName(String viewName)	
+				- 내부이동할 view페이지의 이름을 설정한다.
+				- 재요청할 URL을 설정한다.
+					* 재요청URL은 "redirect:" 접두사를 붙인다.
+			void addAttribute(String name, Object value)
+				- 뷰페이지에 전달할 데이터를 설정한다.
+				- 이 메소드를 사용해서 ModelAndView에 저장된 데이터는 요청객체의
+				  속성으로 옮겨진다.
+			void setView(View view)
+				- 파일다운로드, JSON 응답을 제공해야 할 때 해당 View객체를 설정한다.
+
+	6. mvc 프레임워크의 요청 처리 순서
+		- Tomcat이 시작될 때 FrontControllerServlet객체가 생성된다.
+			- FrontControllerServlet은 <init-param />에 지정된 패키지에서
+                  	  @Controller이 표시된 모든 컨트롤러 클래스를 찾아서 객체를 생성하고 보유한다.
+			- 생성된 컨트롤러 객체에서 @RequestMapping("/요청URI") 정보를 분석한다.
+		  	  분석된 정보를 바탕으로 요청URI와 요청처리메소드를 파악하고 그 정보를 보유한다.
+		- 클라이언트의 요청 처리하기
+			- 클라이언트가 웹서버(Tomcat)로 요청을 보낸다.
+			- FrontControllerServlet이 클라이언트의 요청을 접수한다.
+                          * FrontControllerServlet의 service(request, response)가 실행된다.
+			- 클라이언트의 요청URI을 조회한다.
+			- 위에서 분석한 정보를 기반으로 요청URI와 관련있는 요청처리 메소드를 실행한다.
+			  * @RequestMapping("/요청URI")
+			  * public ModelAndView 요청처리메소드(request, response) { ... } 
+			- 요청처리 메소드는 전달받은 요청객체와 응답객체를 활용해서 클라이언트의
+			  요청을 처리한다.
+			  * 요청객체에서 요청파라미터 조회하기
+			  * 업무로직 메소드 실행하기
+			  * ModelAndViw객체 생성하기
+			  * 뷰페이지에 전달할 정보를 ModelAndView객체에 저장하기
+			  * 이동할 뷰페이지명이나 재요청할 URL을 ModelAndView에 저장하기
+			  * FrontControllerServlet에게 ModeAndView객체를 반환한다.
+			- FrontControllerServlet은 요청처리 메소드가 요청처리 후 반환한 
+                          ModelAndView객체를 이용해서 클라이언트에게 적절한 응답을 보낸다.
+			  * ModelAndView객체에서 뷰페이지의 이름 혹은 재요청할 URL을 조회한다.
+			  * 뷰페이지에 전달하기 위해서 ModelAndView객체에 저장된 정보를 요청객체의
+			    속성으로 저장한다.
+			  * 뷰페이지로 내부이동해서 JSP를 실행하거나, 재요청 URL을 응답으로 보낸다.
+			- 뷰페이지로 내부이동한 경우, JSP에서는 요청객체에 저장된 속성값을
+			  EL, JSTL을 활용해서 동적 HTML을 생성해서 클라이언트에게 응답으로 보낸다.
+
+
+
+
+
+
+
+
+ 
+		
+
+
+                          
+				
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
