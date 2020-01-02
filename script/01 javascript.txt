@@ -117,6 +117,88 @@
 			* 특정 상황이 발생할 때 브라우저, 가상머신, 시스템 혹은 운영체제가
                           실행시키는 함수
 	- 배열
+		* 자바스크립트의 배열의 Java의 ArrayList와 같은 가변길이 배열이다.	
+			- 크기를 변경할 수 있다.	
+			- 추가하거나 삭제하면 배열의 길이가 자동으로 조정된다.
+		* 배열 생성하기
+			- 배열 리터럴로 생성하기
+				var x = [];	// 빈 배열이 생성된다.
+				var x = ["김유신", "홍길동", "강감찬"];
+			- 생성자함수로 생성하기
+				var x = new Array();
+				var x = new Array("김유신", "홍길동", "강감찬");
+		* 주요 API
+			- Property
+				* length
+					- 배열의 길이를 반환한다.
+			- Method
+				* push(item)
+					- 배열의 끝에 새로운 요소를 추가한다.
+				* pop()
+					- 배열의 맨 마지막 요소를 삭제하고, 반환한다.
+				* unshift(item)
+					- 배열의 맨 앞에 새로운 요소를 추가한다.
+				* shift()
+					- 배열의 첫번째 요소를 삭제하고, 반환한다.
+				* splice(index, howmany, item1, item2, item3, ..., itemN)
+					- 배열의 요소를 삭제하고, 새로운 요소를 추가할 수 있다.
+					* index - 추가하거나 삭제할 위치를 지정한다.
+					* howmany - 삭제할 갯수, 0이면 삭제하지 않음
+					* item1, ..., itemN - 새로 추가할 값들
+					* 사용예)
+						x.splice(1, 1) <--- 1번째부터 1개 삭제
+						x.splice(1, 2) <--- 1번째부터 2개 삭제
+						x.splice(1, 0, value) <--- 1번째에 값 추가, 원래 1번째에 있던 값을 뒤로 밀린다.
+						x.splice(1, 1, value) <--- 1번째부터 값을 하나 삭제하고, 1번째에 값을 추가
+				* join(separator)
+					- 배열의 각 요소를 지정된 문자로 연결된 문자열을 반환한다.
+					* separator를 지정하지 않으면 ,가 구분문자가 된다.
+				* indexOf(item)
+					- 배열에서 item과 같은 값이 있으면 해당 index를 반환한다.
+					* 값이 발견되지 않으면 -1를 반환한다.
+				* forEach(callback)
+					- 배열의 각 요소마다 callback함수를 실행한다.
+					- function(item, index)
+						* item - 현재값
+						* index - 현재값의 인덱스
+				* filter(callback)
+					- 배열의 각 요소마다 callback함수가 실행되고, 
+                                          callback함수의 테스트를 통과한 아이템들로 구성된 새로운 배열이 반환된다.
+					- 배열에서 원하는 요소들로만 구성된 새로운 배열을 만들 수 있다.
+					- function(item, index)
+						* item - 현재값
+						* index - 현재값의 인덱스
+						* 반환값 - 참 혹은 거짓
+				* map(callback)
+					- 배열의 각 요소마다 callback함수가 실행되고,
+					  callback함수의 실행결과 변형된 아이템들로 구성된 새로운 배열이 반환된다.
+					- 배열의 각 요소를 다른 형태로 변환해서 새로운 배열을 만들 수 있다.
+					- function(item, index)
+						* item - 현재값
+						* index - 현재값의 인덱스
+						* 반환값 - 변형된 값
+				* reduce(callback, initValue)
+					- 배열의 각 요소마다 callback함수가 실행되고
+					  최종결과로 단 하나의 값이 반환된다.
+					- 배열의 각 요소에 대한 집계결과를 하나 반환한다.
+					- function(total, item, index)
+						* total - initValue를 지정하지 않으면 이전에 실행한 함수의 반환값이 들어간다..
+							  initValue를 지정하면 해당값이 total의 초기값이 된다.	
+						* item - 현재값
+						* index - 현재값의 인덱스
+						* return - 집계단계의 중간값
+				* sort(callback)
+					- 배열의 각 요소마다 callback함수가 실행되고
+					  callback함수는 각각의 값들을 비교하는 코드가 포함되어야 한다.
+					  callback함수는 양수, 음수, 0를 반환해야 한다.
+					- 배열의 각 요소를 정렬한다.
+					- 원본 배열이 정렬된다.
+					- function(a, b)
+						* a - 배열의 값
+						* b - 배열의 값
+						* return - a와b를 비교연산한 결과
+							   정수값(양수, 음수, 0)
+					
 
 
 
@@ -125,5 +207,32 @@
 
 
 
-\
+
+
+
+
+
+
+
+
+
+
+
+
+
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+
+
 
