@@ -65,7 +65,7 @@ spring-hr
 			- 위에 정의한 기능을 구현한다.
 			- 위에 정의한 기능을 구현하기 위해서 DeptDao 구현객체, DempDao구현객체를
 			  자동으로 주입받는다.
-			- HrServiceImpl을 스프링의 빈으로 자동등록되게 한다.
+			- @Service를 부착해서 HrServiceImpl을 스프링의 빈으로 자동등록되게 한다.
 	
 	mybatis 매퍼파일 정의하기
 		- /META-INF/mybatis/mappers에 emp.xml과 dept.xml을 정의하고,
@@ -79,7 +79,16 @@ spring-hr
 		- mybatis 핵심객체 스프링 빈으로 등록
 		- dao 인터페이스를 스캔해서 구현객체를 생성하고, 스프링 빈으로 등록하기
 		
-		-  
+		- kr.co.jhta.hr.service 패키지의 구현클래스 전부 스캔해서 등록하기
+
+6. kr.co.jhta.hr.app에 HrApp 정의하기
+	스프링 빈 설정파일을 읽어서 스프링컨테이너 생성하기
+	HrService구현객체 획득하기
+
+	새 부서정보  등록하기 - 부서명:고객지원팀 관리자:150 위치아이디:1700
+	10번 부서의 상세정보 조회하기
+	148번 사원의 상세정보 조회하기 
+	
 		
 	
 			
