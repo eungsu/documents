@@ -26,7 +26,7 @@ spring과 데이터처리 프레임워크와의 연동
 				- JNDI를 이용한 DataSource 획득
 					* 웹서버가 제공하는 DataSource 구현체 이용한다
 					* 스프링을 이용한 웹 애플리케이션에서 주로 사용
-					<jee:jndi-lookupid="dataSource" jndi-name="${jndiName}"resource-ref="true"/>
+					<jee:jndi-lookup id="dataSource" jndi-name="${jndiName}"resource-ref="true"/>
 		2. mybatis와 스프링 연동하기
 			* SqlSessionFactory를 스프링의 빈으로 등록하기
 				<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
