@@ -1,0 +1,124 @@
+mybatis
+	- SQL Mapper Framework
+	- SQL 실행에 필요한 객체와 SQL  실행 후 조회된 데이터를 저장할 객체을 매핑하면
+          PreparedStatement처리와 ResuletSet처리에서 자동으로 값을 매핑시켜서 SQL를 실행한다.
+	
+	- mybatis의 내장 타입 별칭
+		Integer -> int, Long -> long, Double -> double, String -> string,
+		Date -> date, Map -> map, HashMap - > hashmap, ArrayList -> arraylist
+		BigDecimal -> bigdecimal
+
+	- mapper 파일 작성 규칙
+		* select 쿼리
+			<select id="쿼리 식별자" parameterType="전체클래스명 혹은 별칭" 
+						resultType="전체클래스명 혹은 별칭">
+				SELECT 구문
+			</select>
+		* insert 쿼리
+			<insert id="쿼리 식별자" parameterType="전체클래스명 혹은 별칭">
+				INSERT 구문
+			</insert>
+			
+			<insert id="쿼리 식별자" parameterType="전체클래스명 혹은 별칭">
+				<selectKey keyProperty="조회된 값이 저장될 필드명" 
+					   resultType="조회된 값의 타입" 
+					   order="selectKey구문의 실행 순서(BEFORE, AFTER 중 하나)">
+					PK로 사용할 값을 조회하는 구문
+				</selectKey>
+				INSERT 구문
+			</insert>
+			* Primary Key를 조회해서 먼저 필드에 저장하고 insert 작업을 실행
+			* insert작업이 종료되면 객체의 필드에 시퀀스값이 저장되어 있다.
+			
+			작성예)
+			Order order = new Order();
+			order.setUserNo(user.getNo());
+			order.setCreateDate(new Date());	
+			---------------------------------------> Order [no=0, userNo=20, creatDate=2020-01-20]
+
+			<insert id="insertOrder" parameterType="Order">
+				<selectKey keyProperty="no" 
+					   resultType="int" 
+					   order="BEFORE">
+					select bookstore_orders_seq.nextval from dual					
+				</selectKey>
+				insert into (order_no, user_no, create_date)
+				values (#{no}, #{userNo}, #{createDate})
+			</insert>
+			orderDao.insertOrder(order);
+			---------------------------------------> Order [no=100, userNo=20, creatDate=2020-01-20] 
+			OrderItem item = new OrderItem();
+			item.setOrderNo(order.getNo());	// 시퀀스로 획득한 값이 Order에 저장되어 있기 때문에
+			item.setBookNo(100000)		// 현재 저장된 주문번호가 필요하면 Order객체에서 조회하면 된다.
+			item.setAmount(2);
+
+		* ${} 표현식을 사용한 문자열 대체하기
+			- #{}표현식은 SQL구문의 ?에 값을 셋팅할 때 사용한다.
+			- #{}표현식은 SQL의 키워드, 테이블명, 컬럼명 등의 자리에 사용할 수 없다.
+			- ${}표현식은 SQL의 키워드, 컬럼명의 자리에 사용해서 그 문자열을 대체할 수 있다.
+			- ${}표현식은 SQL 구문에서 조회 결과에 영향을 미치지 않는 
+                          order by 절에서 정렬대상 컬럼명이나 정렬방식을 지정할 때만 사용하자.
+			- 작성예
+				<select id="getAllBooks" parameterType="map" resultType="Book">
+					select *
+					from bookstore_books
+					order by ${columnName} ${sortType}
+				</select>
+
+	- 다이나믹 SQL
+		* mybatis는 ibatis나 다른 SQL Mapper 프레임워크보다 훨씬 강력한 동적 SQL 작성기능을 제공한다.
+		* mybatis의 동적 SQL 관련 태그는 JSTL의 태그와 사용법이 유사하다.
+		* 태그 종류
+			- if 태그
+			<if test="조건식">
+				조건식의 결과가 참인 경우 실행될 SQL 구문
+			</if>
+			- choose, when, otherwise 태그
+			<choose>
+				<when test="조건식1">
+					조건식1의 결과가 참인 경우 실행될 SQL 구문
+				</when>
+				<when test="조건식2">
+					조건식2의 결과가 참인 경우 실행될 SQL 구문
+				</when> 
+				<otherwise>
+					제시된 조건을 만족하지 못할 경우 실행될 SQL 구문
+				</otherwise>
+			</choose>
+			- foreach  태그
+			<foreach index="인덱스" item="변수명" collection="프로퍼티명">
+					#{변수명}
+			</foreach>
+			* collection에는 배열, List, Set과 같이 반복할 대상이 위치한다.
+			* index는 현재 조회된 값의 index값이 전달된다.
+			* item에 지정된 변수에 값이 순서대로 하나씩 전달된다.
+			- where 태그
+			<where>
+				if태그, choose,when,otherwise 등의 태그를 포함하고 있다.
+			</where>
+			* <where>태그 내부에서 동적 SQL의 실행결과로 SQL이 반환되면 where태그를 추가한다.
+			* <where>태그 내부에서 동적 SQL의 실행결과로 반환된 SQL에 'and'나 'or'가 있으면 지워버린다.
+			<where>
+				<if test="startDate != null">
+					event_date >= #{startDate}
+				</if>
+				<if test="endDate != null">
+					and event_date <= #{endDate}
+				</if>
+				<if test="eventType != null">
+					and event_type = #{eventType}
+				</if>
+			</where>
+
+
+
+
+
+
+
+
+
+
+		
+			
+	 
