@@ -1,0 +1,77 @@
+spring interceptor
+	- 인터셉터는 컨트롤러의 요청 핸들러 메소드 실행 전/후에 실행할 작업을 정의할 때 사용한다.
+	- HandlerInterceptor 인터페이스를 구현하거나, HandlerInterceptorAdapter 추상클래스를 상속
+	  받아서 사용자 정의 인터셉터를 작성할 수 있다.
+	- HandlerInterceptor의 주요 API
+		boolean 	preHandle(request, response, handler)
+				* 컨트롤러의 요청핸들러 메소드 실행 전에 실행된다.
+				* preHanldle() 메소드가 
+					true를 반환하면 다음 인터셉터 혹은 컨트롤러의 요청핸들러 메소드가 실행된다.
+				* 주로 서비스를 요청한 클라이언트의 로그인 여부, 
+                                       요청 서비스에 대한 접속권한 보유 여부 등을 체크하는 작업에 활용된다.
+		void		postHanle(request, response, handler, modelAndView)
+				* 컨트롤러의 요청핸들러 메소드 실행이 완료된 후에 실행된다.
+				* ModelAndView를 사용할 수 있다.
+				* ModelAndView에 대한 추가적인 조작작업을 수행할 목적으로 사용할 수 있다.
+		void 		afterCompletion(request, response, handler, exeption)
+				* View의 렌더링작업이 완료된 후 실행된다.
+				* 요청 처리과정에서 시스템의 자원을 사용한 경우 자원해제 작업에 활용된다.
+	- 인터셉터 사용하기
+		1. HandlerInterceptor, HandlerInterceptorAdapter를 사용해서 사용자정의 인터셉터 구현
+		   - 수행할 작업에 맞게 preHandle()이나 postHandle()를 재정의한다.
+		2. 사용자정의 인터셉터를 스프링의 빈으로 등록한다.
+		   - DispatcherServlet이 읽어가는 spring bean configuration 파일에 인터셉터 설정을 추가한다.
+			<mvc:interceptors>
+				<mvc:interceptor>
+					<mvc:mapping path="인터셉터 실행에 포함할 요청URI"/>
+					<mvc:exclude-mapping path="인터셉터 실행에서 제외할 요청URI" />
+					<bean class="사용자정의 인터셉터 클래스전체 이름"></bean>
+				</mvc:interceptor>
+				<mvc:interceptor>
+					<mvc:mapping path="인터셉터 실행에 포함할 요청URI"/>
+					<mvc:exclude-mapping path="인터셉터 실행에서 제외할 요청URI" />
+					<bean class="사용자정의 인터셉터 클래스전체 이름"></bean>
+				</mvc:interceptor>
+			</mvc:interceptors>
+		    * 인터셉터는 등록된 순서대로 실행된다.
+		    * 인터셉터의 preHandle()메소드가 true를 반환하는 경우에만 
+		      다음 번 인터셉터가 실행되거나, 실행할 인터셉터가 없으면 컨트롤러의 요청 핸들러  메소드가 실행된다
+		    * <mvc:interceptor>에서 <mvc:mapping/>는 반드시 하나 이상 있어야 한다.
+                                            <mvc:exclude-mapping />는 0개 이상 있어야 한다.
+		    * <mvc:mapping/>나 <mvc:excelude-mapping />의 path 설정시 와일드카드를 사용할 수 있다.
+			path="/*"		/, /home.hta, /about.hta 와 매칭된다.
+			path="/**"		/, /home.hta, /user/my.hta, /user/my/cart/list.hta 와 매칭된다.
+			path="/user/*"		/user/my.hta, /user/info.hta, /user/login.hta와 매칭된다.
+			path="/user/**"		/user/my.hta, /user/info.hta, /user/login.hta, /user/security/info.hta와 매칭된다.
+
+	- 스프링의 인터셉터와 자바웹의 필터
+	------------------------------------------------------------------------------------------------
+			인터셉터					필터
+	------------------------------------------------------------------------------------------------
+	실행싯점	컨트롤러 실행 전/후				서블릿/JSP 실행 전후
+			DispatcherServlet - 인터셉터 - 컨트롤러		클라이언트 - 필터 - 서블릿/JSP
+	설정파일	Spring Bean Configuration 파일			web.xml
+	컨테이너	스프링 컨테이너					Tomcat(WAS)
+	의존성주입	가능						불가능
+			* 스프링에 등록된 다양한 빈을 주입받아서
+			  활용할 수 있다.
+	------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+	

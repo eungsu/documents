@@ -1,0 +1,139 @@
+spring + ajax 연동하기
+	1. pom.xml에 의존성 추가
+		jackson-databind
+	2. ajax요청을 처리하는 컨트롤러 작성하기
+		@Controller
+		public class OrderController {
+			
+			@GetMapping("/order/orderdetails.hta")
+			@ResponseBody
+			public List<OrderItemDetail> orderItemDetails(@RequestParam("no") int orderNo) {
+				List<OrderItemDetail> items = orderService.getOrderItemDetails(orderNo);
+				return items;
+			}
+
+			@GetMapping("/order/orderdetails.hta")
+			public @ResponseBody List<OrderItemDetail> orderItemDetails(@RequestParam("no") int orderNo) {
+				List<OrderItemDetail> items = orderService.getOrderItemDetails(orderNo);
+				return items;
+			}
+		}
+		* @ResponseBody는 요청 핸들러 메소드가 반환하는 값을 응답메세지의 
+                  Body에 담아서 응답으로 보내게 한다.
+		* @ResponseBody가 부착된 요청핸들러 메소드가 실행되면 spring mvc는
+		  해당 요청핸들러 메소드가 반환하는 값(객체, 콜렉션)을 json이나 xml로 변환해서
+		  응답으로 제공한다.
+		* spring mvc가 @ResponseBody가 부착된 요청핸들러 메소드가 반환하는 값(객체, 콜렉션)을
+    		  json 혹은 xml으로 변환하는 기준으로 해당 타입으로 변환해주는 라이브러리가 있거나,
+		  json, xml로 변환해주는 라이브러리가 모두 있는 경우에는 요청 URL이나 컨텐츠 타입을 
+                  분석해서 적절한 타입으로 변환한다.
+		  /order/orderdetails.json	--> json 응답
+		  /order/orderdetails.xml	--> xml  응답
+
+		@RestController
+		public class OrderController {
+		
+			@GetMapping("/order/orderdetails.hta")
+			public List<OrderItemDetail> orderItemDetails(@RequestParam("no") int orderNo) {
+				List<OrderItemDetail> items = orderService.getOrderItemDetails(orderNo);
+				return items;
+			}
+		}
+		* @RestController은 클래스내의 모든 요청핸들러 메소드에 @ResponseBody가
+		  부착되어 있는 것처럼 요청핸들러 메소드를 처리한다.
+		* 예시 프로그램
+			기상청의 날씨예보 서비스
+			@RestController
+			public class 날씨컨트롤러 {
+				@RequestMapping("/now")				
+				public 날씨 현재날씨() {
+					return 서비스.현재날씨();
+				}
+
+				@RequestMapping("/week")				
+				public List<날씨> 주간날씨() {
+					return 서비스.주간날씨();
+				}
+
+				@RequestMapping("/month")				
+				public List<날씨> 월간날씨() {
+					return 서비스.월간날씨();
+				}
+			}
+	3. ajax 요청하기 및 응답데이터 처리하기
+		<button class="btn btn-info btn-xs" data-order-no="100001">상세보기</button>
+
+		$('#order-item-table .btn-info').click(function() {
+			var orderNo = $(this).data("order-no");
+
+			$.getJSON("/order/orderdetails.hta", {no:orderNo}, function(result) {
+				// result로 전달된 응답데이터를 처리한다.
+				// 1. 최종데이터가 배열인 경우
+				var arr = result.xxx;	// arr = [{title:"자바다", price:30000, amount:10},{title:"스프링이다.", price:48000, amount:3}]
+				$.each(arr, function(index, item) {
+					// item이 배열의 각 요소다.	// item -> {title:"자바다", price:30000, amount:10}
+					var title = item.title;
+					var price = item.price;
+					var amount = item.amount;
+					
+					// html 컨텐츠 제작
+					// html 컨텐츠를 화면에 추가/반영/표시
+				});								
+
+				// 2. 최종데이터가 객체인 경우
+				var obj = result.xxx; // obj = {title:"자바다", price:30000, amount:10}
+				var title = obj.title;
+				var price = obj.price;
+				var amount = obj.amount;
+					
+				// html 컨텐츠 제작
+				// html 컨텐츠를 화면에 추가/반영/표시
+			})
+
+			$.ajax({
+				type:"GET",			// 요청방식
+				url: "/order/orderdetails.hta",	// 요청URL
+				data: {no:orderNo},		// 서버로 전달되는 요청파라미터
+				dataType: "json",		// 예상되는 서버의 응답데이터 타입,
+				success: function(result) {
+					// 성공적인 응답이 왔을 때 실행할 코드
+				},
+				error: function() {
+					// 요청이 실패했을 실행할 코드
+				}
+			});
+
+			$.ajax({
+				type:"GET",			// 요청방식
+				url: "/order/orderdetails.hta",	// 요청URL
+				data: {no:orderNo},		// 서버로 전달되는 요청파라미터
+				dataType: "json"		// 예상되는 서버의 응답데이터 타입,
+			})
+			.done(function(result) { // 성공적인 응답이 왔을 때 })
+			.fail(function() { // 요청이 실패했을 때 })
+			.always(function() { // 무조건 실행 });
+
+			* 최종적인 요청 URL은 "/order/orderdetails.hta?no=100001"이다.
+			* {no:orderNo}부분은 서버로 전달되는 요청 파라미터값이다.
+			  {name1:value1, name2:value2, ..., nameN:valueN}과 같은 자바스크립트객체 형식으로 표현하거나,
+			  "name1="+value1 + "&name2=" + value2과 같은 쿼리스트링 형식으로 표현해도 된다.
+			* 객체형식으로 표현하면 자동으로 쿼리스트링형식으로 변환된다.
+			* 콜백함수는 서버로부터 성공적인 응답이 오면 실행된다.
+			* 콜백함수는 서버가 클라이언트로 보낸 응답데이터(text, json, xml)를 result 인자를 통해서
+			  전달받을 수 있다.
+			* 서버가 보낸 응답데이터가 json인 경우, 배열표기법으로 작성된 응답데이터는 자바스크립트 배열로,
+			  객체표기법으로 작성된 응답데이터는 자바스크립트 객체로 변환한 다음 result에 전달된다.
+		});
+		  
+
+
+
+
+
+
+
+
+
+
+			
+

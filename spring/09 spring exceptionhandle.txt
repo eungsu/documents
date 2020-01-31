@@ -1,0 +1,36 @@
+spring mvc 예외처리
+	- 컨트롤러, 서비스, DB 엑세스 작업 수행 중 예외가 발생하면 예외에 맞는 적절한
+     	  에러페이지를 클라이언트에게 제공하는 것이다.
+	- @ExceptionHandler 어노테이션을 사용해서 예외를 처리한다.
+	- 예외처리 방법
+		1. 에러페이지를 작성한다.
+			/WEB-INF/views/errors 폴더에 에러페이지용 jsp 파일을 정의한다.
+		2. 에러페이지와 예외를 매핑한다.
+			@ExceptionHandler(예외클래스명.class)
+			public String 예외처리메소드(예외클래스명 매개변수) {
+				
+				return "errors/에러페이지명";
+			}
+			* @ExceptionHandler()에서 지정한 예외클래스 타입의 예외가 발생하면
+			  예외처리메소드가 실행된다.
+			* 예외처리메소드는 매개변수를 통해서 발생된 예외를 전달받을 수 있다.
+			* 예외처리메소드는 @ExceptionHandler()에서 지정한 예외클래스 타입 및
+                          그 하위(자식)예외클래스 타입이 발생해도 예외처리메소드가 실행된다.
+			* 스프링은 발생한 예외와 매핑되는 예외처리 메소드가 2개 이상일 때는
+                          더 구체적인 예외클래스타입이 지정된 예외처리 메소드를 실행한다.
+			* 예상하지 못한 예외를 처리하기 위해서 Exception타입의 예외클래스와 매핑되는
+                          예외처리메소드를 작성하는 것이 좋다.
+				@ExceptionHandler(Exception.class)
+				public String unknownServerError(Exception e) {
+				
+					return "errors/unknown";
+				}
+
+
+
+
+
+
+
+
+
