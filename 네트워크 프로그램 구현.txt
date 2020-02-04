@@ -1,0 +1,95 @@
+네트워크 프로그램 구현
+	- 네트워크 프로그램 개발환경 구축
+		- 통합개발환경 
+			- 이클립스
+			- IntelliJ
+		- 개발 프레임워크
+			- 스프링 프레임워크
+			- 전자정부 표준 프레임워크
+			- 닷넷 프레임워크
+		- 운영체제
+			- Windows
+			- Linux(우분투 등)
+		- 형상관리 도구 
+			- SVN, Git
+	- 네트워크 기능 구현
+		- 네크워크 프로토콜
+			* 프로토콜
+				컴퓨터나 원거리 통신 장비 사이에서 메세지를 주고받는 양식과 규칙을 체계화한 것이다.
+				통신 프로토콜은 신호체계, 인증, 오류감지 및 수정기능을 포함하고 있다
+			* 대표적인 프로토콜
+				HTTP(HyperText Transfer Protocol)
+					HTTP는 웹상에서 정보를 주고 받을 수 있는 프로토콜이다.
+					웹브라우저와 웹서버간의 메세지 형식을 정의하고 있다.
+					TCP와 UDP를 사용하며, 80번 포트를 사용한다.
+				FTP(File Transfer Protocol)
+					FTP는 TCP/IP 프로토콜을 사용해서 서버와 클라이언트 사이의 파일 전송을 지원하는 프로토콜이다.
+				SMTP(Simple Mail Transfer Protocol)
+					SMTP는 인터넷에서 이메일을 보내기 위해 이용되는 프로토콜이다.
+					25번 포트를 사용한다.
+				TCP(Transmission Control Protocol)
+					TCP는 인터넷에 연결된 컴퓨터간에 데이터 통신을 하기 위한 프로토콜이다.
+					TCP는 컴퓨터간에 데이터를 안정적이고 순서대로 에러없이 교환할 수 있게 한다.
+					TCP는 데이터의 신뢰성을 보장받기 위한 전송방식이다.
+					이메일 전송, 파일 전송과 같은 데이터의 신뢰성이 유지되어야 하는 곳에 사용된다.
+				UDP(User Datagram Protocol)
+					UDP는 인터넷에 연결된 컴퓨터간에 데이터 통신을 하기 위한 프로토콜이다.
+					UDP는 데이터의 신뢰성이 보장되지 않는 전송방식이다.
+					실시간 스트림과 같은 경우 TCP 전송은 사소한 오류에도 데이터를 재전송받게 되면 버퍼링이 지속되게 된다. 이를 위해서 UDP방식이 개발되었다.
+				IP(Internet Protocol)
+					IP는 송신 호스트와 수신 호스트가 네트워크에서 정보를 주고 받을 때 호스트를 식별하기 위한 주소를 체계화한 프로토콜이다.
+		- 자바 기반의 네트워크 프로그램 구현
+			* TCP기반의 네트워크 프로그램 구현
+				서버측 코드
+					ServerSocket server = new ServerSocket(9999);
+					Socket socket = server.accept();
+					
+					BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream));
+					PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+					String name = in.readLine();
+					out.println(name + "님 반갑습니다.");
+					
+					in.close();
+					out.close();
+
+					socket.close();
+					server.close();
+				클라이언트측 코드
+					Socket socket = new Socket("localhost", 9999);
+					
+					PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+					BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream));
+					
+					out.println("홍길동");
+					String text = in.readLine();
+					System.out.println("서버 응답 메세지: " + text);
+					
+					out.close();
+					in.close();
+					
+					socket.close();
+			* UDP기반의 네트워크 프로그램 구현
+				발신자 코드
+					DatagramSocket datagramSocket = new DatagramSocket();
+					
+					byte[] data = "홍길동".getBytes();
+					DatagramPacket packet = new DatagramPacket(data, data.length, new InetSocketAddress("localhost", 9999));
+					datagramSocket.send(packet);
+
+					datagramSocket.close();
+				수신자 코드
+					DatagramSocket datagramSocket = new DatagramSocket(9999);
+					
+					DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
+					datagramSocket.receive(packet);
+
+					String data = new String(packet.getData(), 0, packet.getLength, "UTF-8");
+					System.out.println("수신받은 데이터: " + data);
+
+					datagramSocket.close();
+
+
+								
+  
+		
