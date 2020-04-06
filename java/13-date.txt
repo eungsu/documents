@@ -1,18 +1,67 @@
-Date Ŭ����
-	- �ý����� ���� ��¥�� �ð������� ǥ���ϴ� Ŭ������.
-	- java.util ��Ű���� �ִ�.
-	- �ֿ� ������
+Date 클래스
+	- 시스템의 현재 날짜와 시간정보를 표현하는 클래스다.
+	- java.util 패키지에 있다.
+	- 주요 생성자
 		new Date()
-			���� ��¥�� �ð������� ���Ե� ��ü�� �����ȴ�.
-		new Date(long ���н�Ÿ��)
-			������ ���н�Ÿ�ӿ� �ش��ϴ� ��¥�� �ð�������
-			���Ե� ��ü�� �����ȴ�.
-	- �ֿ� �޼ҵ�
+			현재 날짜와 시간정보가 포함된 객체가 생성된다.
+		new Date(long 유닉스타임)
+			지정된 유닉스타임에 해당하는 날짜와 시간정보가
+			포함된 객체가 생성된다.
+	- 주요 메소드
 		boolean after(Date when)
-			������ ��¥���� ���� ��¥���� Ȯ���Ѵ�.
+			지정된 날짜보다 이후 날짜인지 확인한다.
 		boolean before(Date when)
-			������ ��¥���� ���� ��¥���� Ȯ���Ѵ�.
+			지정된 날짜보다 이전 날짜인지 확인한다.
 		int compareTo(Date other)
-			������ ��¥�� ������ ���Ѵ�.
+			지정된 날짜와 순서를 비교한다.
 		long getTime()
-			���н�Ÿ���� ��ȯ�Ѵ�.
+			유닉스타임을 반환한다.
+			
+
+
+SimpleDateFormat
+	날짜를 지정된 형식의 텍스트로 변환
+	String format(Date day)
+
+	지정된 형식의 텍스트를 날짜로 변환
+	Date parse(String text)
+
+	주요 기호
+	--------------
+	y 년
+	M 월
+	d 일
+	E 요일
+	a 오전/오후
+	H 시간(0~23)
+	h 시간(1~12)
+	m 분(0~59)
+	s 초(0~59)
+	S 밀리초(0~999)
+
+DecimalFormat
+	숫자를 지정한 형식의 텍스트로 변환
+	String format(double number)
+	String format(long number)
+
+	지정된 형식의 텍스트를 숫자로 변환
+	Number format(String text)
+
+	주요기호
+	---------------------
+	0 숫자
+	# 숫자
+	. 소숫점
+	, 자리수 구분
+
+
+String과 Integer, Long, Double
+	정수나 실수를 문자열로 변환하기
+	String.valueOf(int number)
+	String.valueOf(long number)
+	String vauleOf(double)
+
+	텍스트를 숫자로 변환하기(* 텍스트에 숫자 아닌 내용이 포함되어 있으면 오류 발생)
+	int Integer.parseInt(String text)
+	Long Long.parseLong(String text)
+	int Double.parseDouble(String text)
