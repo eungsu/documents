@@ -1,0 +1,11 @@
+브라우저에서 http://localhost/home.do
+대신 http://www.bookstore.com/home.do로 사용하기
+
+	* c:/windows/system32/drivers/etc/hosts 파일 편집하기
+1. hosts 파일을 바탕화면으로 복사한다.
+2. 바탕화면에 복사된 hosts파일을 메모장으로 연다.
+3. hosts 파일에 아래의 내용을 추가한다.
+	자신의 ip주소	웹사이트주소
+	192.168.10.65	www.bookstore.com
+4. hosts 파일을 저장한다.
+5. 편집된 hosts 파일을 c:/windows/system32/drivers/etc/에 복사한다.
