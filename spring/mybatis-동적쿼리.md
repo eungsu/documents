@@ -127,7 +127,7 @@ public String searchBooks(@RequestParam(value="opt", required=false) String opt,
   * 제목도 입력할 수 있고, 최저가격, 최고 가격도 입력할 수 있다.
   * 도서 종류(소설, 인문, 외국어, 기술, 수험서, 교재 등)도 여러 개 체크할 수 있다.
   * 따라서, 제목으로 검색하거나, 가격으로 검색하거나, 도서종류로 검색할 수 있고, 위의 세가지 조건 모두를 사용해서 검색할 수도 있다.
-  ```자바
+  ```java
   @GetMapping("/search")
   public String searchBooks(@RequestParam(value="title", required=false) String title,
       @RequestParam(value="minPrice", required=false, defaultValue="-1") int minPrice,
