@@ -93,7 +93,7 @@ public String searchBooks(@RequestParam(value="opt", required=false) String opt,
 
     return "book/list";
 }
-
+```
 ```xml
 <select id="searchBooks" parameterType="map" resultType="Book">
   select
