@@ -105,7 +105,7 @@ public String searchBooks(@RequestParam(value="opt", required=false) String opt,
   from
     books
   <where>
-    <if test="opt != null &amp;&amp;  keyword != null">
+    <if test="opt != null and  keyword != null">
       <choose>
         <when test="opt == 'title'">
           book_title like '%' || #{keyword} || '%'
