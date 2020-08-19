@@ -7,7 +7,8 @@
   * 검색조건은 주로 Map객체에 저장한다.
   * 매개변수에 null이나 빈 문자열, -1 등의 값이 들어있는 경우는 Map객체에 저장하지 않는다.
   * 따라서, Map에는 title, publisher, minPrice, maxPrice, score라는 Key가 존재할 수도 있고, 존재하지 않을 수도 있다.
-  * mybatis의 동적쿼리의 &lt;if&gt; 태그에서 key에 해당하는 값을 찾아서 null이 아닌 경우에만 그 값을 검색조건에 포함시키면 된다.    
+  * mybatis의 동적쿼리의 &lt;if&gt; 태그에서 key에 해당하는 값을 찾아서 null이 아닌 경우에만 그 값을 검색조건에 포함시키면 된다.
+  
 ```java
 @GetMapping("/seach.do")
 public String searchBooks(@RequestMapping(value="title", required="false") String title, 
@@ -15,7 +16,7 @@ public String searchBooks(@RequestMapping(value="title", required="false") Strin
     @RequestMapping(value="minPrice", required="false", defaultValue="-1") int minPrice,
     @RequestMapping(value="maxPrice", required="false", defaultValue="-1") int maxPrice,
     @RequestMapping(value="score", required="false", defaultValue="-1") int score,
-    Model model) {
+    Model model) {  
   
   Map<String, Object> params = new HashMap<String, Object>();
   if (title != null && !title.isEmpty()) {
@@ -35,7 +36,8 @@ public String searchBooks(@RequestMapping(value="title", required="false") Strin
   }
   List<Book> books = bookService.searchBooks(params);
   model.addAttribute("books", books);
-  return "/book/list"
+  
+  return "/book/list";
 }
   
 ```
@@ -68,3 +70,55 @@ public String searchBooks(@RequestMapping(value="title", required="false") Strin
   </where>
 </select>
 ```
+
+## 검색조건 중에서 특정한 검색조건 하나만 선택해서 검색하는 경우
+아래의 자바코드는 제목, 출판사, 설명 중에 하나를 선택하고, 선택된 항목에 맞는 검색어를 입력해서 검색하는 경우다.  
+  * 제목, 출판사, 설명 중에서 하나의 조건만 고를 수 있다.
+  * 검색어를 입력하지 않은 경우에는 검색조건에 포함시키지 않는다.
+  * 따라서, 검색어가 null아니고, 빈 문자열도 아닌 경우에만 검색옵션과 검색키워드를 Map에 저장한다.
+```java
+@GetMappgin("/search.do")
+public String searchBooks(@RequestParam(value="opt", required=false) String opt,
+    @RequestParam(value="keyword", required=false) String keyword,
+    Model model) {  
+  
+    Map<String, Object> params = new HashMap<String, Object>();
+    if (keyword != null && !keyword.isEmpty()) {
+      params.put("opt", opt);
+      params.put("keyword", keyword);
+    }
+    
+    List<Book> books = bookService.searchBooks(params);
+    model.addAttribute("books", books);
+
+    return "book/list";
+}
+
+```xml
+<select id="searchBooks" parameterType="map" resultType="Book">
+  select
+    book_no         as no,
+    book_title      as title,
+    book_writer     as writer,
+    book_publisher  as publisher,
+    book_price      as price
+  from
+    books
+  <where>
+    <if test="opt != null &&  keyword != null">
+      <choose>
+        <when test="opt == 'title'">
+          book_title like '%' || #{keyword} || '%'
+        </when>
+        <when test="opt == 'publisher'">
+          book_publisher like '%' || #{keyword} || '%'
+        </when>
+        <when test="opt == 'summary'">
+          book_summary like '%' || #{keyword} || '%'
+        </when>
+      </choose>
+    </if>
+  </where>
+</select>
+```
+
