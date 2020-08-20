@@ -1,10 +1,13 @@
-Git
-	설치하기
-		www.git-scm.com 에서 git 설치파일 받기
-	최초 설정하기
-		cmd 창 열기
-		git config --global user.name "사용자명"
-		git config --global user.email "사용자이메일"
+# Git
+## 설치하기
+1. [Git 홈페이지](http://www.git-scm.com) 에서 git 설치파일 다운받기
+2. 프로그램 설치하기
+2. Git 초기 설정하기
+ ```
+ git config --global user.name "사용자명"
+ git config --global user.email "사용자이메일"
+ ```
+
 Git의 역할
 	파일의 버전 관리(파일의 변경이력을 관리)
 	브랜치를 이용하면 완전히 구분되는 별도의 소스 작업영역을 만든다.
