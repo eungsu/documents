@@ -1,64 +1,86 @@
 # Git
-## 설치하기
-1. [Git 홈페이지](http://www.git-scm.com) 에서 git 설치파일 다운받기
-2. 프로그램 설치하기
-2. Git 초기 설정하기
- ```
- git config --global user.name "사용자명"
- git config --global user.email "사용자이메일"
- ```
+* 분산형 버전관리 시스템이다.
 
-Git의 역할
-	파일의 버전 관리(파일의 변경이력을 관리)
-	브랜치를 이용하면 완전히 구분되는 별도의 소스 작업영역을 만든다.
-	파일 변경이력정보가 사용자의 컴퓨터에 저장된다.(로컬저장소에 저장된다.)
-	github와 같은 원격저장소를 활용하면 다른 개발자와 소스공유가 가능하다.
+## Git의 역할
+* 파일의 버전 관리(파일의 변경이력을 관리)
+* 브랜치를 이용하면 완전히 구분되는 별도의 소스 작업영역을 만든다.
+* 파일 변경이력정보가 사용자의 컴퓨터에 저장된다.(로컬저장소에 저장된다.)
+* github와 같은 원격저장소를 활용하면 다른 개발자와 소스공유가 가능하다.
 
-Git의 주요 명령어
-	git init
-		로컬 저장소 생성
-	git status
-		현재 작업 디렉토리의 상태를 확인
-	git add *
-	git add 파일명
-	git add 디렉토리명
-		지정된 파일 혹은 디렉토리를 stage영역으로 이전 시킨다.
-	git commit -m "메세지"
-		stage영역에 있는 모든 파일을 로컬저장소에 저장한다.
-	git remote add origin 원격저장소주소
-		원격저장소를 origin이라는 이름으로 등록한다.
-	git push origin master
-		원격저장소 origin에 로컬저장소의 master 브랜치의 커밋된 내용을 전송한다.
-	git pull origin master
-		원격저장소 origin에 저장된 최종버전의 소스를 로컬저장소의 master 브랜치와 병합한다.
-	git log -n 숫자
-		소스 변경이력을 지정된 숫자만큼 보여준다.
+## Git 설정하기  
+명령어 | 실행내용
+------ | --------
+git config --global user.name "사용자명" | git의 전역 사용자명 등록
+git config --global user.email "이메일" | git의 전역 사용자의 이메일 등록
+git config --global --list | git 전역 설정 정보 조회
+
+## Git의 작업흐름
+* Git의 로컬 저장소는 **작업디렉토리**(Working directory), **인덱스**(Index), **스냅샷**(Commit)으로 구성된다.
+  - Working directory : 실제 파일들이 존재하는 디렉토리다.
+  - Index : 스냅샷에 대한 준비영역(Staging area)이다.
+  - Commit : Index에 추가된 파일을 로컬 저장소에 반영한다.
+* Git는 작업 디렉토리의 모든 파일을 **Tracked**(관리대상 파일이다)와 **Untracked**(관리대상 파일이 아니다)로 나눈다.
+* Tracked 파일은 이미 스냅샷에 포함돼 있던 파일이다.
+* Tracked 파일은 Unmodified(수정하지 않음)와 Modified(수정함) 그리고 **Staged**(커밋하면 저장소에 기록되는 파일) 상태 중 하나다.
+* Untracked 파일은 스샙냣에 포함돼 있는 것도 아니고, **Staging Area**에 있는 것도 아닌 상태다.
+* 작업 디렉토리에서 새로운 파일을 생성하면 **UnTracked** 상태다.
+* **git add**를 실행하면 해당 파일은 **Tracked**상태이면서 **Staged**상태가 된다.
+* **git add**를 실행한 후 파일을 다시 수정하면 **Unstaged**상태가 된다. 
+* 커밋을 실행하면 **git add**를 실행한 싯점의 파일이 커밋되어 저장소 히스토리에 남는다.
+
+  
+명령어 | 실행내용
+------ | --------
+git init | 새로운 git 저장소를 생성한다
+git status | 파일의 상태를 확인할 수 있다.
+git clone <저장소URL> | 원격 서버의 저장소를 복제한다.
+git add  <파일명> | 변경된 파일을 인덱스에 추가한다
+git add * | 변경된 모든 파일을 인덱스에 추가한다
+git commit -m "<이번 확정본에 대한 설명>" | 변경된 내용을 확정하고 로컬 저장소에 반영한다
+  
+## 변경 내용 발행하기
+* 로컬 저장소의 변경 내용을 원격 서버로 발행할 수 있다.
+
+명령어 | 실행내용
+------ | --------
+git remote add origin <원격 서버 주소> | 새로운 원격 저장소를 추가한다
+git push origin master | 변경된 내용을 원격 저장소로 보낸다
+  
+ ## 브랜치 관리하기
+ * 브랜치는 안전하게 격리된 상태에서 개발을 진행할 때 사용한다.
+ * 로컬 저장소를 새로 만들면 기본으로 **master** 브랜치가 만들어진다.
+ * 새로운 브랜치를 생성하면, master 브랜치와 안전하게 격리된 상태에서 개발을 진행할 수 있다.
+ * 새로운 브랜치에서 개발이 완료되면 master 브랜치로 돌아와 병합한다.
+ 
+명령어 | 실행내용
+------ | --------
+git checkout <브랜치> | 다른 브랜치 체크아웃한다
+git checkout -b <브랜치> | 현재 브랜치에서 새로운 브랜치 생성하고 체크아웃한다
+git merge <브랜치> | 브랜치의 변경내용을 현재 브랜치에 병합한다
+git branch -d <브랜치> | 브랜치 삭제한다
+  
+## 갱신과 병합하기
+* 로컬 저장소를 원격 저장소에 맞춰 갱신할 수 있다.  
+
+명령어 | 실행내용
+------ | --------
+git fetch | 원격 저장소의 최신 내용을 받아온다.
+git pull | 원격 저장소의 최신 내용을 받아온 후 즉시 현재 브랜치에 병합한다
+* pull과 fetch의 차이는 merge를 수행하는가, 수행하지 않는가의 차이다.
+* pull은 최신 내용을 받아온 후 즉시 병합하기 때문에 충돌이 발생할 수 있다.
+    
+## tag 달기
+* 태그를 사용하면 소프트웨어를 버전별로 관리할 수 있다.
+
+명령어 | 실행내용
+------ | --------
+git tag <태그> | 현재 **HEAD**가 가리키고 있는 커밋에 태그를 추가한다
+git tag -am "<주석>" 태그명 | 주석이 포함된 태그를 추가한다.
+git tag | 태그 목록을 조회한다
+git tag -n | 태그 목록과 주석을 조회한다.
+git tag -d <태그> | 태그를 삭제한다
 
 
-Git으로 작업하기
-	git init
-		저장소 생성
-	.gitignore 파일 생성
-		www.gitignore.io에서 내용을 가져온다.
-	github에 저장소 생성
-	git remote add origin https://github.com/아이디/저장소명.git	
-		github 저장소와 연결
-	
-
-	소스를 코딩하거나, 수정한다.
-		git add *
-			소스를 stage영역으로 상태를 이전
-		git commit -m "버전이력에 관련된 메세지를 작성한다."
-			소스를 로컬저장소에 저장한다
-		git push origin master
-			소스를 원격저장소에 저장한다.
-
-집에서 소스 받기
-	git clone https://github.com/eungsu/oop2.git
-		원격저장소를 복제한 로컬 저장소가 내 컴퓨터에 생성된다.
-
-	git pull origin master
-		원격저장소의 최신 버전 소스를 로컬저장소와 병합시킨다.
 
 
 
