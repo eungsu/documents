@@ -44,7 +44,7 @@
 ```
 - for문의 실행 순서
 
-![Alt for문의 실행흐름](/images/java/for.PNG)
+<kbd>![alt for문의 실행흐름](/images/java/for.PNG)</kbd>
 
 - for문 사용예제
   + 수행문을 3번 실행하기
