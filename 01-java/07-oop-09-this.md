@@ -29,4 +29,39 @@
 - 생성자 메소드에서 다른 생성자메소드를 호출할 때는 반드시 수행문의 첫줄에 this()를 적어야 한다.
 - 생성자 메소드가 여러개 재정의되어 있을 때는 해당 생성자의 매개변수에 맞게 **this(인자, 인자, 인자, ...)** 의 형태로 호출하면 된다.
 
+## this() 사용예
+```java
+  public class User {
+    int no;
+    String name;
+    String userId;
+    int password;
+    String email;
+    boolean disabled;
+    
+    User() {
+      this(0, "guest", "guest", 0000, null, false);
+    }
+    
+    User(int no, String name, String userId, int password) {
+      // 다른 생성자 메소드를 호출함
+      this(no, name, userId, password, null, false);
+    }
+    
+    User(int no, String name, String userId, int password, String email) {
+      // 다른 생성자 메소드를 호출함
+      this(no, name, userId, password, email, false);
+    }
+    
+    User(int no, String name, String userId, int password, String email, boolean disabled) {
+      this.no = no;
+      this.name = name;
+      this.userId = userId;
+      this.password = password;
+      this.email = email;
+      this.disabled = disabled;
+    }
+  }
+```
+
   
