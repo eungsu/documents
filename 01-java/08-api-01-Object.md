@@ -6,14 +6,14 @@
 - Object에는 객체와 관련된 필수 기능들이 구현되어 있다.
 
 ## Object 클래스 주요 메소드
-- boolean equals(Object obj)
+- boolean **equals(Object obj)**
   + 현재 객체와 전달받은 객체가 동일한 객체인지 여부를 반환한다.
   + 객체들의 주소값(참조값)을 비교한다.
   + 재정의 가능
 - int hashCode()
   + 현재 객체의 해시코드값을 반환한다.
   + 재정의 가능	
-- String toString()
+- String **toString()**
   + 현재 객체에 대한 간단한 정보를 제공한다.
   + 클래스이름@16진수해시코드
   + 재정의 가능
