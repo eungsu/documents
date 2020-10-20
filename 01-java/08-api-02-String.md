@@ -149,23 +149,4 @@
     String result1 = String.valueOf(10);	// "10"
     String result2 = String.valueOf(3.14);	// "3.14"
     String result3 = String.valueOf(true);	// "true"
-  ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-			
+    
