@@ -42,19 +42,20 @@
  - 실제 활용 예제
    ```java
      public class Sample {
-	public void test1(int x) {
-	  수행문
-	}
-	public void test2(Integer x) {
-
-	}
+       public void test1(int value) {
+         수행문
+       }
+       
+       public void test2(Integer instance) {
+         수행문
+       }
      }
-    ```
-    ```java
-      public static void main(String args) {
-        Sample sample = new Sample();
+   ```
+   ```java
+     public static void main(String args) {
+       Sample sample = new Sample();
 
-        sample.test1(1);
-        sample.test2(1); // 실제 실행되는 코드 sample.test2(new Integer(1));
-      }
-    ```
+       sample.test1(1);
+       sample.test2(1); // 실제 실행되는 코드 sample.test2(new Integer(1));
+     }
+   ```
