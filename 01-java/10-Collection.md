@@ -36,7 +36,7 @@
   + 주요 구현 클래스
     * HashSet<E> : 가장 많이 사용하는 Set구현 클래스 
     * TreeSet<E> : 저장되는 요소가 오름차순으로 정렬되어서 저장된다
-  + HashSet<E>의 활용예제
+  + HashSet<E>을 
 	```java
 		public static void main(String[] args) {
 				Set<String> set = new HashSet<String>();
