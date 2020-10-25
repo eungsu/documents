@@ -38,7 +38,7 @@
     * TreeSet<E> : 저장되는 요소가 오름차순으로 정렬되어서 저장된다
   + HashSet<E>의 활용예제
 	```java
-			public static void main(String[] args) {
+		public static void main(String[] args) {
 				Set<String> set = new HashSet<String>();
 	
 					// HashSet에 객체 저장하기
