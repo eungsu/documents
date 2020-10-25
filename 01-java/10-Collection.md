@@ -36,6 +36,43 @@
   + 주요 구현 클래스
     * HashSet<E> : 가장 많이 사용하는 Set구현 클래스 
     * TreeSet<E> : 저장되는 요소가 오름차순으로 정렬되어서 저장된다
+  + HashSet<E>의 활용예제
+  ```java
+    public static void main(String[] args) {
+	Set<String> set = new HashSet<String>();
+	
+	// HashSet에 객체 저장하기
+	set.add("홍길동");
+	set.add("김유신");
+	set.add("이순신");
+	set.add("강감찬");
+	set.add("류관순");
+	set.add("강감찬");	// 동일한 객체가 저장되어 있기 때문에 저장되지 않음
+	
+	// HashSet에 저장된 객체의 갯수 조회하기
+	int count = set.size();
+	System.out.println("저장된 객체의 갯수: " + count);	// 5가 출력됨
+	
+	// HashSet이 지정된 객체를 포함하고 있는지 조회하기
+	boolean hasElement = set.contains("김유신");
+	System.out.println("김유신을 포함하고 있는가?" + hasElement); // true가 출력됨
+	
+	// HashSet에서 지정된 객체를 삭제하기
+	set.remove("홍길동");
+	
+	// HashSet이 비어있는지 조회하기
+	boolean empty = set.isEmpty);
+	System.out.println("비어있는가?" + empty);		// false가 출력됨
+	
+	// HashSet에 저장된 객체를 향상된 for문을 사용해서 순회하기
+	for (String name : set) {
+	    System.out.println("저장된 이름: " + name);
+	}
+	
+	// HashSet에 저장된 모든 객체 삭제하기		
+	set.clear();
+    }
+  ```
 - List<E>
   + 순서가 유지된다.(저장된 순서대로 다시 꺼낼 수 있다.)
   + 요소가 저장될 때 마다 index(순번)이 자동으로 부여된다.
