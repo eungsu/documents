@@ -27,7 +27,7 @@
       } 	
     }
   ```
-  * 제네릭 클래스 정의하고 
+  * 제네릭 클래스 정의한다.
   ```java
     public class Sample<T> {
       private T data; 
