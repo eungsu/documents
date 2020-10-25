@@ -32,13 +32,26 @@
 
 ## Collection<E>의 주요 하위 인터페이스
 - Set<E>
-  + 중복을 허용하지 않는다.(동일한 객체를 2개 저장할 수 없다.)
+  + 중복을 허용하지 않는다.(동일한 객체를 2개 저장할 수 없다.
   + 주요 구현 클래스
     * HashSet<E> : 가장 많이 사용하는 Set구현 클래스 
     * TreeSet<E> : 저장되는 요소가 오름차순으로 정렬되어서 저장된다
-  + HashSet<E>을 
+  + Set의 구현객체 생성하기
+    ```java
+      // String 객체를 여러 개 저장하는 HashSet객체 생성하기
+      Set<String> set1 = new HashSet<String>();
+      // 정수를 여러 개 저장하는 HashSet객체 생성하기
+      Set<Integer> set2 = new HashSet<Integer>();
+  
+      // Book객체를 여러 개 저장하는 HashSet객체 생성하기
+      Set<Book> set3 = new HashSet<Book>();
+      // Account객체를 여러 개 저장하는 HashSet객체 생성하기
+      Set<Account> set4 = new HashSet<Account>();
+    ```
+  + HashSet<E> 활용하기
     ```java
       public static void main(String[] args) {
+        // String객체를 여러 개 저장하는 HashSet객체 생성하기
         Set<String> set = new HashSet<String>();
 	
         // HashSet에 객체 저장하기
@@ -67,11 +80,11 @@
         // HashSet에 저장된 객체를 향상된 for문을 사용해서 순회하기
         for (String name : set) {
           System.out.println("저장된 이름: " + name);
-                  }
+        }
         // HashSet에 저장된 모든 객체 삭제하기		
         set.clear();
-        }
-  ```
+      }
+    ```
 - List<E>
   + 순서가 유지된다.(저장된 순서대로 다시 꺼낼 수 있다.)
   + 요소가 저장될 때 마다 index(순번)이 자동으로 부여된다.
@@ -90,7 +103,76 @@
     * LinkedList<E> : 더블링크로 List를 구현한 클래스(요소의 추가/삭제 성능이 우수하다.)
     * Vector<E>	: ArrayList와 유사하는 List구현 클래스(멀티스레드 환경에 안전하다.)
     * Stack<E>	: LIFO(Last-In-First-Out)으로 구현된 List구현 클래스
-
+  + List<E>의 구현객체 생성하기
+    ```java
+      // String객체를 여러 개 저장하는 ArrayList객체 생성하기
+      List<String> list1 = new ArrayList<String>();
+      // 실수를 여러 개 저장하는 ArrayList객체 생성하기
+      List<Double> list2 = new ArrayList<Double>();
+      
+      // Person객체를 여러 개 저장하는 ArrayList객체 생성하기
+      List<Person> list3 = new ArrayList<Person>();
+    ```
+  + ArrayList<E> 활용하기
+    ```java
+      public class Person {
+        private int no;
+        private String name;
+        public Person() {}
+        public Person(int no, String) {
+          this.no = no;
+          this.name = name;
+        }
+        public int getNo() {
+          return no;
+        }
+        public String name() {
+          return name;
+        }
+      }
+      public static void main(String[] args) {
+        // Person객체를 여러 개 저장할 수 있는 ArrayList객체 생
+        List<Person> personList = new ArrayList<Person>();
+        
+        // ArrayList객체에 Person객체생성하기
+        personList.add(new Person(100, "김유신"));
+        personList.add(new Person(200, "강감찬"));
+        personList.add(new Person(300, "이순신"));
+        personList.add(new Person(400, "류관순"));
+        
+        // ArrayList객체에 저장된 Person객체의 갯수를 조회하기
+        int count = personList.size();
+        System.out.println("저장된 갯수: " + count); // 4가 출력됨
+        
+        // 향상된 for문을 사용해서 ArrayList객체에 저장된 Person객체를 순회하기
+        for (Person person : personList) {
+          int no = person.getNo();
+          String name = person.getName();
+          System.out.println("번호:" + no + ", 이름:" + name);
+        }
+        
+        // ArrayList객체에서 0번에 저장된 Person객체 조회하기
+        Person person0 = personList.get(0);
+        
+        // ArrayList객체에서 2번에 칸에 저장된 Person객체 삭제하기
+        personList.remove(2)
+        
+        // ArrayList객체에서 1번에 저장된 객체를 새로운 Person객체로 변경하기
+        personList.set(1, new Person(500, "안중근"));
+        
+        // ArrayList객체에 저장된 모든 객체 삭제하기
+        personList.clear()
+      }
+    ```
+  + Stack<E> 객체 사용하기
+    ```java
+      public static void main(String[] args) {
+        Stack<String> stack = new Stack<String>();
+        
+      }
+    ```
+    
+    
 ## 배열과 콜렉션의 비교
 | 구분 | 배열 | 콜렉션 |
 | --- | --- | --- |
