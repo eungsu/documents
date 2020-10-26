@@ -99,11 +99,11 @@
     * E set(int index, E e)
       - 지정된 위치의 요소를 새 요소로 교체한다.
   + 주요 구현 클래스
-    * ArrayList*lt;E&gt; : 가장 많이 사용하는 List구현 클래스(전체 자료구조 클래스 중에서 가장 많이 사용)
+    * ArrayList&lt;E&gt; : 가장 많이 사용하는 List구현 클래스(전체 자료구조 클래스 중에서 가장 많이 사용)
     * LinkedList&lt;E&gt; : 더블링크로 List를 구현한 클래스(요소의 추가/삭제 성능이 우수하다.)
     * Vector&lt;E&gt;	: ArrayList와 유사하는 List구현 클래스(멀티스레드 환경에 안전하다.)
     * Stack&lt;E&gt;	: LIFO(Last-In-First-Out)으로 구현된 List구현 클래스
-  + List&ltE&gt;의 구현객체 생성하기
+  + List&lt;E&gt;의 구현객체 생성하기
     ```java
       // String객체를 여러 개 저장하는 ArrayList객체 생성하기
       List<String> list1 = new ArrayList<String>();
