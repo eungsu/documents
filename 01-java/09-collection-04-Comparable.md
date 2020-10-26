@@ -22,7 +22,7 @@
         return this.no - other.no;
       }
     }
-  ```java
+  ```
   + 이름을 기준으로 오름차순 정렬되도록 Comparable인터페이스 구현하기
   ```java
     public class Person implements Comparable<Person> {
