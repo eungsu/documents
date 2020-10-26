@@ -1,25 +1,36 @@
-Comparable<T> ÀÎÅÍÆäÀÌ½º
-	- Comparable<T> ÀÎÅÍÆäÀÌ½º¸¦ ±¸ÇöÇÑ °´Ã¼´Â ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä°¡´ÉÇÑ °´Ã¼°¡ µÈ´Ù.
-	- Comparable<T>ÀÇ int compareTo(T other)¸Ş¼Òµå¸¦ »ç¿ëÇØ¼­ »ç¿ëÀÚ°¡
-          Á¤·Ä±âÁØÀ» ±¸ÇöÇÏ¸é µÈ´Ù.
-	- compareTo(T other)°¡ ¹Ì¸® Á¤ÀÇµÇ¾î ÀÖ´Â Å¬·¡½º
-	  * ´ëÇ¥ÀûÀÎ Å¬·¡½º : String, ¸ğµç Wrapper Å¬·¡½º, Date µî
-	  ¿¹) "ÀÀ¼ö".compareTo("±æµ¿") ---> ¾ç¼ö
-              "ÀÀ¼ö".compareTo("ÀÀ¼ö") ---> 0
-	      "±æµ¿".compareTo("ÀÀ¼ö") ---> À½¼ö
-	- Arrays.sort(¹è¿­), Collections.sort(¸®½ºÆ®) ¸Ş¼Òµå¸¦ »ç¿ëÇØ¼­ Á¤·ÄÇÒ ¼ö ÀÖ´Ù.
-
-	
-	
-
-public class Score implements Comparable<Score> {
-
-	int kor;
-	int eng;
-	int math;
-	int total;
-
-	public int compareTo(Score t) {
-		return this.total - t.total;
-	}
-}
+# Comparable&lt;T&gt; ì¸í„°í˜ì´ìŠ¤
+- Comparable ì¸í„°í˜ì´ìŠ¤ë¥¼ êµ¬í˜„í•œ ê°ì²´ëŠ” ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬ê°€ëŠ¥í•œ ê°ì²´ê°€ ëœë‹¤.
+- Comparable ì¸í„°í˜ì´ìŠ¤ì˜ comparetoë©”ì†Œë“œë¥¼ ì¬ì •ì˜í•´ì„œ ì–´ë–¤ ê°’ì„ ê¸°ì¤€ìœ¼ë¡œ ì •ë ¬í•  ê²ƒì¸ì§€ êµ¬í˜„í•  ìˆ˜ ìˆë‹¤.
+- ì£¼ìš” ë©”ì†Œë“œ
+  + int compareTo(T other)
+    * ë°˜í™˜ê°’ì´ ì–‘ì˜ ì •ìˆ˜ë©´ ë¹„êµëŒ€ìƒì´ ë˜ëŠ” otherë³´ë‹¤ í° ê°’ì„ ê°€ì§€ëŠ” ê°ì²´ë‹¤.
+    * ë°˜í™˜ê°’ì´ 0ì´ë©´ ë¹„êµëŒ€ìƒì´ ë˜ëŠ” otherê³¼ ê°™ì€ ê°’ì„ ê°€ì§€ëŠ” ê°ì²´ë‹¤.
+    * ë°˜í™˜ê°’ì´ ìŒì˜ ì •ìˆ˜ë©´ ë¹„êµëŒ€ìƒì´ ë˜ëŠ” otherë³´ë‹¤ ì‘ì€ ê°’ì„ ê°€ì§€ëŠ” ê°ì²´ë‹¤.
+- Comparable ì¸í„°í˜ì´ìŠ¤ë¥¼ êµ¬í˜„í•œ ê°ì²´ëŠ” Arrays.sort(T[] array), Collections.sort(List<T> list) ë©”ì†Œë“œë¥¼ ì´ìš©í•´ì„œ ì •ë ¬í•  ìˆ˜ ìˆë‹¤.
+- ëŒ€í‘œì ì¸ Comparable ì¸í„°í˜ì´ìŠ¤ì˜ êµ¬í˜„ í´ë˜ìŠ¤
+ + String
+ + Date
+ + Byte, Short, Integer, Long, Float, Double, Character
+- Comparable&lt;E&gt; ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„í•˜ê¸°
+  + ë²ˆí˜¸ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬ë˜ë„ë¡ Comparableì¸í„°í˜ì´ìŠ¤ êµ¬í˜„í•˜ê¸°
+  ```java
+    public class Person implements Comparable<Person> {
+      private int no;
+      private String name;
+      
+      public int compareTo(Person other) {
+        return this.no - other.no;
+      }
+    }
+  ```java
+  + ì´ë¦„ì„ ê¸°ì¤€ìœ¼ë¡œ ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬ë˜ë„ë¡ Comparableì¸í„°í˜ì´ìŠ¤ êµ¬í˜„í•˜ê¸°
+  ```java
+    public class Person implements Comparable<Person> {
+      private int no;
+      private String name;
+      
+      public int compareTo(Person other) {
+        return this.name.compareTo(other.name);
+      }
+    }
+  ```
