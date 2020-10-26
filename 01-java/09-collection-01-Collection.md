@@ -8,12 +8,12 @@
   * 크기가 가변적이다.
   * 다양한 메소드를 지원한다.
 
-## Collection<E>
+## Collection&lt;E&gt;
 - 모든 자료구조 클래스의 최상위 인터페이스다.
 - 주요 메소드
   + boolean add(E e)
     * 자료구조에 새로운 요소를 추가한다.
-  + boolean addAll(Collection<? extends E> c)
+  + boolean addAll(Collection&lt;? extends E&gt; c)
     * 자료구조에 다른 자료구조의 모든 요소를 추가한다.
   + void clear()
     * 자료구조의 모든 요소를 삭제한다.
@@ -21,7 +21,7 @@
     * 자료구조에 지정된 객체가 존재하는지 조회한다.
   + boolean isEmpty()
     * 자료구조가 비었는지 조회한다.
-  + Iterator<E>	iterator()
+  + Iterator&lt;E&gt;	iterator()
     * 자료구조의 각 요소를 반복해서 추출해주는 반복자객체를 반환한다.
   + boolean remove(Object e)
     * 자료구조에서 지정된 객체를 삭제한다.
@@ -31,11 +31,11 @@
     * 자료구조에 저장된 요소를 배열로 반환한다.
 
 ## Collection<E>의 주요 하위 인터페이스
-- Set<E>
+- **Set&lt;E&gt;**
   + 중복을 허용하지 않는다.(동일한 객체를 2개 저장할 수 없다.
   + 주요 구현 클래스
-    * HashSet<E> : 가장 많이 사용하는 Set구현 클래스 
-    * TreeSet<E> : 저장되는 요소가 오름차순으로 정렬되어서 저장된다
+    * HashSet&lt;E&gt; : 가장 많이 사용하는 Set구현 클래스 
+    * TreeSet&lt;E&gt; : 저장되는 요소가 오름차순으로 정렬되어서 저장된다
   + Set의 구현객체 생성하기
     ```java
       // String 객체를 여러 개 저장하는 HashSet객체 생성하기
@@ -48,7 +48,7 @@
       // Account객체를 여러 개 저장하는 HashSet객체 생성하기
       Set<Account> set4 = new HashSet<Account>();
     ```
-  + HashSet<E> 활용하기
+  + HashSet&lt;E&gt; 활용하기
     ```java
       public static void main(String[] args) {
         // String객체를 여러 개 저장하는 HashSet객체 생성하기
@@ -85,11 +85,11 @@
         set.clear();
       }
     ```
-- List<E>
+- **List&lt;E&gt;**
   + 순서가 유지된다.(저장된 순서대로 다시 꺼낼 수 있다.)
   + 요소가 저장될 때 마다 index(순번)이 자동으로 부여된다.
   + 특정위치에 요소 저장하기, 특정위치의 요소 삭제하기, 특정위치의 요소 꺼내기
-  + List<E>가 지원하는 추가 메소드
+  + List&lt;E&gt;가 지원하는 추가 메소드
     * void add(int index, E e)
       - 지정된 위치에 요소를 저장한다.
     * E get(int index)
@@ -99,11 +99,11 @@
     * E set(int index, E e)
       - 지정된 위치의 요소를 새 요소로 교체한다.
   + 주요 구현 클래스
-    * ArrayList<E> : 가장 많이 사용하는 List구현 클래스(전체 자료구조 클래스 중에서 가장 많이 사용)
-    * LinkedList<E> : 더블링크로 List를 구현한 클래스(요소의 추가/삭제 성능이 우수하다.)
-    * Vector<E>	: ArrayList와 유사하는 List구현 클래스(멀티스레드 환경에 안전하다.)
-    * Stack<E>	: LIFO(Last-In-First-Out)으로 구현된 List구현 클래스
-  + List<E>의 구현객체 생성하기
+    * ArrayList*lt;E&gt; : 가장 많이 사용하는 List구현 클래스(전체 자료구조 클래스 중에서 가장 많이 사용)
+    * LinkedList&lt;E&gt; : 더블링크로 List를 구현한 클래스(요소의 추가/삭제 성능이 우수하다.)
+    * Vector&lt;E&gt;	: ArrayList와 유사하는 List구현 클래스(멀티스레드 환경에 안전하다.)
+    * Stack&lt;E&gt;	: LIFO(Last-In-First-Out)으로 구현된 List구현 클래스
+  + List&ltE&gt;의 구현객체 생성하기
     ```java
       // String객체를 여러 개 저장하는 ArrayList객체 생성하기
       List<String> list1 = new ArrayList<String>();
@@ -113,7 +113,7 @@
       // Person객체를 여러 개 저장하는 ArrayList객체 생성하기
       List<Person> list3 = new ArrayList<Person>();
     ```
-  + ArrayList<E> 활용하기
+  + ArrayList&lt;E&gt; 활용하기
     ```java
       public class Person {
         private int no;
@@ -166,7 +166,7 @@
         personList.clear()
       }
     ```
-  + Stack<E> 객체 사용하기
+  + Stack&lt;E&gt; 객체 사용하기
     ```java
       public static void main(String[] args) {
         Stack<String> stack = new Stack<String>();
