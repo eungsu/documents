@@ -130,6 +130,8 @@
           return name;
         }
       }
+    ```
+    ```java
       public static void main(String[] args) {
         // Person객체를 여러 개 저장할 수 있는 ArrayList객체 생
         List<Person> personList = new ArrayList<Person>();
@@ -169,18 +171,25 @@
       public static void main(String[] args) {
         Stack<String> stack = new Stack<String>();
         
-	// Stack객체에 문자열 저장하기
-	stack.push("김유신");
-	stack.push("강감찬");
-	stack.push("이순신");
+	      // Stack객체에 문자열 저장하기
+	      stack.push("김유신");
+	      stack.push("강감찬");
+	      stack.push("이순신");
 	
-	// Stack객체에서 맨 위에 있는 객체를 조회한다.
-	String value1 = stack.peek();	// 이순신
-	String value2 = stack.peek();	// 이순신
-	String value3 = stack.peek();	// 이순신
+	      // Stack객체에서 맨 위에 있는 객체를 조회한다.
+	      String value1 = stack.peek();	// 이순신
+	      String value2 = stack.peek();	// 이순신
+	      String value3 = stack.peek();	// 이순신
+        
+        // Stack객체에서 맨 위에 있는 객체를 꺼낸다.(Stack에서 해당 객체는 삭제된다.)
+        String value1 = stack.pop();	// 이순신
+	      String value2 = stack.pop();	// 강감찬
+	      String value3 = stack.pop();	// 김유신
+        
+        // Stack객체가 비어있는지 확인하기
+        boolean result = stack.isEmpty(); // true가 반환된다.
       }
     ```
-    
     
 ## 배열과 콜렉션의 비교
 | 구분 | 배열 | 콜렉션 |
