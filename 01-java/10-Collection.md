@@ -169,6 +169,15 @@
       public static void main(String[] args) {
         Stack<String> stack = new Stack<String>();
         
+	// Stack객체에 문자열 저장하기
+	stack.push("김유신");
+	stack.push("강감찬");
+	stack.push("이순신");
+	
+	// Stack객체에서 맨 위에 있는 객체를 조회한다.
+	String value1 = stack.peek();	// 이순신
+	String value2 = stack.peek();	// 이순신
+	String value3 = stack.peek();	// 이순신
       }
     ```
     
