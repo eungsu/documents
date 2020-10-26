@@ -42,9 +42,39 @@
     * HashMap과 사용법은 동일하지만, 멀티스레드환경에서 안전하다.
 - HashMap<K, V> 사용하기
   ```java
-    
     public static void main(String[] args) {
-    
+      Map<Integer, String> map = new HashMap<Integer, String>();
+      
+      // HashMap객체에 Key, Value의 쌍으로 데이터 저장하기
+      map.put(100, "김유신");
+      map.put(200, "강감찬");
+      map.put(300, "이순신");
+      map.put(400, "류관순");
+      
+      // HashMap객체에 저장된 데이터를 key를 이용해서 조회하기
+      String value1 = map.get(100);   // 김유신이 조회됨
+      String value2 = map.get(300);   // 이순신이 조회됨
+      String value3 = map.get(500);   // null이 반환됨
+      
+      // HashMap객체에 지정된 Key값이 존재하는지 확인하기
+      boolean result1 = map.containsKey(300); // true가 반환됨
+      
+      // HashMap객체에 저장된 Key, Value 쌍의 갯수를 조회하기
+      int count = map.size(); // 4가 조회됨
+      
+      // HashMap객체에서 지정된 Key값으로 저장된 데이터를 삭제하기
+      map.remove(200);  // 200, "강감찬"의 key, Value쌍의 데이터가 삭제됨
+      
+      // HashMap객체가 비어있는지 확인하기
+      boolean result2 = map.isEmpty(); // false가 반환됨
+      
+      // HashMap객체에 저장된 모든 Entry객체를 조회하기
+      Set<Entry<Integer, String>> entries = map.entrySet();
+      for (Entry<Integer, String> entry : entries) {
+        int key = entry.getKey(); // key값이 반환됨
+        String value = entry.getValue(); // value값이 반환됨
+        System.out.println(key + " : " + value);
+      }
     }
   ```
 
