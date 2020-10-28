@@ -9,7 +9,7 @@
     * 반복할 요소가 남아있으면 true를 반환한다.
   + E next()
     * 현재 반복대상이 되는 요소를 꺼낸다.
-  + void emove()
+  + void remove()
     * 현재 반복대상이 되는 요소를 삭제한다
 
 ## Iterator&lt;E&gt;
@@ -20,6 +20,8 @@
     * HahsSet의 각 요소를 순회하는 Iterator구현객체가 획득된다. 
   + LinkedList&lt;E&gt;객체의 iterator()를 실행하면
     * LinkedList의 각 요소를 순회하는 Iterator구현객체가 획득된다.
+- 사용예제
+
 - 결론
   + Collection<E>를 구현한 자료구조 구현클래스들은 자신의 자료구조에 저장된 각 요소를 순회하는 자신만의 Iterator구현객체를 제공한다.
   + 각 자료구조 구현클래스들의 Iterator 구현내용은 다를 수 있지만, 사용방법은 동일한 구현Iterator객체를 제공한다.
