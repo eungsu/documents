@@ -6,7 +6,7 @@
   + File(String pathname)
   + File(String path, String name)
   + File(File path, String name)
- - 주요 메소드
+- 주요 메소드
   + String getName()
     * 파일명을 반환한다.
   + long length()
