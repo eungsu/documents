@@ -1,7 +1,6 @@
 # DML
 ## 데이터 조회
-- SELECT 명령어 
-    * 테이블의 데이터를 조회한다.SELECT문의 형식
+- 데이터 
   + 테이블의 모든 행, 모든 컬럼을 조회
   ```sql
     SELECT *
@@ -43,11 +42,11 @@
     SELECT 컬럼명 별칭, 컬럼명 "별칭", 연산식 별칭, ...
     FROM   테이블명
   ```
-  + 행의 제한(데이터 필터링)
-    * 제시된 조건식을 만족하는 행만 조회된다.
+- 행의 제한(데이터 필터링)
+  + 제시된 조건식을 만족하는 행만 조회된다.
   ```sql
     SELECT 컬럼명, 컬럼명,....
-		FROM 테이블
+    FROM 테이블
     WHERE  조건식;
   ```
   + 논리 연산자
@@ -67,50 +66,59 @@
     WHERE 조건식 AND (조건식 OR 조건식);
   ```
   + 기타 연산자
-    * between 하한값 and 상한값
+    * BETWEEN 하한값 AND 상한값
       - 컬럼의 값이 하한값과 상한값 범위내면 true다.
     ```sql
       SELECT 컬럼명, 컬럼명, ....
       FORM 테이블명
       WHERE 컬럼명 BETWEEN 값 AND 값;
     ```
-    * in (값, 값, 값, ...)
+    * IN (값, 값, 값, ...)
       - 컬럼의 값이 제시된 값들 중 하나와 일치하면 true다.
     ```sql
       SELECT 컬럼명, 컬럼명, ....
       FROM 테이블명
       WHERE 컬럼명 IN (값, 값, ...);
     ```
-    * like '패턴'
+    * LIKE '패턴'
       - 컬럼의 값이 제시된 패턴과 일치하면 true다.
       - 패턴문자  
-      | 패턴문자 | 설명 | 예제 |
-      | --- | --- | --- |
+      
+      | 패턴문자 | 설명 |
+      | --- | --- | 
 			| '%' | 0개 이상의 일련의 임의의 문자를 나타낸다 | 
       | '_' | 임의의 문자 하나를 나타낸다 |
+      
       - 이름 LIKE '이_'; 성이 이씨고, 이름이 한 글자인 사람
       - 이름 LIKE '이%'; 성이 이씨인 사람
       - 책제목 LIKE '%자바%'; 제목에 "자바"가 포함되어 있는 모든 책
+    ```sql
+      SELECT 컬럼명, 컬럼명, ....
+      FROM 테이블명
+      WHERE 컬럼명 LIKE %패턴%
+    ```
+    * IS NULL, IS NOT NULL
+      - 컬럼의 값이 NULL인 행 혹은 NULL이 아닌 경우 TRUE
+    ```sql
+      SELECT 컬럼명, 컬럼명, ....
+      FROM 테이블명
+      WHERE 컬럼명 IS NULL
       
-      ```sql
-        SELECT 컬럼명, 컬럼명, ....
-        FROM 테이블명
-        WHERE 컬럼명 LIKE %패턴%
-      ```
-    * is null
-      - 컬럼의 값이 null이면 true다.
-		* is not null
-      - 컬럼의 값이 null이 아니면 true다.
-+ 행을 정렬하기
-			order by 절 사용한다.
-			order by 절은 select문의 맨 마지막에 등장해야 한다.
-			작성예
-				select ~
-				from   ~
-				[where ~]
-				[order by {컬럼명|표현식} [ASC|DESC]]
-				* ASC : 오름차순 정렬
-				* DESC : 내림차순 정렬
+      SELECT 컬럼명, 컬럼명, ....
+      FROM 테이블명
+      WHERE 컬럼명 IS NOT NULL;
+    ```
+- 행의 정렬
+  + order by 절 사용한다.
+  + order by 절은 select문의 맨 마지막에 등장해야 한다.
+  ```sql
+	  SELECT 컬럼명, 컬럼명, ....
+    FROM 테이블명
+    [where 조건식]
+    [order by {컬럼명|표현식} [ASC|DESC]]
+		* ASC : 오름차순 정렬
+		* DESC : 내림차순 정렬
+  ```
 
 				
 	- 데이터 추가	
