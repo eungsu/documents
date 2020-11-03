@@ -9,22 +9,10 @@
     SELECT *
     FROM   테이블명;
   ```
-- 테이블의 모든 행, 특정 컬럼을 조회
-  ```sql
-    SELECT 컬럼명, 컬럼명, ...
-    FROM   테이블명;
-  ```
-- 테이블의 특정 행, 모든 컬럼을 조회
-  ```sql
-    SELECT *
-    FROM   테이블명
-    WHERE  조회조건식
-  ```
 - 테이블의 특정 행, 특정 컬럼을 조회
   ```sql
     SELECT 컬럼명, 컬럼명, ...
-    FROM   테이블명
-    WHERE  조회조건식
+    FROM   테이블명;
   ```
 - 산술식 사용하기
   + select절, where절, group by절, having절 등에서 산술연산자를 사용할 수 있다.
