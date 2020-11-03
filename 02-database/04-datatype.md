@@ -38,14 +38,12 @@
   AAAEAWAAEAAAACtAAA	10		Administration	
   AAAEAWAAEAAAACtAAB	20		Marketing	
   AAAEAWAAEAAAACtAAC	30		건희 영업팀	
+  
+  오브젝트번호  파일번호  블록번호  데이터번호 
+  AAAEAW  AAE  AAAACt  AAA 
+  AAAEAb  AAE  AAAADN  AAA 
+
   ```
-+ rowid의 구성
-
-| 오브젝트번호 | 파일번호 | 블록번호 | 데이터번호 |
-| --- | --- | --- | --- | --- |
-| AAAEAW | AAE | AAAACt | AAA |
-| AAAEAb | AAE | AAAADN | AAA |
-
 + 오브젝트번호 
   * 해당 데이터가 속해있는 데이터베이스 객체(테이블)의 번호
   * 데이터베이스 객체마다 고유하다.
