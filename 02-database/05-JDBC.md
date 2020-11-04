@@ -16,14 +16,6 @@
     * SQL실행결과의 DB 반영을 취소시킨다.
   + void close()
     * DB와의 접속을 해제한다.
-- Statement 인터페이스
-  + SQL의 전송을 담당하는 객체다.
-  + int executeUpdate(String sql)
-    * INSERT, UPDATE, DELETE 쿼리를 DB로 전송하고, 실행결과를 반환한다.
-  + ResultSet executeQuery(String sql)
-    * SELECT 쿼리를 DB로 전송하고, 조회결과를 반환한다.
-  + void close()
-    * DB 연결 자원을 해제한다.
 - PreparedStatement 인터페이스
   + SQL의 전송을 담당하는 객체다.
   + int executeUpdate()
@@ -52,5 +44,69 @@
   + JDBC드라이버는 각 DBMS제작사가 자사의 DBMS에 엑세스할 수 있도록 위에 언급한 인터페이스를 구현한 클래스들의 모음이다.
   + Connection getConnection(String url, String username, String password)
     * url이 가르키는 데이터베이스에 지정된 계정정보로 연결을 시도한 후 연결을 담당하는 Connection객체를 반환한다.
-
+    
+ ## JDBC API를 사용해서 자바와 데이터베이스 연동하기
+ - 자바와 데이터베이스 연동 절차
+   1. JDBC 드라이브 JVM 메모리에 로딩하기
+   ```java
+     Class.forName("oracle.jdbc.OracleDriver");
+   ```
+   2. DBMS와 연결을 담당하는 Connection객체 획득하기
+   ```java
+     String url = "jdbc:oracle:thin:@localhost:1521:xe";
+     String username = "hta";
+     String password = "zxcv1234";
+     Connection connection = DriverClassName.getConnection(url, username, password);
+   ```
+   3. DDBMS에 SQL 전송과 실행을 담당하는 PreparedStatement객체 획득하기
+   ```java
+     String sql = "insert into department(deptno, dname, part, build) values (?, ?, ?, ?)";
+     PreparedStatement pstmt = connection.prepareStatement(slq);
+   ```
+   4. SQL의 ?에 값을 대응시키기
+   ```java
+     pstmt.setInt(1, 204);
+     pstmt.setString(2, '정밀기계공학과');
+     pstmt.setInt(3, 200);
+     pstmt.setString(4, '정밀기계실험관');
+   ```
+   5. SQL을 DBMS에 보내서 실행시키기
+   ```java
+     pstmt.executeUpdate();
+   ```
+   6. DBMS와 연결된 모든 자원을 해제하기
+   ```java
+     pstmt.close();
+     connection.close();
+   ```
+### 데이터 조회하기
+- 레코드 한 개 조회하기
+```java
+  public Department getDepartmentByNo(int deptNo) throws SQLException {
+    Department department = null;
+    String sql = "String * from department where deptno = ?";
+  
+    String driverClassName = "oracle.jdbc.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:xe";
+    String username = "hta";
+    String password = "zxcv1234";
+  
+    Class.forName(driverClassName);
+    Connection connection = DriverManager.getConnection(url, username, password);
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    pstmt.setInt(1, deptNo);
+    ResultSet rs = pstmt.executeQuery();
+    if (rs.next()) {
+      department = new Department();
+      department.setNo(rs.getInt("deptno"));
+      department.setName(rs.getString("dname"));
+      department.setPart(rs.getInt("part"));
+      department.setBuild(rs.getString("build"));
+    }
+    rs.close();
+    pstmt.close();
+    connection.close();
+    
+    return department;
+```
 
