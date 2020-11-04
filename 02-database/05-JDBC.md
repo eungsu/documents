@@ -95,6 +95,7 @@
     Connection connection = DriverManager.getConnection(url, username, password);
     PreparedStatement pstmt = connection.prepareStatement(sql);
     pstmt.setInt(1, deptNo);
+    
     ResultSet rs = pstmt.executeQuery();
     if (rs.next()) {
       department = new Department();
@@ -108,5 +109,110 @@
     connection.close();
     
     return department;
+  }
+```
+- 레코드 여러 개 조회하기
+```java
+  public List<Department> getAllDepartments(int deptNo) throws SQLException {
+    List<Department> departmentList = new ArrayList<>();
+    String sql = "String * from department";
+  
+    String driverClassName = "oracle.jdbc.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:xe";
+    String username = "hta";
+    String password = "zxcv1234";
+  
+    Class.forName(driverClassName);
+    Connection connection = DriverManager.getConnection(url, username, password);
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    
+    ResultSet rs = pstmt.executeQuery();
+    while (rs.next()) {
+      Department department = new Department();
+      department.setNo(rs.getInt("deptno"));
+      department.setName(rs.getString("dname"));
+      department.setPart(rs.getInt("part"));
+      department.setBuild(rs.getString("build"));
+      
+      departmentList.add(department);
+    }
+    rs.close();
+    pstmt.close();
+    connection.close();
+    
+    return departmentList;
+  }
+```
+- 레코드를 추가하기
+```java
+  public void insertDepartment(Department department) throws SQLException {
+    String sql = "insert into department(deptno, dname, part, build) values (?,?,?,?)";
+  
+    String driverClassName = "oracle.jdbc.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:xe";
+    String username = "hta";
+    String password = "zxcv1234";
+  
+    Class.forName(driverClassName);
+    Connection connection = DriverManager.getConnection(url, username, password);
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    pstmt.setInt(1, department.getNo());
+    pstmt.setString(2, department.getName());
+    pstmt.setInt(3, department.getPart());
+    pstmt.setString(4, department.getBuild());
+    pstmt.executeUpdate();
+    
+    pstmt.close();
+    connection.close();
+  }
+```
+- 레코드 삭제하기
+```java
+  public void deleteDepartmentByNo(int deptNo) throws SQLException {
+    String sql = "delete from department where deptno = ?";
+  
+    String driverClassName = "oracle.jdbc.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:xe";
+    String username = "hta";
+    String password = "zxcv1234";
+  
+    Class.forName(driverClassName);
+    Connection connection = DriverManager.getConnection(url, username, password);
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    pstmt.setInt(1, deptNo);
+    pstmt.executeUpdate();
+    
+    pstmt.close();
+    connection.close();
+  }
+```
+- 레코드 변경하기
+```java
+  public void updateDepartment(Department department) throws SQLException {
+    String sql = "update department ";
+    sql += "      set ";
+    sql += "      dname = ?, ";
+    sql += "      part = ?, ";
+    sql += "      build = ? ";
+    sql += "      where deptno = ? "
+    
+    String driverClassName = "oracle.jdbc.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:xe";
+    String username = "hta";
+    String password = "zxcv1234";
+  
+    Class.forName(driverClassName);
+    Connection connection = DriverManager.getConnection(url, username, password);
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+   
+    pstmt.setString(1, department.getName());
+    pstmt.setInt(2, department.getPart());
+    pstmt.setString(3, department.getBuild());
+    pstmt.setInt(4, department.getNo());
+    pstmt.executeUpdate();
+    
+    pstmt.close();
+    connection.close();
+  }
 ```
 
