@@ -87,7 +87,7 @@
   ```sql
     SELECT 컬럼명, 컬럼명, ....
     FROM 테이블명
-    WHERE 컬럼명 LIKE %패턴%
+    WHERE 컬럼명 LIKE '%패턴%'
   ```
   + IS NULL, IS NOT NULL
     * 컬럼의 값이 NULL인 행 혹은 NULL이 아닌 경우 TRUE
