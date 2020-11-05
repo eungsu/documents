@@ -6,7 +6,7 @@
 ## 주요 API
 - Connection 인터페이스
   + 자바프로그램과 데이터베이스간의 연결을 담당하는 객체다.
-	+ Statement createStatement()
+  + Statement createStatement()
     - SQL전송을 담당하는 Statement객체를 반환한다.
   + PreparedStatement prepareStatement(String sql)
     - SQL전송을 담당하는 Statement객체를 반환한다.
