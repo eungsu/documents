@@ -56,7 +56,7 @@
      String url = "jdbc:oracle:thin:@localhost:1521:xe";
      String username = "hta";
      String password = "zxcv1234";
-     Connection connection = DriverClassName.getConnection(url, username, password);
+     Connection connection = DriverManager.getConnection(url, username, password);
    ```
    3. DDBMS에 SQL 전송과 실행을 담당하는 PreparedStatement객체 획득하기
    ```java
