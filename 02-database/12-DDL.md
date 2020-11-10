@@ -71,7 +71,7 @@
   [{CYCLE | NOCYCLE}]		최대값/최소값이 도달했을 때 반복여부를 결정한다.
   [{CACHE e | NOCACHE}]		일련번호를 e개 만큼 미리 할당해서 메모리에 캐시하거나, 캐시를 활용하지 않는다.
 ```
--- 시퀀스 생성하기 예제
+- 시퀀스 생성하기 예제
 ```sql
   CREATE SEQUENCE 시퀀스명
   INCREMENT BY 1		
@@ -93,8 +93,9 @@
   [{MINVALUE d | NOMINVALUE}]	
   [{CYCLE | NOCYCLE}]		
   [{CACHE e | NOCACHE}]		
+  
+  -- START WITH를 제외한 나머지 설정을 변경할 수 있다.
 ```
-  + START WITH를 제외한 나머지 설정을 변경할 수 있다.
 - 시퀀스의 사용
   + 시퀀스명.NEXTVAL
     * 새로운 일련번호를 반환한다.
@@ -125,14 +126,16 @@
   CREATE [OR REPLACE] VIEW 뷰이름
   AS 서브쿼리
   WITH READ ONLY
+  
+  -- 서브쿼리는 가상의 테이블이 포함할 데이터를 조회하는 SELECT문
 ```
-  + 서브쿼리는 가상의 테이블이 포함할 데이터를 조회하는 SELECT문
 - 뷰 수정
 ```sql
   CREATE OR REPLACE VIEW 뷰이름
   AS 서브쿼리
+  
+  -- 뷰이름을 수정하려는 기존 뷰이름과 동일하게 지정하면 된다.
 ```
-  + 뷰이름을 수정하려는 기존 뷰이름과 동일하게 지정하면 된다.
 - 뷰 삭제
 ```sql
   DROP VIEW 뷰이름
