@@ -1,4 +1,4 @@
-1. ¸ğµç ¸ŞÀÎ Ä«Å×°í¸® Á¶È¸
+1. ëª¨ë“  ë©”ì¸ ì¹´í…Œê³ ë¦¬ ì¡°íšŒ
 	id 
 		getMainCategories
 	SQL
@@ -8,42 +8,42 @@
 			categories
 		where cate_parent_no is null
 	parameterClass
-		Á¤ÀÇÇÒ ÇÊ¿ä¾øÀ½
+		ì •ì˜í•  í•„ìš”ì—†ìŒ
 	resultClass
-		demo.book.Category 	<--- ¿©·¯ °³ÀÇ Ä«Å×°í¸® Á¤º¸°¡ Á¶È¸µÊ
-	½ÇÇà¹æ¹ı
+		demo.book.Category 	<--- ì—¬ëŸ¬ ê°œì˜ ì¹´í…Œê³ ë¦¬ ì •ë³´ê°€ ì¡°íšŒë¨
+	ì‹¤í–‰ë°©ë²•
 		public List<Category> getMainCategories() {
 			List<Category> result = sqlMapClient.queryForList("getMainCategories");
 			return result;
 		}
 		
 
-2. »õ·Î¿î Ä«Å×°í¸® µî·Ï
+2. ìƒˆë¡œìš´ ì¹´í…Œê³ ë¦¬ ë“±ë¡
 	id 
 		addCategory
 	SQL
 		insert into tb_categories(cate_no, cate_name, cate_parent_no)
 		values(cate_seq.nextval, #name#, #parentNo#)
 	parameterClass
-		demo.book.Category	<-- Äõ¸®½ÇÇà¿¡ ÇÊ¿äÇÑ °ªÀ» Á¦°øÇÒ °´Ã¼
-	½ÇÇà¹æ¹ı
+		demo.book.Category	<-- ì¿¼ë¦¬ì‹¤í–‰ì— í•„ìš”í•œ ê°’ì„ ì œê³µí•  ê°ì²´
+	ì‹¤í–‰ë°©ë²•
 		public void addCategory(Category c) {
 			sqlMapClient.insert("addCategory", c);
 		}
 
-3. Ä«Å×°í¸® »èÁ¦ÇÏ±â
+3. ì¹´í…Œê³ ë¦¬ ì‚­ì œí•˜ê¸°
 	id
 		deleteCategoryByNo
 	SQL	
 		delete from tb_categories where cate_no = #value#
 	parameterClass
 		int
-	½ÇÇà¹æ¹ı
+	ì‹¤í–‰ë°©ë²•
 		public void deleteCategoryByNo(int cateNo) {
 			sqlMapClient.delete("deleteCategoryByNo", cateNo)
 		}
 
-4. Ä«Å×°í¸® ¹øÈ£·Î Ä«Å×°í¸® Á¤º¸ Á¶È¸ÇÏ±â
+4. ì¹´í…Œê³ ë¦¬ ë²ˆí˜¸ë¡œ ì¹´í…Œê³ ë¦¬ ì •ë³´ ì¡°íšŒí•˜ê¸°
 	id
 		getCategoryByNo
 	SQL
@@ -56,14 +56,14 @@
 	parameterClass
 		int
 	resultClass
-		demo.book.Category	<--- ÇÑ °³ÀÇ Ä«Å×°í¸® Á¤º¸°¡ Á¶È¸µÊ
-	½ÇÇà¹æ¹ı
+		demo.book.Category	<--- í•œ ê°œì˜ ì¹´í…Œê³ ë¦¬ ì •ë³´ê°€ ì¡°íšŒë¨
+	ì‹¤í–‰ë°©ë²•
 		public Category getCategoryByNo(int catNo) {
 			Category result = (Category) sqlMapClient.queryForObject("getCategoryByNo", catNo);
 			return result;
 		}
 
-5. »óÀ§Ä«Å×°í¸® ¹øÈ£·Î ÇÏÀ§Ä«Å×°í¸® Á¤º¸ Á¶È¸ÇÏ±â
+5. ìƒìœ„ì¹´í…Œê³ ë¦¬ ë²ˆí˜¸ë¡œ í•˜ìœ„ì¹´í…Œê³ ë¦¬ ì •ë³´ ì¡°íšŒí•˜ê¸°
 	id
 		getSubCategoryByParentNo
 	SQL
@@ -76,13 +76,13 @@
 	parameterClass
 		int
 	resultClass
-		demo.book.Category	<--- ¿©·¯ °³ÀÇ Ä«Å×°í¸® Á¤º¸°¡ Á¶È¸µÊ
-	½ÇÇà¹æ¹ı
+		demo.book.Category	<--- ì—¬ëŸ¬ ê°œì˜ ì¹´í…Œê³ ë¦¬ ì •ë³´ê°€ ì¡°íšŒë¨
+	ì‹¤í–‰ë°©ë²•
 		public List<Category> getSubCategoryByParentNo(int parentNo) {
 			return sqlMapClient.queryForList("getSubCategoryByParentNo", parentNo);
 		}
 
-6. Àü´ŞµÈ ÀÌ¸§°ú µ¿ÀÏÇÑ ÀÌ¸§À» °¡Áø Ä«Å×°í¸®°¡ ÀÖ´ÂÁö(¸î°³³ª µÇ´ÂÁö) Á¶È¸ÇÏ±â
+6. ì „ë‹¬ëœ ì´ë¦„ê³¼ ë™ì¼í•œ ì´ë¦„ì„ ê°€ì§„ ì¹´í…Œê³ ë¦¬ê°€ ìˆëŠ”ì§€(ëª‡ê°œë‚˜ ë˜ëŠ”ì§€) ì¡°íšŒí•˜ê¸°
 	id
 		getCategoryCountByName
 	SQL
@@ -96,7 +96,7 @@
 		string
 	resultClass
 		int
-	½ÇÇà¹æ¹ı
+	ì‹¤í–‰ë°©ë²•
 		public int getCategoryCountByName(String catName) {
 			return (Integer)sqlMapClient.queryForObject("getCategoryCountByName", catName);
 		}
