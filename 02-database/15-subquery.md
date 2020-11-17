@@ -77,6 +77,10 @@
     * 다중행 X, 다중열 X, 단일행-단일열 O
   + 스칼라 서브쿼리는 select절, insert문의 values에서 사용할 수 있다.
   + 스칼라 서브쿼리는 decode 및, case의 조건 및 표현식에서 사용할 수 있다.
+  ```sql
+    select col1, col2, (select col3 from table2 where col4 = value)
+    from table1
+  ```
 
 
 
