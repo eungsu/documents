@@ -66,6 +66,17 @@
   + &lt;ol&gt;태그는 자식태그인 &lt;li&gt;태그를 가진다.
   + &lt;li&gt;태그가 컨텐츠를 가진다.
   + 검색어 순위 목록, 음원사이트의 음원차트 목록, 요리의 레시피, 게임의 순위
+```html
+  <h3>영화 얘매순위</h3>
+  <ul>
+    <li>도굴</li> 
+    <li>삼진그룹 영어토익반</li> 
+    <li>내가 죽던 날</li> 
+    <li>애비규환</li> 
+    <li>킹덤 오브 헤븐</li> 
+    <li>노트북</li> 
+  </ul>
+```
 - Description List 태그(정의 목록 태그)
   + &lt;dl&gt; 태그는 정의목록을 만든다.
   + defined term 태그
@@ -132,6 +143,40 @@
 - &lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt; 태그는 &lt;tr&gt; 태그를 자식태그로 가진다.
 - &lt;tr&gt; 태그는 &lt;th&gt;, &lt;td&gt;태그를 자식태그로 가진다.
 ```html
+  <h3>도서 주문정보</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>순번</th>
+        <th>제목</th>
+        <th>가격</th>
+        <th>구매수량</th>
+        <th>구매금액</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>이것이 자바다</td>
+        <td>35,000 원</td>
+        <td>1 권</td>
+        <td>35,000 원</td>
+      <tr><tr>
+        <td>2</td>
+        <td>스프링 인 액션</td>
+        <td>28,000원</td>
+        <td>2 권</td>
+        <td>56,000 원</td>
+      <tr>
+      <tr>
+        <td>3</td>
+        <td>정규표현식 핸드북</td>
+        <td>10,000 원</td>
+        <td>1 권</td>
+        <td>10,000 원</td>
+      <tr>
+    </tbody>
+  </table>
 ```
 
 - 셀병합
