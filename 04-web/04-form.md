@@ -1,25 +1,45 @@
-폼과 폼요소
-- 폼
-- <form> 태그
-- 사용자의 입력을 받는 엘리먼트(폼요소)를 모아놓을 때 사용하는 태그
-- 폼요소
-- <input>, <select>, <textarea>, <button>
-- 사용자의 입력을 받을 때 사용하는 엘리먼트
-- 폼의 작성예)
-<form>
-이름       : <input type="text" />
-아이디     : <input type="text" />		
-비밀번호   : <input type="password" />
-나이       : <input type="number" />
-생일       : <input type="date" />
-프로필사진 : <input type="file" />
-학력       : <select>
-<option> 고등학교졸업</option>
-<option> 초대졸</option>
-<option> 4년제 졸</option>
-</select>
-자기 소개  : <textarea></textarea>
+# 폼과 폼요소
+## 폼
+- 폼은 사용자가 값을 입력할 수 있는 입력요소(입력필드, 체크박스, 라디오버튼, 콤보박스 등)를 제공하는 것이다.
+- 모든 입력요소들은 &lt;form&gt; 태그 안에 정의되어야 한다.
+
+## 폼요소
+- 폼요소는 사용자가 값을 입력하거나, 선택하거나, 체크할 수 있는 것들이다.
+- 대표적인 폼요소 태그
+  + &lt;input&gt;, &lt;select&gt;, &lt;textarea&gt;, &lt;button&gt;
+- 입력폼 예시
+```html
+  <form>
+    <label>이름</label>
+    <input type="text" />
+    
+    <label>아이디</label>
+    <input type="text" />		
+    
+    <label비밀번호</label>
+    <input type="password" />
+    
+    <label>나이</label>
+    <input type="number" />
+    
+    <label>생일</label>
+    <input type="date" />
+    
+    <label>프로필사진</label>
+    <input type="file" />
+    <label>학력</label>
+    <select>
+      <option> 고등학교졸업</option>
+      <option> 초대졸</option>
+      <option> 4년제 졸</option>
+    </select>
+    
+    <label>자기 소개</label>
+    <textarea></textarea>
 </form>
+```
+
+
 - <form> 태그의 주요 속성
 * action
 form입력값을 전달받을 서버측의 웹애플리케이션 이름
