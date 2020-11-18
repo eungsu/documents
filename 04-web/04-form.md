@@ -27,6 +27,7 @@
     
     <label>프로필사진</label>
     <input type="file" />
+    
     <label>학력</label>
     <select>
       <option> 고등학교졸업</option>
