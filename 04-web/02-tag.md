@@ -41,7 +41,7 @@
     * &lt;dt&gt;
   + describe term 태그
     * &lt;dd&gt;
-  + &lt;dl&gtl;태그는 자식태그인 &lt;dt&gt;와 &lt;dd&gt;를 가진다.
+  + &lt;dl&gt;태그는 자식태그인 &lt;dt&gt;와 &lt;dd&gt;를 가진다.
   + &lt;dt&gt;와 &lt;dd&gt;가 한 쌍이다.
   + &lt;dt&gt;와 &lt;dd&gt;중에서는 &lt;dt&gt;를 먼저 적는다.
   ```html
