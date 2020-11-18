@@ -22,80 +22,87 @@
 
 ### 목록을 담는 태그
 - Unordered List 태그(순서없는 목록 태그)
-- &lt;ul&gt;
+  + &lt;ul&gt;
   + list item 태그
-    * <li>
-- &lt;ul&gt;태그는 자식태그인 &lt;li&gt;태그를 가진다.
-- &lt;li&gt;태그가 컨텐츠를 가진다.
-- 뉴스목록, 상점에서 파는 상품목록, 부서에 근무중인 사원목록, 취미 목록
+    * &lt;li&gt;
+  + &lt;ul&gt;태그는 자식태그인 &lt;li&gt;태그를 가진다.
+  + &lt;li&gt;태그가 컨텐츠를 가진다.
+  + 뉴스목록, 상점에서 파는 상품목록, 부서에 근무중인 사원목록, 취미 목록
 - Ordered List 태그(순서있는 목록 태그)
-- <ol>	
-* list item 태그
-- <li>
-- <ol>태그는 자식태그인 <li>태그를 가진다.
-- <li>태그가 컨텐츠를 가진다.
-- 검색어 순위 목록, 음원사이트의 음원차트 목록, 요리의 레시피, 게임의 순위
+  + &lt;ol&gt;	
+  + list item 태그
+    * &lt;li&gt;
+  + &lt;ol&gt;태그는 자식태그인 &lt;li&gt;태그를 가진다.
+  + &lt;li&gt;태그가 컨텐츠를 가진다.
+  + 검색어 순위 목록, 음원사이트의 음원차트 목록, 요리의 레시피, 게임의 순위
 - Description List 태그(정의 목록 태그)
-- <dl>
-* defined term 태그
-- <dt>
-* describe term 태그
-- <dd>
-- <dl>태근 자식태그인 <dt>와 <dd>를 가진다.
-- <dt>와 <dd>가 한 쌍이다.
-- <dt>와 <dd>중에서는 <dt>를 먼저 적는다.
-- 영화의 정보를 나타낼때  <dt>감독</dt><dd>홍길동</dd>
-<dt>출연자</dt><dd>김유신, 강감찬, 이순신</dd> 
-링크를 담는 태그
-- <a>
+  + &lt;dl&gt;
+  + defined term 태그
+    * &lt;dt&gt;
+  + describe term 태그
+    * &lt;dd&gt;
+  + &lt;dl&gtl;태그는 자식태그인 &lt;dt&gt;와 &lt;dd&gt;를 가진다.
+  + &lt;dt&gt;와 &lt;dd&gt;가 한 쌍이다.
+  + &lt;dt&gt;와 &lt;dd&gt;중에서는 &lt;dt&gt;를 먼저 적는다.
+  ```html
+    <h3>도서정보</h3>
+    <dl>
+      <dt>제목</dt><dd>이것이 자바다</dd>
+      <dt>저자</dt><dd>신용권</dd>
+      <dt>출판사</dt><dd>한빛미디어</dd>
+      <dt>쟝르</dt><dd>IT/모바일</dd>
+      <dt>가격</dt><dd>35,000 원</dd>
+      <dt>할인가격</dt><dd>32,000 원</dd>
+    </dt>
+  ```
+  
+### 링크를 담는 태그
+- &lt;a&gt;
 - 형식
+```html
 <a href="주소" target="어디에서 오픈할 것인지" title="풍선도움말">화면에 표시될 텍스트</a>
-* href는 필수 속성입니다.
-* target, title은 생략가능합니다.
-- <a>태그의 주요 속성
-href	: 연결될 문서의 주소를 정의한다.
-외부사이트 주소		<a href="http://사이트주소">텍스트</a>
-내부문서 주소		<a href="경로/파일명">텍스트</a>
-같은 문서내 특정 위치 	<a href="#아이디">텍스트</a>
-target	: 연결된 문서를 어디에서 오픈할 것인지를 정의한다.
-target="_blank" 	링크된 페이지를 새 창이나 새 탭에서 연다.
-target="_self"		링크된 페이지를 현재 창이나  탭에서 연다.(기본값)
-title	: 풍선도움말에 표시할 내용을 정의한다.
-표를 담는 태그
-- <table> 태그
-* 표의 제목
-<thead> 태그
-* 표의 내용
-<tbody> 태그
-* 표의 바닥글
-<tfoot> 태그
-* 표의 행 (table row)
-<tr> 태그
-* 표의 셀(table header, table data)
-<th>태그, <td> 태그
-- <table> 태그는 <thead>, <tbody>, <tfoot>태그를 자식태그로 가진다.
-- <table> 태그는 <tr> 태그를 자식태그로 가진다.
-- <thead>, <tbody>, <tfoot> 태그는 <tr>태그를 자식태그로 가진다.
-- <tr>태그는 <th>, <td>태그를 자식태그로 가진다.
-- 작성예)
-<table>
-<thead>
-<tr>
-<th>번호</th>
-<th>이름</th>
-</tr>
-<thead>						------------------
-<tbody>						| 번호  | 이름   |
-<tr>					------------------
-<td>100</td>			| 101   | Steven |		
-<td>Steven</td>			------------------
-</tr>					| 102   | Neena  |
-<tr>					------------------
-<td>101</td>
-<td>Neena</td>
-</tr>
-</tbody>
-</table>
+```
+  + href는 필수 속성입니다.
+  + target, title은 생략가능합니다.
+- &lt;a&gt;태그의 주요 속성
+  + href	: 연결될 문서의 주소를 정의한다.
+    * 외부사이트 주소		
+    ```html
+      <a href="http://www.daum.net">다음</a>
+    ```
+    * 내부문서 주소
+    ```html
+      <a href="/course/best.html">베스트셀러</a>
+    ```
+    * 같은 문서내 특정 위치
+    ```html
+      <a href="#top">문서의 처음으로 이동</a>
+    ```
+  + target	: 연결된 문서를 어디에서 오픈할 것인지를 정의한다.
+    * target="_blank" : 링크된 페이지를 새 창이나 새 탭에서 연다.
+    * target="_self" : 링크된 페이지를 현재 창이나  탭에서 연다.(기본값)
+  + title	: 풍선도움말에 표시할 내용을 정의한다.
+
+### 표를 담는 태그
+- &lt;table&gt; 태그
+  + 표를 생성하는 태그
+- &lt;thead&gt; 태그
+  + 표의 헤더부를 생성하는 태그
+- &lt;tbody&gt; 태그
+  + 표의 바디부를 생성하는 ㅐ그
+- &lt;tfoot&gt; 태그
+  + 표의 푸터부를 생성하는 태그
+- &lt;tr&gt; 태그
+  + 표에 새로운 행을 추가하는 태그
+- &lt;th&gt; 태그, &lt;td&gt; 태그
+  + 표의 헤더칸, 표의 데이터칸을 행에 추가하는 태그
+- &lt;table&gt; 태그는 &lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt; 태그를 자식태그로 가진다.
+- &lt;table&gt; 태그는 &lt;tr&gt; 태그를 자식태그로 가진다.
+- &lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt; 태그는 &lt;tr&gt; 태그를 자식태그로 가진다.
+- &lt;tr&gt; 태그는 &lt;th&gt;, &lt;td&gt;태그를 자식태그로 가진다.
+```html
+```
+
 - 셀병합
 - th나 td에서 colspan 속성을 사용해서 병합한다.
 - 열방향 병합 : colspan="병합할 열의 갯수"
