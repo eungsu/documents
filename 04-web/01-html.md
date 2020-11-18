@@ -85,7 +85,7 @@
 </html>	
 ```
 
-- &tl;!doctype html&gt;
+- &lt;!doctype html&gt;
   + html 문서의 유형을 선언하는 선언문이다.
   + "이 문서는 html5 작성규칙을 준수하는 HTML 문서다"라는 의미를 나타냄
 - &lt;html&gt; ~ &lt;html&gt;
