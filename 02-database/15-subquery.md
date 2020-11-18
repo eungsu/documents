@@ -71,7 +71,25 @@
     -- 서브쿼리에서 메인쿼리에서 사용되는 테이블의 컬럼을 참조한다.
     -- 서브쿼리에서는 메인쿼리의 테이블의 별칭을 사용해서 메인쿼리에서 사용되는 테이블의 컬럼을 참조한다.
   ```
-
+  + 예제
+    * 교수테이블에서 해당 직급의 평균급여보다 급여를 많이 받는 교수의 정보를 조회하기
+    ```sql
+      select A.profno, A.name, A.position, A.pay
+      from professor A 
+      where A.pay > (select avg(B.pay)
+                     from professor B
+                     where B.position = A.position);
+    ```
+    * 교수테이블에서 교수정보를 조회하기, 교수번호, 교수이름, 직급, 해당직급의 평균급여 정보를 조회하기
+    ```sql
+      select A.profno, A.name, A.position, A.pay, (select avg(B.pay) from professor B where B.position = A.position) position_avg_pay
+      from professor;
+    ```
+    * 교수테이블에서 교수정보를 조회하기. 교수번호, 교수이름, 직급, 해당교수가 지도하는 학생숫자를 조회하기
+    ```sql
+      select A.profno, A.name, A.position, (select count(*) from student B where B.profno = A.profno) student_cnt
+      from professor;
+    ```
 - 스칼라 서브쿼리
   + 하나의 행에서 하나의 값만 반환하는 서브쿼리다.
     * 다중행 X, 다중열 X, 단일행-단일열 O
