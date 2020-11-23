@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kr.co.hta.dao.BookDao;
+import kr.co.hta.exception.BookNotFoundException;
 import kr.co.hta.vo.Book;
 
 /**
@@ -16,13 +17,19 @@ public class BookService {
 	// SAMPLE_BOOKS와 관련된 DB Access작업이 구현된 BookDao객체 획득하기
 	private BookDao bookDao = BookDao.getInstance();
 	
+	private static BookService bookService = new BookService();
+	private BookService() {}
+	public static BookService getInstance() {
+		return bookService;
+	}
+	
 	/**
 	 * 신규도서 등록 서비스를 제공한다.
 	 * @param book 책정보가 저장된 Book객체를 전달받는다.
 	 * @throws SQLException
 	 */
 	public void insertNewBook(Book book) throws SQLException {
-		
+		bookDao.insertBook(book);
 	}
 	
 	/**
@@ -31,7 +38,7 @@ public class BookService {
 	 * @throws SQLException
 	 */
 	public List<Book> getAllBooks() throws SQLException {
-		return null;
+		return bookDao.getAllBooks();
 	}
 	
 	/**
@@ -41,17 +48,17 @@ public class BookService {
 	 * @throws SQLException
 	 */
 	public List<Book> searchBooksByTitle(String keyword) throws SQLException {
-		return null;
+		return bookDao.getBooksByTitle(keyword);
 	}
 	
 	/**
 	 * 지정된 이름의 저자가 출판한 모든 책정보를 제공한다.
-	 * @param name 작가이름
+	 * @param writer 작가이름
 	 * @return 해당 작가가 출판한 모든 책 정보
 	 * @throws SQLException
 	 */
-	public List<Book> searchBooksByWriter(String name) throws SQLException {
-		return null;
+	public List<Book> searchBooksByWriter(String writer) throws SQLException {
+		return bookDao.getBooksByWriter(writer);
 	}
 	
 	/**
@@ -62,7 +69,7 @@ public class BookService {
 	 * @throws SQLException
 	 */
 	public List<Book> searchBooksByPrice(int minPrice, int maxPrice) throws SQLException {
-		return null;
+		return bookDao.getBooksByPrice(minPrice, maxPrice);
 	}
 	
 	/**
@@ -72,7 +79,12 @@ public class BookService {
 	 * @throws SQLException
 	 */
 	public void changeBookPrice(int bookNo, int price) throws SQLException {
-		
+		Book book = bookDao.getBookByNo(bookNo);
+		if (book == null) {
+			throw new BookNotFoundException("[" + bookNo + "] 번호의 책정보가 없습니다.");
+		}
+		book.setPrice(price);
+		bookDao.updateBook(book);
 	}
 	
 	/**
@@ -82,7 +94,12 @@ public class BookService {
 	 * @throws SQLException
 	 */
 	public void increaseBookStock(int bookNo, int amount) throws SQLException {
-		
+		Book book = bookDao.getBookByNo(bookNo);
+		if (book == null) {
+			throw new BookNotFoundException("[" + bookNo + "] 번호의 책정보가 없습니다.");
+		}
+		book.setStock(book.getStock() + amount);
+		bookDao.updateBook(book);
 	}
 	
 	/**
@@ -92,6 +109,14 @@ public class BookService {
 	 * @throws SQLException
 	 */
 	public void decreaseBookStock(int bookNo, int amount) throws SQLException {
-		
+		Book book = bookDao.getBookByNo(bookNo);
+		if (book == null) {
+			throw new BookNotFoundException("[" + bookNo + "] 번호의 책정보가 없습니다.");
+		}
+		book.setStock(book.getStock() - amount);
+		if (book.getStock() == 0) {
+			book.setStatus("재고없음");
+		}
+		bookDao.updateBook(book);
 	}
 }
