@@ -3,6 +3,7 @@ package kr.co.hta.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import kr.co.hta.dao.PointHistoryDao;
 import kr.co.hta.dao.UserDao;
 import kr.co.hta.exception.InvalidPasswordException;
 import kr.co.hta.exception.PasswordMismatchException;
@@ -19,6 +20,7 @@ import kr.co.hta.vo.User;
 public class UserService {
 	
 	private UserDao userDao = UserDao.getInstance();
+	private PointHistoryDao pointHistoryDao = PointHistoryDao.getInstance();
 	
 	/**
 	 * 탈퇴한 사용자
@@ -137,7 +139,7 @@ public class UserService {
 	 * @throws SQLException
 	 */
 	public List<PointHistory> getMyPointHistories(String userId) throws SQLException {
-		return null;
+		return pointHistoryDao.getPointHistoriesByUserId(userId);
 	}
 	
 }

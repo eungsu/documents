@@ -110,7 +110,18 @@ public class OrderService {
 	 * @throws SQLException
 	 */
 	public List<Order> getMyOrders(String userId) throws SQLException {
-		return null;
+		User user = userDao.getUserById(userId);
+		if (user == null) {
+			throw new UserNotFoundException("["+userId+"] 아이디에 해당하는 사용자를 찾을 수 없습니다.");
+		}
+		
+		if (UserService.DISABLED_USER_STATUS_YES.equals(user.getDisabled())) {
+			throw new UserNotFoundException("["+userId+"] 아이디는 이미 탈퇴한 사용자 입니다.");
+		}
+		
+		List<Order> orderList = orderDao.getOrdersByUserId(userId);
+		
+		return orderList;
 	}
 	
 	/**

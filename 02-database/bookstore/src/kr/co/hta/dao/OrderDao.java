@@ -63,8 +63,34 @@ public class OrderDao {
 		con.close();
 	}
 
+	/**
+	 * 주문자의 주문내역정보를 조회한다.
+	 * @param userId 주문자 아이디
+	 * @return 주문내역 정보
+	 * @throws SQLException
+	 */
 	public List<Order> getOrdersByUserId(String userId) throws SQLException {
 		List<Order> orderList = new ArrayList<Order>();
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(GET_ORDERS_BY_USER_ID_SQL);
+		pstmt.setString(1, userId);
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			Order order = new Order();
+			order.setNo(rs.getLong("order_no"));
+			order.setUserId(rs.getString("user_id"));
+			order.setStatus(rs.getString("order_status"));
+			order.setCreateDate(rs.getDate("order_create_date"));
+			
+			orderList.add(order);
+		}
+		
+		rs.close();
+		pstmt.close();
+		con.close();
 
 		return orderList;
 	}

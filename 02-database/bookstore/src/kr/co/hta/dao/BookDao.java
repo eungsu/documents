@@ -13,7 +13,7 @@ import kr.co.hta.vo.Book;
 public class BookDao {
 	private static final String INSERT_BOOK_SQL = "INSERT INTO SAMPLE_BOOKS(BOOK_NO, BOOK_TITLE, BOOK_WRITER, BOOK_GENRE, BOOK_PRICE) VALUES (SAMPLE_BOOK_SEQ.NEXTVAL, ?, ?, ?, ?)";
 	private static final String GET_ALL_BOOKS_SQL = "SELECT * FROM SAMPLE_BOOKS ORDER BY BOOK_NO DESC";
-	private static final String GET_BOOKS_BY_TITLE_SQL = "SELECT * FROM SAMPLE_BOOKS WHERE BOOK_TITLE = '%' || ? || '%' ORDER BY BOOK_NO DESC";
+	private static final String GET_BOOKS_BY_TITLE_SQL = "SELECT * FROM SAMPLE_BOOKS WHERE BOOK_TITLE LIKE '%' || ? || '%' ORDER BY BOOK_NO DESC";
 	private static final String GET_BOOKS_BY_WRITER_SQL = "SELECT * FROM SAMPLE_BOOKS WHERE BOOK_WRITER = ? ORDER BY BOOK_NO DESC";
 	private static final String GET_BOOKS_BY_GENRE_SQL = "SELECT * FROM SAMPLE_BOOKS WHERE BOOK_GENRE = ? ORDER BY BOOK_NO DESC";
 	private static final String GET_BOOKS_BY_PRICE_SQL = "SELECT * FROM SAMPLE_BOOKS WHERE BOOK_PRICE >= ? AND BOOK_PRICE <= ? ORDER BY BOOK_NO DESC";
@@ -59,7 +59,7 @@ public class BookDao {
 		
 		ResultSet rs = pstmt.executeQuery();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			Book book = new Book();
 			book.setNo(rs.getInt("book_no"));
 			book.setTitle(rs.getString("book_title"));
@@ -95,7 +95,7 @@ public class BookDao {
 		
 		ResultSet rs = pstmt.executeQuery();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			Book book = new Book();
 			book.setNo(rs.getInt("book_no"));
 			book.setTitle(rs.getString("book_title"));
@@ -131,7 +131,7 @@ public class BookDao {
 		
 		ResultSet rs = pstmt.executeQuery();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			Book book = new Book();
 			book.setNo(rs.getInt("book_no"));
 			book.setTitle(rs.getString("book_title"));
@@ -167,7 +167,7 @@ public class BookDao {
 		
 		ResultSet rs = pstmt.executeQuery();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			Book book = new Book();
 			book.setNo(rs.getInt("book_no"));
 			book.setTitle(rs.getString("book_title"));
@@ -205,7 +205,7 @@ public class BookDao {
 		
 		ResultSet rs = pstmt.executeQuery();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			Book book = new Book();
 			book.setNo(rs.getInt("book_no"));
 			book.setTitle(rs.getString("book_title"));

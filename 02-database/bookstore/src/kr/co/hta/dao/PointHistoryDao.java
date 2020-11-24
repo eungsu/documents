@@ -2,6 +2,7 @@ package kr.co.hta.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,27 @@ public class PointHistoryDao {
 
 	public List<PointHistory> getPointHistoriesByUserId(String userId) throws SQLException {
 		List<PointHistory> pointHistoryList = new ArrayList<PointHistory>();
-
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(GET_POINT_HISTORIES_BY_USER_ID_SQL);
+		pstmt.setString(1, userId);
+		
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			PointHistory history = new PointHistory();
+			history.setNo(rs.getLong("history_no"));
+			history.setUserId(rs.getString("user_id"));
+			history.setContent(rs.getString("history_content"));
+			history.setPoint(rs.getLong("history_point"));
+			history.setCreateDate(rs.getDate("history_create_date"));
+			
+			pointHistoryList.add(history);
+		}
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
 		return pointHistoryList;
 	}
 }	
