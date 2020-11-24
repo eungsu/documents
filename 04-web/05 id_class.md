@@ -27,11 +27,7 @@
 - class 속성
   + 같은 클래스값을 가진 태그는 같은 스타일이 적용되게 하기위한 용도로 사용된다.
   + class속성은 여러 개의 속성값을 가지는 것이 가능하다.
-	```html
+  ```html
     <div id="container" class="nav navbar navbar-default">
     <button class="btn btn-primary btn-sm">등록</button>
   ```
-
-
-
-	
