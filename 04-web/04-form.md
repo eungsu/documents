@@ -67,6 +67,7 @@ multipart/form-data
 * 폼입력값에 첨부파일이 있는 경우 사용되는 폼입력값 변환방식이다.
 (첨부파일이 있는 폼은 반드시 <form method="post" enctype="multipart/form-data">로 설정해야 한다.)
 * 변환예
+```
 ------------------------------------임의의16진수 숫자
 Content-Disposition: form-data; name="username"
 홍길동 
@@ -77,6 +78,7 @@ hong
 Content-Disposition: form-data; name="photo"; filename="a.jpg"
 Content-Type: image/jpg
 ------------------------------------임의의16진수 숫자
+```
 - <input> 태그의 주요 속성
 * type
 - 폼입력요소의 타입을 결정한다.
