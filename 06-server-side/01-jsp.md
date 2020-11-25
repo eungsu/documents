@@ -127,12 +127,12 @@
       Book book = bookService.getBookInfo(bookNo);
     %>
     <dl>
-      <dt>제목</dt><dd><<%=book.getTitle())/dd>
-      <dt>저자</dt><dd><<%=book.getWrite())/dd>
-      <dt>쟝르</dt><dd><<%=book.getGenre())/dd>
-      <dt>가격</dt><dd><<%=book.getPrice())/dd>
-      <dt>재고량</dt><dd><<%=book.getStock())/dd>
-      <dt>상태</dt><dd><<%=book.getStatus())/dd>
+      <dt>제목</dt><dd><%=book.getTitle()) %></dd>
+      <dt>저자</dt><dd><%=book.getWrite()) %></dd>
+      <dt>쟝르</dt><dd><%=book.getGenre()) %></dd>
+      <dt>가격</dt><dd><%=book.getPrice()) %></dd>
+      <dt>재고량</dt><dd><%=book.getStock()) %></dd>
+      <dt>상태</dt><dd><%=book.getStatus()) %></dd>
     </dl>
   ```
 - 선언식	
@@ -156,7 +156,7 @@
       String currency = numerToCurrency(book.getPrice());
     %>
     <dl>
-      <dt>제목</dt><dd><%=currency%> 원</dd>
+      <dt>제목</dt><dd><%=currency %> 원</dd>
     </dl>
   ```
 - 주석	
