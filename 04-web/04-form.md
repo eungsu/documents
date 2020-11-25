@@ -41,49 +41,50 @@
 ```
 
 ### form 태그
-- <form> 태그의 주요 속성
-* action
-form입력값을 전달받을 서버측의 웹애플리케이션 이름
-(이름은 폴더경로를 포함하는 jsp파일의 이름이다.)
-* method
-form입력값을 서버로 전달하는 방식(GET, POST 중 하나)을 정의하는 속성
-GET  : form 입력값을 url뒤에 붙여서 보낸다.
-설정하지 않으면 기본값이 GET이다.
-예)register.jsp?username=홍길동&userid=hong&age=10
-POST : form 입력값을 요청메세지의 body에 담아서 서버로 보낸다.
-* 첨부파일을 서버로 보낼 때
-* 많은 입력값(종류가 많거나 크기가 크거나)를 서버로 보낼 때
-* 서버로 보내는 입력값을 url에 노출시키고 싶지 않을 때 
-* 서버로 전달되는 데이터에 대한 사이즈 제한이 없다.
-* enctype
-form입력값을 서버로 보낼 때 어떤 방식으로 변환해서 보낼 것인지를 정의하는 속성
-application/x-www-form-urlencoded 
-* 기본값이다.
-* 입력필드이름=입력값&입력필드이름=입력값&입력필드이름=입력값 <----- 이와 같은 형식으로 변환해서 보낸다.
-* 서버로 전달할 폼입력값을 변환하는 가장 일반적인 방식이다.
-(단, 폼입력값에 첨부파일이 있는 경우에는 사용할 수 없다
-       첨부파일(프로필사진, 이력서, 동영상 등)을 전달할 수 없다.)
-multipart/form-data  
-* 폼입력값에 첨부파일이 있는 경우 사용되는 폼입력값 변환방식이다.
-(첨부파일이 있는 폼은 반드시 <form method="post" enctype="multipart/form-data">로 설정해야 한다.)
-* 변환예
-```
-------------------------------------임의의16진수 숫자
-Content-Disposition: form-data; name="username"
-홍길동 
-------------------------------------임의의16진수 숫자       
-Content-Disposition: form-data; name="userid"
-hong
-------------------------------------임의의16진수 숫자
-Content-Disposition: form-data; name="photo"; filename="a.jpg"
-Content-Type: image/jpg
-------------------------------------임의의16진수 숫자
-```
-- <input> 태그의 주요 속성
-* type
-- 폼입력요소의 타입을 결정한다.
-- 타입의 종류
-type="text"		: 입력필드가 된다.
+- &lt;form&gt; 태그의 주요 속성
+  + action
+    * form입력값을 전달받을 서버측의 웹애플리케이션 이름
+    * 이름은 폴더경로를 포함하는 jsp파일의 이름이다.
+  + method
+    * form입력값을 서버로 전달하는 방식(GET, POST 중 하나)을 정의하는 속성
+    * GET : form 입력값을 url뒤에 붙여서 보낸다. 설정하지 않으면 기본값이 GET이다.
+    * POST : form 입력값을 요청메세지의 body에 담아서 서버로 보낸다.
+      - 첨부파일을 서버로 보낼 때
+      - 많은 입력값(종류가 많거나 크기가 크거나)를 서버로 보낼 때
+      - 서버로 보내는 입력값을 url에 노출시키고 싶지 않을 때 
+      - 서버로 전달되는 데이터에 대한 사이즈 제한이 없다.
+  + enctype
+    * form입력값을 서버로 보낼 때 어떤 방식으로 변환해서 보낼 것인지를 정의하는 속성
+    * application/x-www-form-urlencoded 
+      - 기본값이다.
+      - 서버로 전달되는 값의 형식
+      ```
+        입력필드이름=입력값&입력필드이름=입력값&입력필드이름=입력값 
+      ```
+      - 서버로 전달할 폼입력값을 변환하는 가장 일반적인 방식이다.
+      - 단, 폼입력값에 첨부파일이 있는 경우에는 사용할 수 없다. 첨부파일(프로필사진, 이력서, 동영상 등)을 전달할 수 없다.
+    * multipart/form-data  
+      - 폼입력값에 첨부파일이 있는 경우 사용되는 폼입력값 변환방식이다.
+      - 첨부파일이 있는 폼은 반드시 <form method="post" enctype="multipart/form-data">로 설정해야 한다.
+      - 서버로 전달되는 값의 형식
+      ```
+        ------------------------------------임의의16진수 숫자
+        Content-Disposition: form-data; name="username"
+        홍길동 
+        ------------------------------------임의의16진수 숫자       
+        Content-Disposition: form-data; name="userid"
+        hong
+        ------------------------------------임의의16진수 숫자
+        Content-Disposition: form-data; name="photo"; filename="a.jpg"
+        Content-Type: image/jpg
+        ------------------------------------임의의16진수 숫자
+      ```
+### input 태그
+- &lt;input&gt; 태그의 주요 속성
+  + type
+    * 폼입력요소의 타입을 결정한다.
+    * 타입의 종류
+      - type="text"		: 입력필드가 된다.
 type="password"		: 비밀번호 입력필드가 된다.
 type="date"		: 날짜 입력필드가 된다.(달력표시)
 type="number"		: 숫자 입력필드가 된다 (숫자만 입력가능)
