@@ -6,7 +6,14 @@
   + id의 속성의 값은 고유해야 한다.
   + id 속성의 값은 숫자로 시작할 수 없다.
   ```html
-    <table id="student-table"></table>
+    <h3>학생 테이블</h3>
+    <table id="student-table"> ... </table>
+    
+    <h3>교수 테이블</h3>
+    <table id="professor-table"> ... </table>
+    
+    <h3>교직언 테이블</h3>
+    <table id="employee-table"> ... </table>
     
     <form id="register-form">
       <label>이름</label> <input type="text" id="user-name" />
