@@ -29,7 +29,7 @@
     * 설정예)
     ```jsp
       <% page import="java.util.List"%>
-      <% page import="java.util.List,  java.util.ArrayList"%>
+      <% page import="java.util.List,java.util.ArrayList"%>
     ```
   + errorPage
     * jsp파일 실행 중 에러 발생시 표시할 페이지를 설정
