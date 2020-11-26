@@ -46,7 +46,7 @@
   + &lt;%@ jsp 페이지 설정 정보%&gt;
 	+ JSP 페이지에 대한 설정정보를 정의하는 JSP의 구성요소다.
   ```jsp
-    <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-9" %>
+    <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
     <%@ include file="common/header.jsp" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   ```
