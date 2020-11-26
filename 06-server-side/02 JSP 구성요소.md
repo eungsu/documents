@@ -128,20 +128,35 @@
   <table>
     <tr>
       <th>직원이름</th><td><%=emp.getName() %></td>
-      <th>
+      <th>소속부서번호</th><td><a href="dept.jsp?deptno=<%=emp.getDeptNo() %>"><%=emp.getDeptNo() %></a></td>
+      <th>전화번호</th><td><input type="text" value="<%=emp.getTel() %>" /></td>
     </tr>
   </table>
-<td><%=emp.getId() %></td>		// emp.getId()에서 ;를 생략
-* 속성의 값
-<td><a href="detail.jsp?id=<%=emp.getId() %>">사원상제 정보</a></td>
-* 입력필드의 초기값
-<input type="text" value="<%=emp.getId %>" />
-* 3항 연산자를 사용한 값의 표현
-<input type="radio" value="F" <%=emp.getGender().equals("F") ? 'checked' : '' %> />여자
-- 선언부
-<%!		%>
-* JSP페이지에 새로운 필드나 새로운 메소드를 정의(선언)할 때 사용한다.
-* 사용빈도는 그렇게 높지 않다.
+```
+### 선언식
+```jsp
+  <%!
+    private DecimalFormat df = new DecimalFormat("##,###");
+    private String numberToCurrency(long number) {
+      return df.format(number);
+    }
+  %>
+```
+- JSP페이지에 새로운 필드나 새로운 메소드를 정의(선언)할 때 사용한다.
+- 사용빈도는 그렇게 높지 않다.
+
+### 주석
+```jsp
+  <%-- jsp 주석을 여기에 적는다. -->
+  
+  <%-- 아래의 모든 코드는 주석처리되어서 실행되지 않는다. --%>
+  <%--
+    int bookNo = Integer.parseInt(request.getParameter("no"));
+    BookService bookService = BookService.getInstance();
+    Book book = bookService.getBookInfo(bookNo);
+  --%>
+```
+- jsp주석을 추가한다.
 
 
 
