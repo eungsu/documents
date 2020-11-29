@@ -51,5 +51,6 @@
 ## Vue 생명주기 훅
 - Vue 생명주기 훅은 Vue 라이브러리의 일부로 실행되는 함수다.
 - Vue가 각 실행 과정 사이에 도달하면 정의한 함수를 실행한다.
-<kbd><![alt Vue 생명주기 훅](/images/vuejs/lifecycle.png)</kbd>
+<img src="/images/vuejs/lifecycle.png" width="600" height="1500" />
+<kbd>![alt Vue 생명주기 훅](/images/vuejs/lifecycle.png)</kbd>
 
