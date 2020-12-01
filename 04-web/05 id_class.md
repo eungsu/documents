@@ -10,7 +10,7 @@
     <table id="student-table"> ... </table>
     <h3>교수 테이블</h3>
     <table id="professor-table"> ... </table>
-    <h3>교직언 테이블</h3>
+    <h3>교직원 테이블</h3>
     <table id="employee-table"> ... </table>
     
     <form id="register-form">
