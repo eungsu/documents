@@ -4,9 +4,9 @@
 
 | 변수명 | 클래스명 | 설명 |
 | --- | --- | --- |
-| **request** | HttpServletRequest | 클라이언트가 보낸 요청메세지 정보를 저장한다. |
-| **response** | HttpServletResponse | 클라이언트로 보낼 응답메세지 정보를 저장한다. |
-| **session** | HttpSession | 세션정보를 저장한다.(로그인처리와 관련) |
+| **request** | **HttpServletRequest** | **클라이언트가 보낸 요청메세지 정보를 저장한다.** |
+| **response** | **HttpServletResponse** | **클라이언트로 보낼 응답메세지 정보를 저장한다.** |
+| **session** | **HttpSession** | **세션정보를 저장한다.(로그인처리와 관련)** |
 | out | JspWriter | 응답컨텐츠를 클라이언트로 출력하는 스트림 |
 | application | ServletContext | 웹 애플리케이션 프로젝트 정보를 저장한다. |
 | config | ServletConfig | JSP 페이지와 관련된 설정 정보를 저장한다. | 
