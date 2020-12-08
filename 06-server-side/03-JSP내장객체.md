@@ -19,17 +19,21 @@
 - 클라이언트가 서버로 보낸 요청 메세지를 저장하고 있다
 - 요청메세지정보를 획득할 수 있는 다양한 getXXX() 메소드를 제공한다.
 - 주요 메소드
-  + 요청 파라미터 정보를 조회하는 메소드
-    * String getParameter(String name)
-      - 지정된 이름에 해당하는 요청파라미터값을 반환한다.
-    * String[] getParameterValues(String name)
-      - 지정된 이름에 해당하는 요청파라미터값을 배열로 반환한다.
-      - 입력컨트롤이 체크박스일 때 주로 사용
-    * void setCharacterEncoding(String encoding)
-      - 지정된 인코딩방식으로 폼입력값을 복원하게 한다.
-      - getParameter 메소드를 한번이라도 사용한 이후에는 적용되지 않는다.
-  + 클라이언트의 정보를 조회하는 메소드
-  + 요청 헤더 정보를 조회하는 메소드
+
+| 반환타입 | 메소드명 | 설명 |
+| --- | --- | --- |
+| String | **getParameter(String name)** | 지정된 이름의 요청파라미터값을 반환한다.<br/>요청파라미터값이 없으면 null을 반환한다 |
+| String[] | **getParameterValues(String name)** | 지정된 이름의 모든 요청파라미터값을 배열의 형태로 반환한다<br/>요청파라미터값이 없으면 null을 반환한다 |
+| void | **setCharacterEncoding(String encoding)** | 요청파라미터값을 지정된 인코딩방식으로 복원한다 |
+| void | **setAttribute(String name, Object value)** | 요청객체에 이름,객체 쌍의 속성(객체)을 저장한다. |
+| Object | **getAttribute(String name)** | 요청객체에서 지정된 이름으로 저장된 속성(객체)를 반환한다.<br/>지정된 이름의 속성이 존재하지 않으면 null을 반환한다. |
+| void | **removeAttribute(String name)** | 요청객체에서 지정된 이름으로 저장된 속성(객체)을 삭제하다. |
+| HttpSession | getSession() | 요청객체의 세션아이디에 해당하는 세션객체를 반환한다.<br/>세션아이디가 없으면 세션객체를 새로 생성한 후 반환한다.<br/>세션아이디에 해당하는 세션객체가 없으면 새로 생성한 후 반환한다 |
+| HttpSession | getSession(boolean create) | create값을 true로 설정하면 위의 getSession() 메소드와 동일.<br/>create값을 false로 설정하면 세션아이디에 해당하는 세션객체가 <br/> 있을 때만 세션객체를 반환하고, 아닌 경우 null을 반환한다 |
+| String | getHeader(String name) | 지정된 이름의 요청헤더값을 반환한다 |
+| String | getRequestURI() | 요청 URI 경로를 반환한다 |
+| String | getContextPath() | 현재 웹애플리케이션의 컨텍스트 경로를 반환한다 |
+| String | getRemoteAddr() | 요청을 보낸 클라이언트의 ip주소를 반환한다 |
 
 ## HttpServletResponse
 - response 변수에 저장된다.
