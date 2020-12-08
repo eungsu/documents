@@ -40,14 +40,13 @@
 - 서버가 클라이언트로 보낼 응답 메세지를 책임진다.
 - 응답메세지에 대한 다양한 정보를 설정할 수 있는 setXXX() 메소드를 제공한다.
 - 주요 메소드
-  + 응답메세지에 대한 정보를 설정하는 메소드
-  + 리다이렉트 응답을 보내는 메소드
-    * void sendRedirect(String url)
-      - 재요청할 페이지의 경로를 브라우저에게 응답으로 보낸다.
-      - JSP페이지에서 INSERT/UPDATE/DELETE 작업을 수행하였다면 DB의 변경된 정보를 조회할 수 있는 JSP페이지에 대한 url을 응답으로 제공해야 된다.
-      - HTTP응답코드를 302로 설정
-      - 응답헤더에 Location:재요청 JSP페이지 항목을 추가
-  + 응답 헤더 정보를 설정하는 메소드
+
+| 반환타입 | 메소드명 | 설명 |
+| --- | --- | --- |
+| void | **sendRedirect(String url)** | 지정된 url을 재요청하게 하는 응답을 보낸다 |
+| void | setContentType(String type) | 응답컨텐츠의 타입을 설정한다 |
+| void | setStatus(int statuscode) | HTTP 응답코드를 설정한다 |
+| void | setHeader(String name, String value) | 응답헤더값을 설정한다 |
 
 ## HttpSession
 - session 변수에 저장된다.
@@ -64,24 +63,15 @@
     * 접속한 클라이언트를 식별해서(누군지 안다.) 
     * 해당 클라이언트에게 적절한 응답을 제공할 수 있다.
 - 주요 메소드
-  + void setAttribute(String name, Object value)
-    * 지정된 이름으로 세션에 값(객체)을 저장한다.
-    * 이름을 다르게해서 여러 가지 담을 수 있다.
-  + Object getAttribute(String name)
-    * 지정된 이름으로 보관된 값(객체)을 조회한다.
-    * 값이 찾아지지 않으면 null을 반환
-  + void removeAttribute(String name) 
-    * 지정된 이름으로 보관된 값을 삭제한다.
-  + void invalidate()
-    * 해당 세션을 무효화시킨다.
-    * 로그아웃 요청시 실행한다.
-  + void setMaxInactiveInterval(int second)
-    * 세션객체의 최대 비활성화 시간을 지정한다.
-    * 지정된 시간동안 세션객체에 대한 엑세스가 없으면 해당 세션객체는 무효화된다.
-  + String getId();
-    * 세션의 고유한 아이디를 반환한다.
 
-
+| 반환타입 | 메소드명 | 설명 |
+| --- | --- | --- |
+| void | **setAttribute(String name, Object value)** | 세션객체에 이름,객체 쌍의 속성(객체)을 저장한다. |
+| Object | **getAttribute(String name)** | 세션객체에서 지정된 이름으로 저장된 속성(객체)를 반환한다.<br/>지정된 이름의 속성이 존재하지 않으면 null을 반환한다. |
+| void | **removeAttribute(String name)** | 세션객체에서 지정된 이름으로 저장된 속성(객체)을 삭제하다. |
+| void | invalidate() | 세션객체를 무효화시킨다.<br/>로그아웃 요청시 실행한다 |
+| void | setMaxInactiveInterval(int second) | 세션객체의 최대 비활성화 시간을 초단위로 설정한다<br/>지정된 시간동안 세션객체에 대한 엑세스가 없으면 세션객체는 무효화된다 |
+| String | getId() | 세션객체의 고유한 아이디를 반환한다 |
 
 
 
