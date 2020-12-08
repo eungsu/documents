@@ -69,7 +69,7 @@
 | void | **setAttribute(String name, Object value)** | 세션객체에 이름,객체 쌍의 속성(객체)을 저장한다. |
 | Object | **getAttribute(String name)** | 세션객체에서 지정된 이름으로 저장된 속성(객체)를 반환한다.<br/>지정된 이름의 속성이 존재하지 않으면 null을 반환한다. |
 | void | **removeAttribute(String name)** | 세션객체에서 지정된 이름으로 저장된 속성(객체)을 삭제하다. |
-| void | invalidate() | 세션객체를 무효화시킨다.<br/>로그아웃 요청시 실행한다 |
+| void | **invalidate()** | 세션객체를 무효화시킨다.<br/>로그아웃 요청시 실행한다 |
 | void | setMaxInactiveInterval(int second) | 세션객체의 최대 비활성화 시간을 초단위로 설정한다<br/>지정된 시간동안 세션객체에 대한 엑세스가 없으면 세션객체는 무효화된다 |
 | String | getId() | 세션객체의 고유한 아이디를 반환한다 |
 
