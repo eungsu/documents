@@ -8,8 +8,8 @@
 | **response** | **HttpServletResponse** | **클라이언트로 보낼 응답메세지 정보를 저장한다.** |
 | **session** | **HttpSession** | **세션정보를 저장한다.(로그인처리와 관련)** |
 | out | JspWriter | 응답컨텐츠를 클라이언트로 출력하는 스트림 |
-| application | ServletContext | 웹 애플리케이션 프로젝트 정보를 저장한다. |
-| config | ServletConfig | JSP 페이지와 관련된 설정 정보를 저장한다. | 
+| application | ServletContext | 웹 애플리케이션을 나타내는 객체다.. |
+| config | ServletConfig | 서블릿의 초기화에 필요한 정보를 저장한다. | 
 | pageContext| PageContext | JSP 페이지에 대한 정보를 저장한다. |
 | exception | Throwable | 에러정보를 저장한다.(isErrorPage="true")에서만 사용가능 |
 | page | Object | JSP 페이지를 구현한 자바객체가 저장된다. |
