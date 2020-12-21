@@ -1,267 +1,267 @@
 DOM(Document Object Model)
-	- ������ü ��
-	- HTML, XML ���� ������ �������ϴ� ǥ���� �����ϰ� �ִ�.
-          * DOM�� w3c���� HTML, XML ������ �ٷ�� ǥ��(�������̽�)�� ������ ���̴�.
-	  * DOM�� ���ǵ� ǥ�ؿ� ���� ������ 
-		������ ������, ���α׷��� ��� ���߻�, ���̺귯�� �����ڰ� ����Ѵ�.
-	- DOM���� ������ ǥ���� ������ ������, ���α׷��� ����� ������ ������� 
-	  ������ API�� �����Ǿ� �ִ�.
+	- 문서객체 모델
+	- HTML, XML 등의 문서를 엑세스하는 표준을 정의하고 있다.
+          * DOM은 w3c에서 HTML, XML 문서를 다루는 표준(인터페이스)를 정의한 것이다.
+	  * DOM에 정의된 표준에 대한 구현은 
+		브라우저 제조사, 프로그래밍 언어 개발사, 라이브러러 개발자가 담당한다.
+	- DOM에서 정의한 표준은 브라우저 종류나, 프로그래밍 언어의 종류에 상관없이 
+	  동일한 API로 구현되어 있다.
 
-	- DOM�� Ư¡
-		* ��� ������Ʈ�� ��ü��.
-		* ��� ������Ʈ�� ������Ƽ�� �����ϰ� �ִ�.
-		* ������Ʈ�� �������ϴ� �޼ҵ带 �����ϰ� �ִ�.
-		* ��� ������Ʈ�� �̺�Ʈ�� �����ϰ� �ִ�.
-	- DOM�� �ֿ� ��ü
-		- Document ��ü
-			- �� ������ HTML ������ �ε����� ��, Document ��ü�� �ȴ�.
-		- Element ��ü
-			- HTML�� �±׸� ǥ���ϴ� ��ü��.
-			- Document��ü���� ���� �ε��� HTML������ ��� �±׿� ���� Element��ü��
-           		  ���ԵǾ��ִ�.
-		- Attribute ��ü
-			- HTML �±��� �Ӽ��� ǥ���ϴ� ��ü��.
-			- Atrribute��ü�� Element��ü�� ���ԵǾ� �ִ�.
-		- HTMLCollection ��ü
-			- Element��ü�� ���� �� ������ �� �ִ� �迭���簴ü��.
-			- document.querySelectorAll("p")�� �������� HTMLCollection�̴�.
-                          querySelectAll("p")�� ��ȯ�� --> [p, p, p, p, p, p]
-		- Event ��ü
-			- ����ڰ� �� �������� ��ȣ�ۿ��� �� ���� ������Ʈ���� �߻��Ǵ� ��ü��.
-			  * ��ư�� Ŭ���� ��, ���콽 ������Ʈ�� �ű� ��, Ű���� �Է��� �� �� ��
-			- ����ڿ� ��ȣ�ۿ��ϱ� ���ؼ� ������Ʈ�� �̺�Ʈ �ڵ鷯�� ����� �� �ִ�.
+	- DOM의 특징
+		* 모든 엘리먼트는 객체다.
+		* 모든 엘리먼트의 프로퍼티를 정의하고 있다.
+		* 엘리먼트를 엑세스하는 메소드를 정의하고 있다.
+		* 모든 엘리먼트의 이벤트를 정의하고 있다.
+	- DOM의 주요 객체
+		- Document 객체
+			- 웹 브라우저 HTML 문서를 로딩했을 때, Document 객체가 된다.
+		- Element 객체
+			- HTML의 태그를 표현하는 객체다.
+			- Document객체에는 현재 로딩된 HTML문서의 모든 태그에 대한 Element객체가
+           		  포함되어있다.
+		- Attribute 객체
+			- HTML 태그의 속성을 표현하는 객체다.
+			- Atrribute객체는 Element객체에 포함되어 있다.
+		- HTMLCollection 객체
+			- Element객체를 여러 개 포함할 수 있는 배열유사객체다.
+			- document.querySelectorAll("p")의 실행결과가 HTMLCollection이다.
+                          querySelectAll("p")의 반환값 --> [p, p, p, p, p, p]
+		- Event 객체
+			- 사용자가 웹 페이지와 상호작용할 때 마다 엘리먼트에서 발생되는 객체다.
+			  * 버튼을 클릭할 때, 마우슬 엘리먼트로 옮길 때, 키보드 입력을 할 때 등
+			- 사용자와 상호작용하기 위해서 엘리먼트에 이벤트 핸들러를 등록할 수 있다.
 
-	- DOM�� �ֿ� API
-		- Document ��ü
+	- DOM의 주요 API
+		- Document 객체
 			- Property
 				cookie	
-					* html������ ��� ��Ű���� name/value�� ������ ��ȯ�Ѵ�
+					* html문서의 모든 쿠키들을 name/value의 쌍으로 반환한다
 				doctype
-					* html������ ������ ���ڿ��� ��ȯ�Ѵ�.
+					* html문서의 형식을 문자열로 반환한다.
 			- Method
-				createElement("�±׸�")
-					* ������ �±׸��� Element ��ü �����Ѵ�.
-				createAttribute("�Ӽ���", "�Ӽ���")
-					* ������ �Ӽ������� ���� Attribute ��ü�� �����Ѵ�.
-				createTextNode("�ؽ�Ʈ������")
-					* ������ �ؽ�Ʈ������ ������ TextNode��ü�� �����Ѵ�.
-					* ������Ʈ�� �������� �����δ� TextNode�� ������ �ִ�.
-				createComment("�ּ�����")
-					* ������ �ּ������� ������ Comment��ü�� �����Ѵ�.
+				createElement("태그명")
+					* 지정된 태그명의 Element 객체 생성한다.
+				createAttribute("속성명", "속성값")
+					* 지정된 속성정보를 가진 Attribute 객체를 생성한다.
+				createTextNode("텍스트컨텐츠")
+					* 지정된 텍스트내용을 가지는 TextNode객체를 생성한다.
+					* 엘리먼트의 컨텐츠는 실제로는 TextNode가 가지고 있다.
+				createComment("주석내용")
+					* 지정된 주석내용을 가지는 Comment객체를 생성한다.
 				getElementById("id")
-					* ������ id�� �ش��ϴ� Element��ü�� ��ȯ�Ѵ�.
-				getElementsByTagName("�±׸�")
-					* ������ �±׸��� �ش��ϴ� ��� Element��ü�� HTMLCollection�� ��Ƽ� ��ȯ�Ѵ�.
-				getElementsByClassName("Ŭ����")
-					* ������ Ŭ������ ������ �ִ� ��� Element��ü�� HTMLCollection�� ��Ƽ� ��ȯ�Ѵ�.
-				querySelector("CSS������")
-					* ������ �����ڷ� �˻��� ù��° Elemenet��ü�� ��ȯ�Ѵ�.
-				querySelectorAll("CSS������")
-					* ������ �����ڷ� �˻��� ��� Element��ü�� HTMLCollection�� ��Ƽ� ��ȯ�Ѵ�.
-		- Element ��ü
+					* 지정된 id에 해당하는 Element객체를 반환한다.
+				getElementsByTagName("태그명")
+					* 지정된 태그명에 해당하는 모든 Element객체를 HTMLCollection에 담아서 반환한다.
+				getElementsByClassName("클래스")
+					* 지정된 클래스를 가지고 있는 모든 Element객체를 HTMLCollection에 담아서 반환한다.
+				querySelector("CSS선택자")
+					* 지정된 선택자로 검색된 첫번째 Elemenet객체를 반환한다.
+				querySelectorAll("CSS선택자")
+					* 지정된 선택자로 검색된 모든 Element객체를 HTMLCollection에 담아서 반환한다.
+		- Element 객체
 			- Property
 				tagName
-					* Element�� �±׸��� ��ȯ�Ѵ�.
+					* Element의 태그명을 반환한다.
 				textContent
-					* Element�� �ؽ�Ʈ �������� ��ȸ/������ �� �ִ�.
+					* Element의 텍스트 컨텐츠를 조회/변경할 수 있다.
 				innerHTML
-					* Element�� html �������� ��ȸ/������ �� �ִ�.
+					* Element의 html 컨텐츠를 조회/변경할 수 있다.
 				id	
-					* Element�� id���� ��ȯ�Ѵ�.
+					* Element의 id값을 반환한다.
 				children
-					* ��� �ڽĿ�����Ʈ���� HTMLCollection�� ��Ƽ� ��ȯ�Ѵ�.
+					* 모든 자식엘리먼트들을 HTMLCollection에 담아서 반환한다.
 				style
-					* �ش� ������Ʈ�� CSS�� ��ȸ/������ �� �ִ�.
-					* style ������Ƽ�� 
+					* 해당 엘리먼트의 CSS를 조회/변경할 수 있다.
+					* style 프로퍼티는 
 				value
-					* input, select, textarea Element�� ���� ��ȸ/������ �� �ִ�.
+					* input, select, textarea Element의 값을 조회/변경할 수 있다.
 				disabled
-					* input, select, textarea, button Element�� ��Ȱ��ȭ ���θ� ��ȸ/������ �� �ִ�.
-					* true�� ��Ȱ��ȭ, false�� Ȱ��ȭ
+					* input, select, textarea, button Element의 비활성화 여부를 조회/변경할 수 있다.
+					* true는 비활성화, false는 활성화
 				readOnly
-					* input, select, textarea, button Element�� �б����� ���θ� ��ȸ/������ �� �ִ�.
-					* true�� �б�����, false�� ��������
+					* input, select, textarea, button Element의 읽기전용 여부를 조회/변경할 수 있다.
+					* true는 읽기전용, false는 편집가능
 				checked
-					* checkbox, radio Element�� ��Ȱ��ȭ ���θ� ��ȸ/������ �� �ִ�.
-					* true�� üũ����, false�� ü�׻��¾ƴ�
+					* checkbox, radio Element의 비활성화 여부를 조회/변경할 수 있다.
+					* true는 체크상태, false는 체그상태아님
 				options
-					* select Element�� ��� option Element��ü�� HTMLCollection�� ��Ƽ��� ��ȯ�Ѵ�.
+					* select Element의 모든 option Element객체를 HTMLCollection에 담아서를 반환한다.
 				selectedIndex
-					* select Element�� ���� ���õ� �ɼ��� �ε����� ��ȸ/������ �� �ִ�.
+					* select Element의 현재 선택된 옵션의 인덱스를 조회/변경할 수 있다.
 				
 			- Method
-				getElementsByTagName("�±׸�")
-				getElementsByClassName("Ŭ����")
-				querySelector("������")
-				querySelectorAll("������")
-					* Document��ü�� ���ǵ� ��ɰ� �����Ѵ�.
-					* ��, ������ü�� �ƴ� �ش� Element ��ü �������� �˻��Ѵ�.
+				getElementsByTagName("태그명")
+				getElementsByClassName("클래스")
+				querySelector("선택자")
+				querySelectorAll("선택자")
+					* Document객체에 정의된 기능과 동일한다.
+					* 단, 문서전체가 아닌 해당 Element 객체 하위에서 검색한다.
 				
 				appendChild(Element)
-					* ������ ������Ʈ�� �� ������ �ڽĳ��� �߰��Ѵ�.
+					* 지정된 엘리먼트를 맨 마지막 자식노드로 추가한다.
 				removeChild(Element)
-					* ������ ������Ʈ�� �����Ѵ�.
+					* 지정된 엘리먼트를 삭제한다.
 				insertBefore(Element)
-					* ������ ������Ʈ�� ù ��° �ڽĳ��� �߰��Ѵ�.
+					* 지정된 엘리먼트를 첫 번째 자식노드로 추가한다.
 				remove()
-					* ������Ʈ�� �����Ѵ�.
+					* 엘리먼트를 삭제한다.
 
 				firstChild(), firstElementChild()
-					* �ش� ������Ʈ�� ù��° �ڽ� ������Ʈ�� ��ȯ�Ѵ�.
+					* 해당 엘리먼트의 첫번째 자식 엘리먼트를 반환한다.
 				lastChild(), lastElementChild()
-					* �ش� ������Ʈ�� ������ �ڽ� ������Ʈ�� ��ȯ�Ѵ�.
+					* 해당 엘리먼트의 마지막 자식 엘리먼트를 반환한다.
 				previousSibling(), previousElementSibling()
-					* �ش� ������Ʈ�� ���� �� �ٷ� �տ� ��ġ�� ������Ʈ�� ��ȯ�Ѵ�.
+					* 해당 엘리먼트의 형제 중 바로 앞에 위치한 엘리먼트를 반환한다.
 				nextSibling(), nextElementSibling()
-					* �ش� ������Ʈ�� ���� �� �ٷ� �ڿ� ��ġ�� ������Ʈ�� ��ȯ�Ѵ�.
+					* 해당 엘리먼트의 형제 중 바로 뒤에 위치한 엘리먼트를 반환한다.
 				parentNode()
-					* �ش� ������Ʈ�� �θ� ������Ʈ�� ��ȯ�Ѵ�.
+					* 해당 엘리먼트의 부모 엘리먼트를 반환한다.
 
-				getAttribute("�Ӽ���")
-					* ������ �Ӽ����� �ش��ϴ� �Ӽ����� ��ȯ�Ѵ�.
-				setAttribute("�Ӽ���", "�Ӽ���")
-					* �Ӽ��� ����/�߰��Ѵ�.
-				removeAttribute("�Ӽ���")
-					* �Ӽ��� �����Ѵ�.
-		- HTMLCollection ��ü
+				getAttribute("속성명")
+					* 지정된 속성명에 해당하는 속성값을 반환한다.
+				setAttribute("속성명", "속성값")
+					* 속성을 변경/추가한다.
+				removeAttribute("속성명")
+					* 속성을 삭제한다.
+		- HTMLCollection 객체
 			- Property
 				length
-					* ����� ������ ��ȯ�Ѵ�.
+					* 저장된 갯수를 반환한다.
 			- Method
 				item(index)
-					* �ε��� ��ȣ�� �ش��ϴ� Element��ü�� ��ȯ�Ѵ�.
-			* ��뿹
+					* 인덱스 번호에 해당하는 Element객체를 반환한다.
+			* 사용예
 				var collections = document.getElementsByTagName("p")
 				for (var i=0; i<collections.length; i++) {
 					var el = collections.item(i);
 					var el = collections[i];
 				}
-		- Event ��ü
+		- Event 객체
 			- Property	
 				target
-					* �̺�Ʈ�� �߻��� ������Ʈ��ü�� ��ȯ�Ѵ�.
+					* 이벤트가 발생된 엘리먼트객체를 반환한다.
 				type
-					* �߻��� �̺�Ʈ�̸��� ��ȯ�Ѵ�.
+					* 발생된 이벤트이름을 반환한다.
 				dataTransfer
-					* drag & drop���� ���� �����ϱ� ���� ��ü�� ��ȯ�Ѵ�.
+					* drag & drop에서 값을 전달하기 위한 객체를 반환한다.
 				pageX, pageY
-					* ���콺�� ���� ��ǥ�� ��ȯ�Ѵ�.
+					* 마우스의 현재 좌표를 반환한다.
 				which
-					* �Է��� ������ �ƽ�Ű�ڵ尪�� ��ȯ�Ѵ�.
+					* 입력한 문자의 아스키코드값을 반환한다.
 			- Method
 				preventDefault()
-					* �ش� ������Ʈ�� Ư�� �̺�Ʈ �߻��� ������ �⺻������ �����Ǿ� �ִ� ���
-                                          �� ������ ������ ��ҽ�Ų��.
-					* <form> �±� �ȿ��� button, submit ��ư Ŭ���� ���� ���۵Ǵ� ��
-					* <a> �±� Ŭ���� ������ ��ũ�� �̵��ϴ� ��
+					* 해당 엘리먼트에 특정 이벤트 발생시 실행할 기본동작이 지정되어 있는 경우
+                                          그 동작의 실행을 취소시킨다.
+					* <form> 태그 안에서 button, submit 버튼 클릭시 폼이 전송되는 것
+					* <a> 태그 클릭시 지정된 링크로 이동하는 것
 				stopPropagation()
-					* �̺�Ʈ �������� ������Ų��.
+					* 이벤트 버블링을 중지시킨다.
 				stopImmediatePropagation()
-					* �̺�Ʈ �������� ������Ų��.
+					* 이벤트 버블링을 중지시킨다.
 
 BOM(Browser Object Model)
 	- Browser Object Model
-	- �������� ��Ʈ�ε� ��ü���̴�.
-	- �ڹٽ�ũ��Ʈ�� ����ؼ� BOM��ü��� ��ȣ�ۿ��� �� �ִ�.
-	- ����
+	- 브라우저에 빌트인된 객체들이다.
+	- 자바스크립트를 사용해서 BOM객체들과 상호작용할 수 있다.
+	- 종류
 		Window Object
-			* �������� �����츦 ǥ���ϴ� ��ü��.
-			* �ٸ� BOM��ü�� �����ϰ� �ִ�.
-			* Docoument ��ü�� �����ϰ� �ִ�.
-			* �ڹٽ�ũ��Ʈ�� ������ü(Global Object)��.
-			  (�ڹٽ�ũ��Ʈ�� �����ϴ� ��ü, �Լ�, ������ �ڵ����� Window��ü�� ����� �ȴ�.)
-			* �ڹٽ�ũ��Ʈ���� Ư���� ��ü�� �̸��� �������� �ʰ�
-			  ����, �Լ��� ����ϴ� ��� �⺻������ Window��ü���� ã�´�.
+			* 브라우저의 윈도우를 표현하는 객체다.
+			* 다른 BOM객체를 저장하고 있다.
+			* Docoument 객체를 저장하고 있다.
+			* 자바스크립트의 전역객체(Global Object)다.
+			  (자바스크립트로 생성하는 객체, 함수, 변수는 자동으로 Window객체의 멤버가 된다.)
+			* 자바스크립트에서 특별한 객체의 이름을 지정하지 않고
+			  변수, 함수를 사용하는 경우 기본적으로 Window객체에서 찾는다.
 			- Property
 				document
-					* Document ��ü�� ��ȯ�Ѵ�.
+					* Document 객체를 반환한다.
 				location
-					* Location ��ü�� ��ȯ�Ѵ�.
+					* Location 객체를 반환한다.
 				history
-					* History ��ü�� ��ȯ�Ѵ�.
+					* History 객체를 반환한다.
 				navigator	
-					* Navigator ��ü�� ��ȯ�Ѵ�.
+					* Navigator 객체를 반환한다.
 				screen
-					* Screen ��ü�� ��ȯ�Ѵ�.
+					* Screen 객체를 반환한다.
 				console
-					* Console ��ü�� ��ȯ�Ѵ�.
+					* Console 객체를 반환한다.
 				opener
-					* ���� �����츦 ������ �����찴ü�� ��ȯ�Ѵ�.
-					* �˾�â���� �� �˾�â�� ������ �����찡 opener��.
+					* 현재 윈도우를 생성한 윈도우객체를 반환한다.
+					* 팝업창에서 그 팝업창을 생성한 윈도우가 opener다.
 				parent
-					* ���� �������� �θ� �����찴ü�� ��ȯ�Ѵ�.
-					* <iframe>���� �ش� iframe�� �����ϰ� �ִ� �����찡 parent��.
+					* 현재 윈도우의 부모 윈도우객체를 반환한다.
+					* <iframe>에서 해당 iframe을 포함하고 있는 윈도우가 parent다.
 			- Method
-				alert("�޼���")
-					* ����޼���â�� ǥ���Ѵ�.
-				confirm("�޼���")
-					* Ȯ��/��� ��ư�� �����ϰ� �ִ� Ȯ��â�� ǥ���Ѵ�.
-					* Ȯ���� Ŭ���ϸ� true���� ��ȯ�ȴ�.
+				alert("메세지")
+					* 경고메세지창을 표시한다.
+				confirm("메세지")
+					* 확인/취소 버튼을 포함하고 있는 확인창을 표시한다.
+					* 확인을 클릭하면 true값이 반환된다.
 				open("url", "name", specs)
-					* ���ο� â�� ����.
+					* 새로운 창을 연다.
 				close()
-					* ���� â�� �ݴ´�.
-				parseInt('���ڿ�')
-					* ���ڿ��� ������ ��ȯ�Ѵ�.
-					* ���ڿ��� ù���ڴ� �ݵ�� ���ڿ��� �Ѵ�.
-					* ù���ڰ� ���ڰ� �ƴѰ�� NaN�� ��ȯ�ȴ�.
-				parseFloat('���ڿ�')
-					* ���ڿ��� �Ǽ��� ��ȯ�Ѵ�.
-					* ���ڿ��� ù���ڴ� �ݵ�� ���ڿ��� �Ѵ�.
-					* ù���ڰ� ���ڰ� �ƴѰ�� NaN�� ��ȯ�ȴ�.
-				setTimeout(�Լ�, �и���)
-					* ������ �ð���ŭ ����� �� �ش� �Լ��� �ѹ� ����ȴ�.
-				setInterval(�Լ�, �и���)
-					* ������ �ð������� ����� ������ �ش� �Լ��� �ݺ� ����ȴ�.
-				clearTimeout(���ڰ�)
-					* �������� setTimeout()�� ������Ų��.
-					* ���ڰ��� setTimeout()�Լ��� ��ȯ�ϴ� ���ڰ��� �ִ´�. 
-				clearInterval(���ڰ�)
-					* �������� setInterval()�� ������Ų��.
-					* ���ڰ��� setInterval()�Լ��� ��ȯ�ϴ� ���ڰ��� �ִ´�. 
+					* 현재 창을 닫는다.
+				parseInt('문자열')
+					* 문자열을 정수로 변환한다.
+					* 문자열의 첫글자는 반드시 숫자여야 한다.
+					* 첫글자가 숫자가 아닌경우 NaN이 반환된다.
+				parseFloat('문자열')
+					* 문자열을 실수로 변환한다.
+					* 문자열의 첫글자는 반드시 숫자여야 한다.
+					* 첫글자가 숫자가 아닌경우 NaN이 반환된다.
+				setTimeout(함수, 밀리초)
+					* 지정된 시간만큼 경과된 후 해당 함수가 한번 실행된다.
+				setInterval(함수, 밀리초)
+					* 지정된 시간간격이 경과될 때마다 해당 함수가 반복 실행된다.
+				clearTimeout(숫자값)
+					* 실행중인 setTimeout()을 중지시킨다.
+					* 숫자값은 setTimeout()함수가 반환하는 숫자값을 넣는다. 
+				clearInterval(숫자값)
+					* 실행중인 setInterval()을 중지시킨다.
+					* 숫자값은 setInterval()함수가 반환하는 숫자값을 넣는다. 
 		Location Object
-			* ���� URL ������ ǥ���ϴ� ��ü��.(�ּ�â�� URL����)
+			* 현재 URL 정보를 표현하는 객체다.(주소창의 URL정보)
 			- Property
 				hostname
-					* ȣ��Ʈ���� ��ȯ�Ѵ�.
+					* 호스트명을 반환한다.
 				href
-					* ���� URL�� ��ȸ/������ �� �ִ�.
+					* 현재 URL을 조회/변경할 수 있다.
 				origin
-					* ��������+ȣ��Ʈ��+��Ʈ��ȣ�� ��ȯ�Ѵ�.
+					* 프로토콜+호스트명+포트번호를 반환한다.
 			- Method
 				reload()
-					* ���� �������� ���ε���Ų��.
+					* 현재 페이지를 리로딩시킨다.
 		History Object 
-			* �������湮��������� ������ �ִ�.
+			* 페이지방문기록정보를 가지고 있다.
 			- Method
 				back()	
-					* ������������ �̵��Ѵ�.
+					* 이전페이지로 이동한다.
 				forward()
-					* ������������ �̵��Ѵ�.
-				go(����)
-					* ������ ���ڸ�ŭ ����/������������ �̵��Ѵ�.
+					* 다음페이지로 이동한다.
+				go(숫자)
+					* 지정된 숫자만큼 이전/다음페이지로 이동한다.
 		Navigator Object
-			* ������ ������ ������ �ִ�.
+			* 브라우저 정보를 가지고 있다.
 			- Property
 				appName
-					* ���������� ��ȯ�Ѵ�.
+					* 브라우져명을 반환한다.
 				appVerson
-					* �������� ������ ��ȯ�Ѵ�.
+					* 브라우저의 버전을 반환한다.
 				platform
-					* �������� �������� �ü�� ������ ��ȯ�Ѵ�.
+					* 브라우저가 실행중인 운영체제 정보를 반환한다.
 				language
-					* �������� ���� ��ȯ�Ѵ�.
+					* 브라우저의 사용언어를 반환한다.
 				geolocation
-					* �������� ���� ��ġ���� ��ġ���� ������ �����ϸ� Geolocation��ü�� ��ȯ�Ѵ�.					  
+					* 브라우저가 현재 위치에서 위치정보 제공이 가능하면 Geolocation객체를 반환한다.					  
 				userAgent
-					* ������ ������ user-agent������ ��ȯ�Ѵ�.
+					* 서버로 보내진 user-agent정보를 반환한다.
 		Screen Object
-			* ������� ��ũ�������� ������ �ִ�.
+			* 사용자의 스크린정보를 가지고 있다.
 			- Property
 				width
-					* ��ũ���� ��ü �ʺ� ��ȯ�Ѵ�.
+					* 스크린의 전체 너비를 반환한다.
 				height
-					* ��ũ���� ��ü ���̸� ��ȯ�Ѵ�.
+					* 스크린의 전체 높이를 반환한다.
 
 
 
@@ -271,4 +271,47 @@ BOM(Browser Object Model)
 
 
 		
- 
+ Document객체
+- Element 		document.getElementById(아이디)
+- HTMLCollection 	document.getElementsByTagName(태그명)
+- Element		document.querySelector(선택자표현식)
+- NodeList		document.querySelectorAll(선택자표현식)
+  * HTMLCollection과 NodeList는 배열객체와 유사한 객체다.
+  * 여러 개의 Element객체를 담고 있다.
+  * for문을 이용해서 하나씩 꺼내서 처리하면 된다.
+
+Element객체
+- textContent 	엘리먼트의 텍스트 컨텐츠를 조회/변경할 수 있다.
+			변경 	엘리먼트.textContent = "텍스트 컨텐츠";
+			조회 	var content = 엘리먼트.textContent;
+			비우기	엘리먼트.textContent = "";
+- innerHTML	엘리먼트의 HTML 컨텐츠를 조회/변경할 수 있다.
+			변경	엘리먼트.innerHTML = "<p>컨텐츠</p>";
+			추가	엘리먼트.innerHTML += "<li>컨텐츠</li>";
+			조회	var htmlContent = 엘리먼트.innerHTML;
+			비우기	엘리먼트.innerHTML = "";
+- style		엘리먼트의 스타일을 조회/변경할 수 있다.
+			변경	엘리먼트.style.CSS프로퍼티 = "값";
+				엘리먼트.style.color = "red";
+			조회	var 스타일값 = 엘리먼트.style.CSS프로퍼티;
+				var color = 엘리먼트.style.color;	
+- 폼입력요소 관련
+	* 폼 입력요소는 input(입력필드, 비밀번호 필드, 히든 필드, 체크박스, 라디오버튼), select, textarea다.
+	* 그외 폼 요소는 <button>, <input type="reset" />, <input type="submit" /> 다. 
+	- value		폼입력요소의 값을 조회/변경할 수 있다.
+				변경	엘리먼트.value = 값;
+				조회	var 값 = 엘리먼트.value;
+				지우기	엘리먼트.value = "";
+	- checked	폼입력요소 중 라디오버튼, 체크박스의 체크상태를 조회/변경할 수 있다.
+				체크하기		엘리먼트.checked = true;
+				체크해제하기	엘리먼트.checked = false;
+				체크상태 조회하기	var 체크상태 = 엘리먼트.checked;
+	- disabled	모든 폼입력요소와 그외 폼 요소의 활성화/비활성화를 조회/변경할 수 있다.
+				활성화하기		엘리먼트.disabled = false;
+				비활성화하기 	엘리먼트.disabled = true;
+				활성화여부 조회	var 활성화상태 = 엘리먼트.disabled;
+	- readOnly	폼입력요소의 읽기전용 여부를 조회/변경할 수 있다.
+				활성화하기		엘리먼트.readOnly = true;
+				비할성화하기 	엘리먼트.readOnly = false;
+
+
