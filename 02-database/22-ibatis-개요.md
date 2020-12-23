@@ -106,8 +106,8 @@
 
 - 파라미터클래스와 리절트클래스가 지원하는 타입과 별칭
 
-| --- | --- | --- | --- |
 | 자바 타입 | 별칭 | parameterClass | resultClass |
+| --- | --- | --- | --- |
 | java.lang.Boolean | boolean | 사용가능 | 사용가능 |
 | java.lang.Integer | int | 사용가능 | 사용가능 |
 | java.lang.Long | long | 사용가능 | 사용가능 |
