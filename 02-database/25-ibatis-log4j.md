@@ -19,22 +19,22 @@
 
 ## log4j.properties 파일 설정하기
 ```	
-	# 기본 로그레벨과 출력대상을 결정함
-	# 기본 로그레벨: ERROR
-	# 출력대상 : stdout
-	log4j.rootLogger=ERROR, stdout
-	
-	# 특정 클래스나 패키지를 대상으로 로그레벨을 결정함
-	# java.sql.Connection, java.sql.PreparedStatement, java.sql.ResultSet은 DEBUG 로그레벨로 결정함
-	log4j.logger.java.sql.Connection=DEBUG
-	log4j.logger.java.sql.Statement=DEBUG
-	log4j.logger.java.sql.PreparedStatement=DEBUG
-	log4j.logger.java.sql.ResultSet=DEBUG
+  # 기본 로그레벨과 출력대상을 결정함
+  # 기본 로그레벨: ERROR
+  # 출력대상 : stdout
+  log4j.rootLogger=ERROR, stdout
 
-	# 로그출력대상을 결정함 -> ConsoleAppender(화면에 로그내용 출력)
-	log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-	# 로그출력형식을 결정함 -> PatternLayout(지정된 패턴문자를 사용해서 출력형식을 결정)
-	log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-	# 로그출력형식을 패턴 문자를 활용해서 결정함
-	log4j.appender.stdout.layout.ConversionPattern=%5p [%d] - %m%n
+  # 특정 클래스나 패키지를 대상으로 로그레벨을 결정함
+  # java.sql.Connection, java.sql.PreparedStatement, java.sql.ResultSet은 DEBUG 로그레벨로 결정함
+  log4j.logger.java.sql.Connection=DEBUG
+  log4j.logger.java.sql.Statement=DEBUG
+  log4j.logger.java.sql.PreparedStatement=DEBUG
+  log4j.logger.java.sql.ResultSet=DEBUG
+
+  # 로그출력대상을 결정함 -> ConsoleAppender(화면에 로그내용 출력)
+  log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+  # 로그출력형식을 결정함 -> PatternLayout(지정된 패턴문자를 사용해서 출력형식을 결정)
+  log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+  # 로그출력형식을 패턴 문자를 활용해서 결정함
+  log4j.appender.stdout.layout.ConversionPattern=%5p [%d] - %m%n
 ```
