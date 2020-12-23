@@ -105,7 +105,8 @@
         * queryForList는 조회된 행이 없으면 비어있는 List객체가 반환된다.(절대로 null이 반환되지 않음)			
 
 - 파라미터클래스와 리절트클래스가 지원하는 타입과 별칭
-| --- | --- | --- |
+
+| --- | --- | --- | --- |
 | 자바 타입 | 별칭 | parameterClass | resultClass |
 | java.lang.Boolean | boolean | 사용가능 | 사용가능 |
 | java.lang.Integer | int | 사용가능 | 사용가능 |
