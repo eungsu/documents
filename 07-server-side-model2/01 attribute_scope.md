@@ -1,0 +1,73 @@
+# JSP의 속성과 스코프
+## 속성
+- 속성은 객체(값)다.
+- 속성은 뷰에 표현할 정보다.
+- JSP는 속성(값, 객체)을 저장할 수 있는 4종류의 객체를 제공한다.
+
+| 객체 | 범위 | 속성 |
+| --- | --- | --- |
+| PageContext | 페이지 | 객체 |
+| HttpServletRequest | 요청 | 객체 |
+| HttpSession | 세션 | 객체 |
+| ServletContext | 애플리케이션 | 객체 |
+
+- 속성관련 API
+  - void setAttribute(String name, Object value)
+  - Object getAttribute(String name)
+  - void removeAttribute(String name)
+
+- 이것을 스코프라고 한다.
+
+## 스코프
+	- 속성(값, 객체)를 공유할 수 있는 유효범위를 말한다.
+  - 속성(값, 객체)을 위의 4 종류 객체 중 어디에 저장하느냐에 따라서 저장된 속성(값, 객체)에 대한 이용범위 혹은 생존시간이 달라진다.
+  - 이것을 스코프라고 한다.
+	- 스코프의 종류
+		- Page Scope
+			- PageContext에 저장되는 속성이 가지는 유효범위다.
+			- 같은 JSP내에서만 속성을 공유할 수 있다.
+		- Request Scope
+			- HttpServletRequest에 저장되는 속성이 가지는 유효범위다.
+			- 클라이언트의 요청을 처리하는 동안 속성을 공유할 수 있다.
+			- foward, include 방식을 사용하는 경우 여러 jsp 페이지에서 요청객체에 저장된 속성을 공유할 수 있다.
+			- Model2개발방식에서는 Model이 획득한 데이터를 View에 전달할 때 주로 사용되는 유효범위다.
+			- 클라이언트의 요청 처리가 완료되면(응답이 완료되면)  요청객체가 소멸되기 때문에 저장된 속성도 사라진다.
+			- 속성에 대한 관리가 필요없다.(메모리 문제를 신경쓸 필요없다.)
+		- Session Scope
+			- HttpSession에 저장되는 속성이 가지는 유효범위다.
+			- 세션객체가 유지되는 동안은 세션객체에 저장된 속성(값, 객체)은 서로 다른 JSP 페이지에서도 공유할 수 있다.
+			- 세션객체가 만료되는 순간(로그아웃, 브라우저를 닫는 경우) 저장된 속성도 사라진다.
+			- 세션객체는 브라우저마다(클라이언트)마다 하나씩 생성되는  객체이기 때문에, 세션에 속성(값, 객체)으로 저장되는 것은 해당 클라이언트만 사용할 수 있다.
+			- 세션객체 속성으로 저장되는 것들은 "개인적인 정보"만 저장된다.
+		- Application Scope
+			- ServletContext에 저장되는 속성이 가지는 유효범위다.
+			- 웹서버가 실행되는 동안(웹 애플리케이션이 실행되는 동안)  ServletContext객체에 저장된 속성(값, 객체)은 모든 JSP, 모든 서블릿, 모든 필터, 모든 사용자가 공유할 수 있다. 
+
+
+## Redirect와 Forward
+- Redirect
+  - void response.sendRedirect(String url)
+    - 지정된 url을 재요청하라는 응답을 클라이언트에게 보낸다.
+
+- Forward
+  - RequestDispatcher객체가 제공하는 메소드를 활용해서 포워드 방식의 내부이동이 가능하다.
+  - RequestDispatcher request.getRequestDispatcher(String path) 지정된 경로로 클라이언트의 요청을 보내는 RequestDispatcher객체를 반환한다.
+  - RequestDispatcher의 주요 메소드
+    - void forward(ServletRequest req, ServletResponse resp)
+      - RequestDispatcher객체에 지정된 경로로 내부이동한다. 내부이동 대상 JSP/서블릿에 요청객체와 응답객체를 전달해서 공유한다.
+    - void include(ServletRequest req, ServletResponse resp)
+      - 응답에 지정된 경로의 JSP를 포함시킨다. 
+		 
+
+
+
+
+
+
+
+
+
+
+
+		
+		 
