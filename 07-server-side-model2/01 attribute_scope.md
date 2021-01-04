@@ -15,11 +15,8 @@
   - void setAttribute(String name, Object value)
   - Object getAttribute(String name)
   - void removeAttribute(String name)
-
-- 이것을 스코프라고 한다.
-
 ## 스코프
-	- 속성(값, 객체)를 공유할 수 있는 유효범위를 말한다.
+- 속성(값, 객체)를 공유할 수 있는 유효범위를 말한다.
   - 속성(값, 객체)을 위의 4 종류 객체 중 어디에 저장하느냐에 따라서 저장된 속성(값, 객체)에 대한 이용범위 혹은 생존시간이 달라진다.
   - 이것을 스코프라고 한다.
 	- 스코프의 종류
