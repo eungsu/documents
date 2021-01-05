@@ -72,12 +72,13 @@
     </c:if>
     <!-- test에서 제시한 조건이 true면 HTML 컨텐츠가 화면에 출력된다. --->
   ```
-- 주요 속성
-test
-- 검사조건을 정의한다.
-- 결과값이 boolean 타입이어야 한다.
-- 생략할 수 없다.
-- <c:choose> <c:when> <c:otherwise> 태그
+  - 주요 속성
+    * test
+      - 검사조건을 정의한다.
+      - 결과값이 boolean 타입이어야 한다.
+      - 생략할 수 없다.
+
+- **<c:choose> <c:when> <c:otherwise>** 태그
 - if ~ else if ~ else if ~ else 와 동일한 역할을 수행한다.
 - 사용법
 <c:choose>
