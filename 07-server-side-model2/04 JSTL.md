@@ -206,90 +206,73 @@
     <%-- <a href="경로?이름1=값1&이름2=값2&이름3=값3">링크</a> --%>
   ```
 - <c:import> 태그
-- 지정된 파일을 include한다.
-- 사용법
-<c:import url="포함시킬파일의 경로" />
-* url에는 프로젝트 내부 파일 및 외부파일(다른 웹서버의 파일) 포함 가능
+  - 지정된 파일을 include한다.
+  - 사용법
+  ```jsp
+    <c:import url="포함시킬파일의 경로" />
+  ```
+    * url에는 프로젝트 내부 파일 및 외부파일(다른 웹서버의 파일) 포함 가능
 
-- 국제화 태그
+### 국제화 태그
 - <fmt:formatNumber> 태그
-- 숫자를 지정된 형식에 맞게 출력한다.
-- 사용법
-<fmt:formatNumber value="${표현식}" />
-- 숫자에 콤마가 포함되어서 출력된다.
-<fmt:formatNumber value="${표현식}" pattern="패턴문자열" />
-- 숫자가 지정된 패턴형식에 맞게 출력된다.
-* value에서 지정된 표현식으로 검색되는 값은 반드시 숫자값이어야 한다.
-* 패턴문자
-# 숫자 한 자리를 나타낸다.
-0 숫자 한 자리를 나타낸다. 소수점이하에서는 해당 자리값이 없어도 0을 출력한다.
-, 자릿수를 나타낸다.
-. 소숫점을 나타낸다.
-
+  - 숫자를 지정된 형식에 맞게 출력한다.
+  - 사용법
+  ```jsp
+    <fmt:formatNumber value="${표현식}" />
+  ```
+  - 숫자에 콤마가 포함되어서 출력된다.
+  ```jsp
+    <fmt:formatNumber value="${표현식}" pattern="패턴문자열" />
+  ```
+    * 숫자가 지정된 패턴형식에 맞게 출력된다.
+    * value에서 지정된 표현식으로 검색되는 값은 반드시 숫자값이어야 한다.
+   
 - <fmt:formatDate> 태그
-- 날짜를 지정된 형식에 맞게 출력한다.
-- 사용법
-<fmt:formatDate value="${표현식}" />
-- 날짜가 년월일시분초 형태로 출력된다.
-<fmt:formatDate value="${표현식}" pattern="패턴문자열" />
-- 날짜가 지정된 패턴형식에 맞게 출력된다.
-* value에서 지정된 표현식으로 검색되는 값은 반드시 Date 타입이어야 한다.
-* 패턴문자
-y	년을 나타낸다.
-M	월을 나타낸다.
-d	일을 나타낸다.
-a	오전/오후를 나타낸다.
-E	요일을 나타낸다.
-H	24시간제로 시간을 나타낸다.(0 ~ 23)
-h	12시간제로 시간을 나타낸다.(1 ~ 12)
-m	분을 나타낸다.
-s	초를 나타낸다.
-S	밀리초를 나타낸다.
+  - 날짜를 지정된 형식에 맞게 출력한다.
+  - 사용법
+  ```jsp
+    <fmt:formatDate value="${표현식}" />
+  ```
+  - 날짜가 년월일시분초 형태로 출력된다.
+  ```jsp
+    <fmt:formatDate value="${표현식}" pattern="패턴문자열" />
+  ```
+    * 날짜가 지정된 패턴형식에 맞게 출력된다.
+    * value에서 지정된 표현식으로 검색되는 값은 반드시 Date 타입이어야 한다.
 
 - <fmt:bundle>, <fmt:message> 태그
-- 국제화처리를 지원하는 태그다.
-- 사용법
-<fmt:bundle basename="패키지경로.기본메세지번들파일명"></fmt:bundle>
-- JSP에서 사용할 메세지 번들 파일을 지정한다.
-- 국제화처리를 지원받기 위해서는 HTML 컨텐츠가 
-<fmt:bundle>와 </fmt:bundle> 안에 위치해야 한다.
-<fmt:message var="별칭" key="번들파일에 정의한 키" />
-- 번들파일에서 키에 해당하는 텍스트를 읽어서 출력한다.
-- 사용예
-<h1><fmt:message key="label.home.title"/></h1>
-
-<fmt:message var="submit_message" key="label.home.btn.submit"/>
-<input type="submit" value="${submit_message}" />
+  - 국제화처리를 지원하는 태그다.
+  - 사용법
+  ```jsp
+    <fmt:bundle basename="패키지경로.기본메세지번들파일명"></fmt:bundle>
+  ```
+    - JSP에서 사용할 메세지 번들 파일을 지정한다.
+    - 국제화처리를 지원받기 위해서는 HTML 컨텐츠가 <fmt:bundle>와 </fmt:bundle> 안에 위치해야 한다.
+- <fmt:message var="별칭" key="번들파일에 정의한 키" />
+  - 번들파일에서 키에 해당하는 텍스트를 읽어서 출력한다.
+  - 사용예
+  ```jsp
+    <h1><fmt:message key="label.home.title"/></h1>
+    
+    <fmt:message var="submit_message" key="label.home.btn.submit"/>
+    <input type="submit" value="${submit_message}" />
+  ```
 - 국제화처리 절차
-- 지원할 각 언어별로 메세지 번들 파일을 만든다.
-/src/resources/messages.properties	기본 메세지번들 파일
-/src/resources/messages_ko.properties	한국어용 메세지번들 파일
-/src/resources/messages_en.properties	영어용 메세지번들 파일
-/src/resources/messages_ja.properties	일본어용 메세지번들 파일
-* 언어별 코드
-한국어 ko, 영어 en, 중국어 zh, 일본어 ja, 프랑스어 fr, 독일어 de, 스페인어 es
-* 국가별 코드
-한국 kr, 미국 us, 영국 gb, 중국 cn, 일본 jp, 프랑스 fr, 독일 de, 스페인 es
-- JSP 파일에서 메세지번들 파일의 기본 경로 및 이름을 설정한다.
-<fmt:bundle basename="패키지경로.기본메세지번들파일명" />
-- 메세지를 표현할 곳에 메세지번들파일에서 정의한 키를 지정한다.
-<fmt:message key="번들파일에 정의한 키" /> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  - 지원할 각 언어별로 메세지 번들 파일을 만든다.
+    + /src/resources/messages.properties	기본 메세지번들 파일
+    + /src/resources/messages_ko.properties	한국어용 메세지번들 파일
+    + /src/resources/messages_en.properties	영어용 메세지번들 파일
+    + /src/resources/messages_ja.properties	일본어용 메세지번들 파일
+      * 언어별 코드
+        - 한국어 ko, 영어 en, 중국어 zh, 일본어 ja, 프랑스어 fr, 독일어 de, 스페인어 es
+      * 국가별 코드
+        - 한국 kr, 미국 us, 영국 gb, 중국 cn, 일본 jp, 프랑스 fr, 독일 de, 스페인 es
+  - JSP 파일에서 메세지번들 파일의 기본 경로 및 이름을 설정한다.
+  ```jsp
+    <fmt:bundle basename="패키지경로.기본메세지번들파일명" />
+  ```
+  - 메세지를 표현할 곳에 메세지번들파일에서 정의한 키를 지정한다.
+  ```jsp
+    <fmt:message key="번들파일에 정의한 키" /> 
+  ```
 
