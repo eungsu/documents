@@ -37,9 +37,9 @@
   - 거의 사용하지 않는다.
 
 ### Core 태그 라이브러리
-- **&lt;c:out&gt;** 태그
+- **<c:out>** 태그
   - 값을 출력한다.
-  - &lt;%=값 %&gt;, ${표현식} 과 동일한 작업을 수행한다.
+  - <%=값 %>, ${표현식} 과 동일한 작업을 수행한다.
   - XSS(Cross Site Scripting) 취약점 공격에 대한 가장 기본적인 방어을 지원한다.
     * XSS는 악의적인 사용자가 공격하려는 사이트에 스크립트를 넣어서 쿠키나 세션아이디와 같은 정보를 취득하는 것을 말한다.
     * 주로 공개된 게시판의 게시글에 html과 script 코드를 입력해서 해당 스크립트를 실행시키는 것이다.
@@ -62,7 +62,7 @@
     * default		
       + value에서 지정한 값이 null인 경우 표현할 값을 지정한다.
       + 생략가능 
-- **&lt;c:if&gt;** 태그
+- **<c:if>** 태그
   - if문과 동일한 역할을 수행한다.
   - else에 해당하는 태그는 없다.
   - 사용법
@@ -79,112 +79,132 @@
       - 생략할 수 없다.
 
 - **<c:choose> <c:when> <c:otherwise>** 태그
-- if ~ else if ~ else if ~ else 와 동일한 역할을 수행한다.
-- 사용법
-<c:choose>
-<c:when test="${조건식1}">
-
-</c:when>
-<c:when test="${조건식2}">
-
-</c:when>
-<c:when test="${조건식3}">
-
-</c:when>
-<c:otherwise>
-
-</c:otherwise>
-</c:choose>
-* <c:when>과 <c:otherwise>는 반드시 <c:choose>안에 위치해야 한다.
-* <c:when>은 조건식을 다르게 해서 여러 번 정의할 수 있다.
-* <c:otherwise>는 생략할 수 있고, 맨 마지작 <c:when> 다음에 정의해야 한다.
-* <c:when>으로 제시한 조건식이 true가 되면 남아있는 <c:when>은 검사하지 않는다.
-* <c:otherwise>는 <c:when>으로 제시한 조건이 모두 false로 판정될 때만 실행된다.
-- <c:forEach> 태그
-- for문과 같은 역할을 수행한다.
-- 배열 혹은 콜렉션(List, Set)에 대해서 그 항목의 갯수만큼 반복작업을 수행한다.
-- 사용법
-<c:forEach var="변수명" items="${표현식}">
-<p>${변수명}<p>
-</c:forEach>
-* items의 표현식으로 찾은 값이 반드시 배열 혹은 콜렉션이어야 한다.
-* 검색된 배열 혹은 콜렉션의 요소 갯수만큼 컨텐츠를 반복 출력한다.
-* var는 배열 혹은 콜렉션에서 반복수행시 해당 요소가 저장되는 변수의 이름을 지정한다.
-
-<c:forEach var="변수명1" items="${표현식}" varStatus="변수명2">
-<p>${변수명2.count} ${변수명1}<p>
-</c:forEach>
-* varStatus에 지정된 변수에는 현재 반복상태정보를 담고 있는 객체가 전달된다.
-* 반복상태 정보 
-- index : 현재 추출한 요소의 인덱스번호(0부터 시작)
-- count : 현재 반복횟수(1부터 시작) 
-- first : 첫번째 요소인 경우 true
-- last  : 마지막번째 요소인 경우 false
-
-
-<c:forEach var="변수명" begin="${표현식}" end="${표현식}">
-<a href="list.hta?pageno=${변수명}">${변수명}</a>
-</c:forEach>
-* begin은 시작값, end는 끝값을 지정한다.
-* begin과 end는 정수값이어야 한다.
-* begin, end의 구간만큼 컨텐츠를 반복출력한다.
-* var는 현재 숫자값을 저장하는 변수의 이름을 지정한다.
+  - if ~ else if ~ else if ~ else 와 동일한 역할을 수행한다.
+  - 사용법
+  ```jsp
+    <c:choose>
+      <c:when test="${조건식1}">
+        HTML 컨텐츠
+        <!-- test에서 제시한 조건식1이 true면 HTML 컨텐츠가 화면에 출력된다. --->
+      </c:when>
+      <c:when test="${조건식2}">
+        HTML 컨텐츠
+        <!-- test에서 제시한 조건식2이 true면 HTML 컨텐츠가 화면에 출력된다. --->
+      </c:when>
+      <c:when test="${조건식3}">
+        HTML 컨텐츠
+        <!-- test에서 제시한 조건식3이 true면 HTML 컨텐츠가 화면에 출력된다. --->
+      </c:when>
+      <c:otherwise>
+        HTML 컨텐츠
+        <!-- test에서 제시한 조건식1, 조건식2, 조건식3이 전부 false면 HTML 컨텐츠가 화면에 출력된다. --->
+      </c:otherwise>
+    </c:choose>
+  ```
+    * <c:when>과 <c:otherwise>는 반드시 <c:choose>안에 위치해야 한다.
+    * <c:when>은 조건식을 다르게 해서 여러 번 정의할 수 있다.
+    * <c:otherwise>는 생략할 수 있고, 맨 마지작 <c:when> 다음에 정의해야 한다.
+    * <c:when>으로 제시한 조건식이 true가 되면 남아있는 <c:when>은 검사하지 않는다.
+    * <c:otherwise>는 <c:when>으로 제시한 조건이 모두 false로 판정될 때만 실행된다.
+- **<c:forEach>** 태그
+  - for문과 같은 역할을 수행한다.
+  - 배열 혹은 콜렉션(List, Set)에 대해서 그 항목의 갯수만큼 반복작업을 수행한다.
+  - 사용법
+  ```jsp
+    <c:forEach var="변수명" items="${표현식}">
+      <p>${변수명}<p>
+    </c:forEach>
+  ```
+    * items의 표현식으로 찾은 값이 반드시 배열 혹은 콜렉션이어야 한다.
+    * 검색된 배열 혹은 콜렉션의 요소 갯수만큼 컨텐츠를 반복 출력한다.
+    * var는 배열 혹은 콜렉션에서 반복수행시 해당 요소가 저장되는 변수의 이름을 지정한다.
+  ```jsp
+    <c:forEach var="변수명1" items="${표현식}" varStatus="변수명2">
+      <p>${변수명2.count} ${변수명1}<p>
+    </c:forEach>
+  ```
+    * varStatus에 지정된 변수에는 현재 반복상태정보를 담고 있는 객체가 전달된다.
+    * 반복상태 정보 
+      - index : 현재 추출한 요소의 인덱스번호(0부터 시작)
+      - count : 현재 반복횟수(1부터 시작) 
+      - first : 첫번째 요소인 경우 true
+      - last  : 마지막번째 요소인 경우 false
+  ```jsp
+    <c:forEach var="변수명" begin="${표현식}" end="${표현식}">
+      <a href="list.hta?pageno=${변수명}">${변수명}</a>
+    </c:forEach>
+  ```
+    * begin은 시작값, end는 끝값을 지정한다.
+    * begin과 end는 정수값이어야 한다.
+    * begin, end의 구간만큼 컨텐츠를 반복출력한다.
+    * var는 현재 숫자값을 저장하는 변수의 이름을 지정한다.
 - <c:set> 태그
-- EL로 표현할 수 있는 값을 가진 변수를 선언한다.
-- 사용법
-<c:set var="변수명" value="${표현식}" />
-<c:set var="변수명" value="값" />
-<c:set var="변수명" value="<%=값 %>" />
-* var 지정된 이름으로 값이 저장된다.
-* ${변수명}으로 저장된 값을 표현할 수 있다.
-* scope는 값이 저장될 객체를 지정한다.
+  - EL로 표현할 수 있는 값을 가진 변수를 선언한다.
+  - 사용법
+  ```jsp
+    <c:set var="변수명" value="${표현식}" />
+    <c:set var="변수명" value="값" />
+    <c:set var="변수명" value="<%=값 %>" />
+  ```
+    * var 지정된 이름으로 값이 저장된다.
+    * ${변수명}으로 저장된 값을 표현할 수 있다.
+    * scope는 값이 저장될 객체를 지정한다.
+    ```jsp
+      <c:set var="a" value="길동" />
+      <%-- pageContext.setAttribute("a", "길동"); --%>
+      <p>${a}</p>
+      
+      <c:set var="b" value="길동" scope="page"/>
+      <%-- pageContext.setAttribute("b", "길동"); --%>
+      <p>${b}</p>
 
-<c:set var="a" value="응수" />
-pageContext.setAttribute("a", "응수");
-<p>${a}</p>
+      <c:set var="c" value="유신" scope="request"/>
+      <%-- request.setAttribute("c", "유신"); --%>
+      <p>${c}</p>
 
-<c:set var="b" value="길동" scope="page"/>
-pageContext.setAttribute("b", "길동");
-<p>${b}</p>
+      <c:set var="d" value="감찬" scope="session"/>
+      <%-- session.setAttribute("d", "감찬"); --%>
+      <p>${d}</p>
 
-<c:set var="c" value="유신" scope="request"/>
-request.setAttribute("c", "유신");
-<p>${c}</p>
-
-<c:set var="d" value="감찬" scope="session"/>
-session.setAttribute("d", "감찬");
-<p>${d}</p>
-
-<c:set var="e" value="순신" scope="application"/>
-application.setAttribute("e", "순신");
-<p>${e}</p>
+      <c:set var="e" value="순신" scope="application"/>
+      <%-- application.setAttribute("e", "순신"); --%>
+      <p>${e}</p>
+    ```
 - <c:remove> 태그
-- 지정된 이름의 값(객체)을 속성에서 삭제한다.
-- 사용법
-<c:remove var="변수명" /> 
-
-<c:remove var="a" />
-pageContext.removeAttribute("a");
-<c:remove var="b" scope="page"/>
-pageContext.removeAttribute("b");
-<c:remove var="c" scope="request"/>
-request.removeAttribute("c");
-<c:remove var="d" scope="session"/>
-session.removeAttribute("d");
-<c:remove var="e" scope="application" />
-application.removeAttribute("e");				
+  - 지정된 이름의 값(객체)을 속성에서 삭제한다.
+  - 사용법
+  ```jsp
+    <c:remove var="변수명" /> 
+    
+    <c:remove var="a" />
+    <%-- pageContext.removeAttribute("a"); --%>
+    
+    <c:remove var="b" scope="page"/>
+    <%-- pageContext.removeAttribute("b"); --%>
+    
+    <c:remove var="c" scope="request"/>
+    <%-- request.removeAttribute("c"); --%>
+    
+    <c:remove var="d" scope="session"/>
+    <%-- session.removeAttribute("d"); --%>
+    
+    <c:remove var="e" scope="application" />
+    <%-- application.removeAttribute("e"); --%>				
+  ```
 
 - <c:url> 태그 
-- url을 생성한다.
-- 사용법
-<c:url var="변수명" value="경로">
-<c:param name="이름1" value="값1" />
-<c:param name="이름2" value="값2" />
-<c:param name="이름3" value="값3" />
-</c:url>
-<a href="${변수명}">링크</a>
------> <a href="경로?이름1=값1&이름2=값2&이름3=값3">링크</a>
+  - url을 생성한다.
+  - 사용법
+  ```jsp
+    <c:url var="변수명" value="경로">
+      <c:param name="이름1" value="값1" />
+      <c:param name="이름2" value="값2" />
+      <c:param name="이름3" value="값3" />
+    </c:url>
 
+    <a href="${변수명}">링크</a>
+    <%-- <a href="경로?이름1=값1&이름2=값2&이름3=값3">링크</a> --%>
+  ```
 - <c:import> 태그
 - 지정된 파일을 include한다.
 - 사용법
