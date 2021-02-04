@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div class="container" id="app">
+	<div class="row mt-3">
+		<div class="col-12">
+			<h1>상품 관리 
+				<button class="btn btn-primary float-right" 
+					@click="showProductForm()"
+					:disabled="!isEnabledProductFormBtn">신규 상품 등록</button>
+			</h1>
+		</div>
+	</div>
+	<!-- 신규 상품정보 등록 및 상품정보 수정화면 -->
+	<div v-show="isShowProductForm" class="row mt-3 card card-body">
+		<div class="col-12">
+			<h3>상품 등록/수정</h3>
+			<form id="form-product">
+				<div class="form-group">
+					<label>카테고리</label>
+					<select class="form-control" v-model="cat">
+						<option value="" selected disabled> -선택하세요-</option>
+						<option v-for="cat in categories" :value="cat.no"> {{cat.name}}</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>상품명</label>
+					<input type="text" class="form-control" v-model="name">
+				</div>
+				<div class="form-group">
+					<label>재조회사</label>
+					<input type="text" class="form-control" v-model="maker">
+				</div>
+				<div class="form-group">
+					<label>가격</label>
+					<input type="number" class="form-control" v-model="price">
+				</div>
+				<div class="form-group">
+					<label>입고량</label>
+					<input type="text" class="form-control" v-model="amount">
+				</div>
+				<div class="text-right">
+					<button type="button" class="btn btn-secondary btn-sm" @click="hideProductForm()">취소</button>
+					<button type="button" class="btn btn-primary btn-sm" @click="addProduct()">확인</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 상품 리스트 -->
+	<div class="row mt-3">
+		<div class="col-12">
+			<h3>상품 리스트</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>순번</th>
+						<th>카테고리</th>
+						<th>상품명</th>
+						<th>재조사</th>
+						<th>재고량</th>
+						<th>판매가격</th>
+						<th>절판여부</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(product, index) in products">
+						<td>{{index + 1}}</td>
+						<td>{{toCategoryName(product.cat)}}</td>
+						<td>{{product.name}}</td>
+						<td>{{product.maker}}</td>
+						<td>{{product.amount}}</td>
+						<td>{{product.price}}</td>
+						<td>{{product.amount | isSoldOut}}</td>
+						<td>
+							<button class="btn btn-warning btn-sm" @click="showModifyForm(index)">수정</button>
+							<button class="btn btn-danger btn-sm" @click="removeProduct(index)">삭제</button>							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	new Vue({
+		el: "#app",
+		data: {
+			isEnabledProductFormBtn: true,		// 신규 상품 등록 버튼의 활성화 여부를 결정하는 값
+			isShowProductForm: false,			// 등록수정폼의 표시여부를 결정하는 값
+			categories: [						// 상품 카테고리 정보를 담는 배열
+				{no:100, name:"컴퓨터"}, 
+				{no:200, name:"스마트폰"}, 
+				{no:300, name:"노트북"}, 
+				{no:400, name:"태블릿"}
+			],
+			cat: "",							// 수정 입력폼의 카테고리 정보를 담는 프로퍼티
+			name: "",							// 수정 입력폼의 상품명 정보를 담는 프로퍼티
+			maker: "",							// 수정 입력폼의 제조회사 정보를 담는 프로퍼티
+			price: 0,							// 수정 입력폼의 가격 정보를 담는 프로퍼티
+			amount: 0,							// 수정 입력폼의 입고량 정보를 담는 프로퍼티
+			
+			products: []						// 등록된 상품정보를 담는 배열
+		},
+		methods: {
+			showProductForm: function() {
+				this.isShowProductForm = true;
+				this.isEnabledProductFormBtn = false;
+			},
+			hideProductForm: function() {
+				this.isShowProductForm = false;
+				this.isEnabledProductFormBtn = true;
+				this.clearFormField();
+			},
+			addProduct: function() {
+				// 폼의 입력값을 포함하는 상품 객체 생성
+				var product = {
+					cat: this.cat,
+					name: this.name,
+					maker: this.maker,
+					price: this.price,
+					amount: this.amount
+				};
+				// 상품객체를 배열에 추가
+				this.products.push(product);				
+				this.hideProductForm();				
+			},
+			showModifyForm: function(index) {
+				var product = this.products[index];
+				this.cat = product.cat;
+				this.name = product.name;
+				this.maker = product.maker;
+				this.price = product.price;
+				this.amount = product.amount;
+				
+				this.showProductForm();
+			},
+			removeProduct: function(index) {
+				this.products.splice(index, 1);
+			},
+			toCategoryName: function(catNo) {				
+				for (var i=0; i<this.categories.length; i++) {
+					var category = this.categories[i];
+					if (category.no == catNo) {
+						return category.name;
+					}
+				}
+			},
+			clearFormField: function() {
+				this.cat = "";
+				this.name = "";
+				this.maker = "";
+				this.price = 0;
+				this.amount = 0;
+			}
+		},
+		filters: {
+			isSoldOut: function(amount) {
+				return amount <= 0 ? "절판" : "재고있음";
+			}
+		}
+		
+	});
+</script>
+</body>
+</html>

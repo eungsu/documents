@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>이벤트 처리하기</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>이벤츠 처리하기</h1>
+            </div>
+
+            <div class="row" id="app">
+                <div class="col-xs-12">
+                    <p>비밀번호를 만들어 보세요</p>
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" v-model="password"/>
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-primary" @click="generatePassword">비밀번호 생성</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app",
+                data: {
+                    password:""
+                },
+                methods: {
+                    generatePassword: function() {
+                        var items = [
+                            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 
+                            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+                        ];
+
+                        var arr = [];
+
+                        for (var i=0; i<12; i++) {
+                            arr.push(items[Math.trunc(Math.random()*100000) % items.length]);
+                        }
+                        this.password = arr.join('');                        
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

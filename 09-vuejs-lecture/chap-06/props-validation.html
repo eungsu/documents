@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component :working-year="year" :emp-name="name" :gender="gender" :dept="department"></my-component>
+  </div>
+  <script>
+    const MyComponent = {
+      template: '<dl><dt>근무기간(숫자)</dt><dd>{{workingYear}}</dd><dt>이름(문자열)</dt><dd>{{empName}}</dd><dt>성별(남, 여)</dt><dd>{{gender}}</dd><dt>부서(객체)</dt><dd>{{dept.name}} {{dept.building}}</dd></dl>',
+      props: {
+        workingYear: {
+          type: Number,
+          required:true
+        },
+        empName: {
+          type: String,
+          default: '무명씨'
+        },
+        gender: {
+          validator: (value) => {
+            return value == '남' || value == '여';
+          }
+        },
+        dept: {
+          type: Object,
+          default: () => {
+            return {name: '인사팀', building: '본사'}
+          }
+        }
+      }
+    }
+
+    new Vue({
+      el: "#app",
+      data: function() {
+        return  {
+          year: 5,
+          name: '홍길동',
+          gender: '남',
+          department: {name: '총무팀', building: '본관 6층'}
+        }
+      },
+      components: {"my-component": MyComponent}
+    })
+  </script>
+</body>
+</html>

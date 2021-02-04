@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>양방향 데이터바인딩</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>양방향 데이터바인딩</h1>
+            </div>
+
+            <div class="row" id="app-1">
+                <div class="col-sm-12" >
+                    <p>이름을 입력해보세요</p>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-1">이름</label>
+                            <div class="col-sm-3">
+                                <input type="text" v-model="name" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12">입력한 이름: {{ name }}</div>
+            </div>
+
+            <hr/>
+
+            <div class="row" id="app-2">
+                <div class="col-sm-12">
+                    <p>나의 장바구니</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>제품명</th>
+                                <th>가격</th>
+                                <th>수량</th>
+                                <th class="text-right">구매가격</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in cartItems" :key="item.index"> 
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.price | currency }} 원</td>
+                                <td><input type="number" v-model="item.amount" style="width: 50px;"/></td>
+                                <td class="text-right">{{ item.price * item.amount | currency }} 원</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong>총 구매가격</strong></td>
+                                <td class="text-right">{{ getTotalOrderPrice | currency }} 원</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    <span class="text-info">총구매가격 + 배송비 = 총결재금액</span>  
+                                    <strong>{{ getTotalOrderPrice | currency }} 원</strong> + <strong>{{ shipping | currency }} 원</strong> = <strong class="text-danger" style="font-size: 16px;">{{ getTotalOrderPrice + shipping | currency }} 원</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app-1",
+                data: {
+                    name:''
+                }
+            });
+
+            new Vue({
+                el:"#app-2",
+                data: {
+                    shipping: 2500,
+                    cartItems: [
+                        {index:0, name:'이것이 자바다', price:30000, amount:1},
+                        {index:1, name:'비타민 C', price:15000, amount:1},
+                        {index:2, name:'핸드폰 보호필름', price:10000, amount:2},
+                        {index:3, name:'겨울 양말', price:3000, amount:5},
+                        {index:4, name:'미세먼지 보호용 마스크', price:4000, amount:20},
+                    ]
+                },
+                computed: {
+                    getTotalOrderPrice: function () {
+                        var totalOrderPrice = 0;
+                        $.each(this.cartItems, function(index, item) {
+                            totalOrderPrice += item.price * item.amount;
+                        })
+
+                        return totalOrderPrice;
+                    }
+                },
+                filters: {
+                    currency: function(value) {
+                        if (!value) {
+                            return '';
+                        }
+                        if (isNaN(value)) {
+                            return value;
+                        }
+                        return new Number(value).toLocaleString();
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

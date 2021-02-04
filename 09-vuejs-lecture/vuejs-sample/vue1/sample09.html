@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>양방향 데이터 바인딩</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container" id="app" v-cloak>
+            <div class="page-header">
+                <!--
+                    :disabled="showForm"은 입력폼 열기 버튼의 활성화/비활성화 여부를 설정한다.
+                    showForm이 true면 비활성화하고, showForm이 false면 활성화한다.
+                    @click="toggleForm()"은 입력폼 열기 버튼을 클릭하면 입력폼의 표시여부를 토글시킨다.
+                -->
+                <h1>양방향 데이터 바인딩 <button class="btn btn-primary pull-right" @click="toggleForm()" :disabled="showForm">입력폼 열기</button></h1>
+            </div>
+
+            <div v-if="showForm" class="row" id="user-register-row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">사용자 정보</h4>
+                        </div>
+                        <div class="panel-body">
+                            <form class='form-horizontal'>
+                                <input type="hidden" v-model="user.no" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-1">이름</label>
+                                    <div class="col-sm-11">
+                                        <input type="text" class="form-control" v-model="user.name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-1">이메일</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" v-model="user.email" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label class="checkbox-inline"><input type="checkbox" v-model="user.agree"/> 이메일 수집 동의</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-1">보유기술</label>
+                                    <div class="col-sm-5">
+                                        <!--
+                                            v-for="(skill, index) in skills"은 skills가 가진 정보를 활용해서 체크박스를 생성한다.
+                                            skills에는 [ {"label":"자바", "key":"Java"},  {"label":"C, C++", "key":"C"}, {"label":"파이썬", "key":"Python" ....} 이 저장되어 있다.
+]                                           v-bind:value='skill.key'는 checkbox의 value값을 설정한다.
+                                            v-model='checkedSkills'에는 체크된 체크박스의 value값이 저장된다.
+                                        -->
+                                        <label class="checkbox-inline" v-for="(skill, index) in skills">
+                                            <input type="checkbox" v-bind:value='skill.key' v-model='checkedSkills' /> {{skill.label}}
+                                        </label>
+                                    </div>
+                                    <label class="control-label col-sm-1">경력사항</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" v-model="user.career">
+                                            <option value="0"> 신입</option>
+                                            <option value="3"> 3년 이하</option>
+                                            <option value="5"> 5년 이하</option>
+                                            <option value="7"> 7년 이하</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-right">
+                                        <!--
+                                            입력폼의 모드가 입력모드(isModify:false), 수정모드(isModify:true) 인지에 따라서 버튼의 표시여부를 설정한다.
+                                        -->
+                                        <div v-if="!isModify">
+                                            <button type="button" class="btn btn-default" @click="closeForm">취소</button>  <!-- 버튼을 클릭하면 입력폼을 닫는다.-->
+                                            <button type="button" class="btn btn-primary" @click="addUser">등록</button>    <!-- 버튼을 클릭하면 입력된 지원자 정보를 지원자 리스트에 추가한다.-->
+                                        </div>
+                                        <div v-else>
+                                            <button type="button" class="btn btn-default" @click="closeForm">취소</button>  <!-- 버튼을 클릭하면 입력폼을 닫는다.-->
+                                            <button type="button" class="btn btn-primary" @click="modifyUser">수정</button> <!-- 버튼을 클릭하면 변경된 지원자 정보를 지원자 리스트에 반영한다.-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="user-list-row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">지원자 리스트</h4>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>순번</th>
+                                    <th>지원자명</th>
+                                    <th>이메일</th>
+                                    <th>이메일 수집동의</th>
+                                    <th>보유기술</th>
+                                    <th>경력사항</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--
+                                    v-for 지시어를 사용해서 지원자리스트를 표시한다.
+                                    :key="user.no"는 v-for를 사용해서 반복처리할 때 각각의 항목을 유일하게 구분해주는 값을 지원자의 번호로 지정한다. 이렇게 하면 화면 렌더링 속도가 개선된다.
+                                    @click="modifyUserForm(user, index)는 tr을 클릭하면 modifyUserForm을 실행하고, 현재 반복중인 항목의 인덱스와 지원자정보를 전달한다.
+                                -->
+                                <tr v-for="(user, index) in userList" style="cursor: pointer;" :key="user.no" @click="modifyUserForm(index, user)">
+                                    <td>{{user.no}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td v-html="agreeToLabel(user.agree)"></td>     <!-- 수집동의 여부(true, false)를 bootstrap의 라벨로 표시한다.-->
+                                    <td v-html="skillToLabel(user.skill)"></td>     <!-- 지원자의 보유기술(['Java', 'Python'])를 bootstrap의 라벨로 표시한다.-->
+                                    <td>{{user.career | careerToText}}</td>         <!-- 지원자의 경력사항을 필터를 사용해서 텍스트로 표시한다.-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app",                      // Vue애플리케이션의 관리대상이 되는 엘리먼트를 지정한다.
+                data: {                         // Vue인스턴스의 데이터모델 객체다
+                    sequence:1010,                                          // 사원등록시 부여할 새 사원번호용 시퀀스
+                    isModify: false,                                        // 입력폼이 수정모드일 때 true, 등록모드일 때 false다
+                    showForm: false,                                        // 등록/수정 목적으로 폼이 표시되고 있으면 true
+                    user:{},                                                // 입력폼과 바인딩되는 객체다. 입력폼에 입력된 사용자정보를 담거나, 수정할 사용자정보를 담아서 화면에 표시한다.
+                    userList:[],                                            // 지원자 리스트, 시작시 Ajax로 조회해서 미리 지원자리스트를 저장한다.
+                    skills: [],                                             // 스킬리스트, 시작시 Ajax로 조회해서 미리 스킬리스트를 저장한다. 스킬리스트는 체크박스를 만들때 사용된다.
+                    checkedSkills:[],                                       // 체크된 스킬을 담는 배열이다.
+                    modifiedUserIndex: -1                                   // 현재 수정중인 지원자의 인덱스를 저장한다.
+                },
+                beforeCreate: function() {      // Vue인스턴스의 라이프 사이클 상태가 초기화되면 호출된다.
+                     var _this = this;                                      // this는 Vue인스턴스를 참조한다. _this에 Vue인스턴스의 참조값을 복사한다.
+                     $.getJSON("sample09-users.json", function(result) {
+                         _this.userList = result;                           // 여기에서 this를 사용하면 jQuery객체의 특정 this를 참조하기 때문에 위에서 Vue인스턴의 this를 _this에 복사하고
+                     })                                                     // jQuery의 특정 객체를 참조하는 this 대신 Vue인스턴스를 참조하는 _this를 사용한 것임
+                     $.getJSON("sample09-skills.json", function(result) {
+                         _this.skills = result;
+                     })
+                },
+                methods: {                      // 이벤트 발생시 실행된 메소드가 정의된 객체다.                                   
+                    toggleForm: function() {                    // 입력폼을 토글시킨다.
+                        this.showForm = !this.showForm;                 // 입력폼 표시여부를 반전시킨다. 
+                    },
+                    closeForm: function() {                     // 입력폼을 닫는다.
+                        this.clearForm();                               // 입력폼을 클리어시킨다.
+                        this.showForm = false;                          // 입력폼 표시여부를 false로 설정한다.
+                    },
+                    clearForm: function() {                     // 입력폼에 입력된 정보와 체크된 스킬정보를 삭제한다.
+                        this.user = {};                                 // 입력폼과 바인딩되는 user에 빈 객체를 대입한다.
+                        this.checkedSkills = [];                        // 입력폼에서 체크된 스킬들을 전부 객체해제 시킨다.
+                    },
+                    addUser: function() {                       // 새로운 사용자 정보를 입력하고 등록버튼을 클리하면 실행된다.
+                        this.user.no = this.sequence++;                 // 새 지원자번호를 대입한다.
+                        this.user.skill = this.checkedSkills;           // 체크된 스킬을 지원자의 스킬정보에 대입한다.
+                        this.user.career = this.user.career;            // 지원자의 경력사항을 정수로 변환해서 지원자의 경력사항에 대입한다.
+                        this.userList.push(this.user);                  // 지원자정보를 지원자리스트에 추가한다.
+
+                        this.clearForm();                               // 입력폼을 클리어시킨다.
+                        this.showForm = false;                          // 입력폼 표시여부를 false로 설정한다.
+                    },
+                    modifyUserForm: function(index, user) {     // 테이블의 지원자 리스트에서 특정 지원자를 클릭하면 실행된다, 
+                        this.user = user;                               // 선택한 지원자정보를 입력폼과 바인딩되는 user에 대입한다.
+                        this.checkedSkills = user.skill;                // 선택한 지원자의 스킬정보를 입력폼의 checkbox와 바인딩되는 checkedSkills에 대입한다.
+                        this.modifiedUserIndex = index;                 // 현재 수정중인 지원자의 인덱스를 저장한다.
+
+                        this.isModify = true;                           // 입력폼을 수정모드를 설정한다.
+                        this.showForm = true;                           // 입력폼의 표시여부를 true로 설정한다.
+                    },
+                    modifyUser: function() {                    // 수정 버튼 클릭시 지원자배열에서 삭제하고,  수정된 정보를 지원자 리스트에 저장한다.
+                        this.user.skill = this.checkedSkills;           // 수정된 지원자정보의 보유기술에 체크된 기술을 대입한다.
+                        this.userList.splice(this.modifiedUserIndex, 1, this.user); // 지원자 리스트에서 기존정보를 삭제하고, 그 위치에 수정된 지원자정보를 추가한다.
+                        
+                        this.clearForm();                               // 입력폼을 클리어시킨다.
+                        this.isModify = false;                          // 입력폼을 등록모드로 설정한다.
+                        this.showForm = false;                          // 입력폼 표시여부를 false로 설정한다.
+                        
+                    },
+                    skillToLabel: function(skills) {                // 지원자의 보유 기술을 각각 bootstrap 라벨로 변경한다.
+                        var styles = ["label-primary", "label-success", "label-info", "label-warning", "label-danger"]
+                        if (skills.map) {
+                            return skills.map(function(skill, index) {
+                                return "<span class='label "+styles[index%5]+"'>"+skill+"</span>";
+                            }).join(" ");
+                        }
+                        return skills;
+                    },
+                    agreeToLabel: function(isAgree) {               // 이메일 수집동의 여부(true 혹은 false)를 bootstrap 라벨로 변경한다.
+                        return isAgree ? "<span class='label label-success'>동의</span>" : "<span class='label label-danger'>거절</span>";
+                    }
+                },
+                filters: {                      // 전달받은 값을 다른 형식의 값으로 가공해서 표현하는 필터가 정의된 객체다.
+                    careerToText: function(career) {                // 경력(0, 3, 5, 7)을  문자열(신입, 3년 이하, 5년 이하, 7년 이하)로 변환해서 반환한다. 
+                        switch (career) {
+                            case "0" :
+                                return "신입";
+                            case "3" :
+                                return "3년 이하";
+                            case "5" :
+                                return "5년 이하";
+                            case "7" :
+                                return "7년 이하";
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="elp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <base-layout>
+      <!-- <template> 엘리먼트의 모든 컨텐츠가 <slot name="header">로 전달된다. -->
+        <template v-slot:header>
+          <h1>Here might be a page Title</h1>
+        </template>
+        <!-- <template> 엘리먼트의 모든 컨텐츠가 <slot name="main">로 전달된다. -->
+          <template v-slot:main>
+            <p>A paragraph for the main content.</p>
+            <p>And another one.</p>
+          </template>
+          <!-- <template> 엘리먼트의 모든 컨텐츠가 <slot name="footer">로 전달된다. -->
+      <template v-slot:footer>
+        <p>Here is some contact info</p>  
+      </template>
+    </base-layout>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+
+    // 이름있는 슬롯을 가진 컴포넌트 정의하기
+    // 이름있는 슬롯은 여러 개의 슬롯을 사용할 때 더 유용하다.
+    // 이름있는 슬롯에서 <slot> 엘리먼트는 서로 다른 슬롯들을 정의할 때 쓸 수 있는 name이라는 특별한 속성을 가지고 있다.
+    const BaseLayout = {
+      template: `
+        <div>
+          <header>
+              <slot name="header"></slot> 
+          </header>
+          <main>
+              <slot name="main"></slot>
+          </main>
+          <footer>
+              <slot name="footer"></slot>
+          </footer>
+        </div>
+      `
+    }
+    new Vue({
+      el: "#app",
+      components: {"base-layout": BaseLayout}
+    });
+  </script>
+</body>
+</html>

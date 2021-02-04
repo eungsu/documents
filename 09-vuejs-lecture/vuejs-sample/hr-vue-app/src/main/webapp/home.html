@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="container mt-3" id="app">
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					최근 입사한 사원 리스트 
+					<button class="btn btn-primary btn-sm float-right" @click="toggleForm()">신규 등록</button>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>사원번호</th>
+								<th>이름</th>
+								<th>이메일</th>
+								<th>전화번호</th>
+								<th>입사일</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="employee in employees"
+								@click="showEmployeeDetail(employee)">
+								<td>{{employee.id}}</td>
+								<td>{{employee.firstName}} {{employee.lastName}}</td>
+								<td>{{employee.email}}</td>
+								<td>{{employee.phoneNumber}}</td>
+								<td>{{employee.hireDate}}</td>
+								<td>
+									<button class="btn btn-danger btn-sm" 
+										@click.stop="removeEmployee(employee.id)">삭제</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row mt-3" v-show="isShowForm">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					직원 상세 정보 
+					<button class="btn btn-outline-dark btn-sm float-right" @click="closeForm()">닫기</button>
+				</div>
+				<div class="card-body">
+					<form>
+						<div class="form-row">
+							<div class="form-group col-4">
+								<label>Department Id</label>
+								<select class="form-control" v-model="emp.departmentId">
+									<option v-for="dept in departments" :value="dept.id"> {{dept.name}}</option>
+								</select>
+							</div>
+							<div class="form-group col-4">
+								<label>Job Id</label>
+								<select class="form-control" v-model="emp.jobId">
+									<option v-for="job in jobs" :value="job.id"> {{job.title}}</option>
+								</select>
+							</div>
+							<div class="form-group col-4">
+								<label>Manager Id</label>
+								<select class="form-control" v-model="emp.managerId">
+									<option v-for="mgr in managers" :value="mgr.id"> {{mgr.firstName}} {{mgr.lastName}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-4">
+								<label>First Name</label>
+								<input type="text" class="form-control" v-model="emp.firstName">
+							</div>
+							<div class="form-group col-4">
+								<label>Last Name</label>
+								<input type="text" class="form-control" v-model="emp.lastName">
+							</div>							
+							<div class="form-group col-4">
+								<label>Email</label>
+								<input type="text" class="form-control" v-model="emp.email">
+							</div>
+						</div>
+					
+						<div class="form-row">
+							<div class="form-group col-4">
+								<label>Phone Number</label>
+								<input type="text" class="form-control" v-model="emp.phoneNumber">
+							</div>
+							<div class="form-group col-4">
+								<label>Salary</label>
+								<input type="text" class="form-control" v-model="emp.salary">
+							</div>
+							<div class="form-group col-4">
+								<label>Commission PCT</label>
+								<input type="text" class="form-control" v-model="emp.commissionPct">
+							</div>
+						</div>
+						
+						<div class="text-center">
+							<button type="button" class="btn btn-primary" @click="insertEmployee(emp)">확인</button>
+						</div>
+					</form>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			isShowForm: false,		// 입력폼의 표시여부를 담는다.
+			emp: {},				// 입력폼에서 입력한 정보나 입력폼에 표시할 정보를 담는 객체
+			departments: [],		// 모든 부서정보를 담는 배열
+			jobs: [],				// 모든 직종정보를 담는 배열
+			managers: [],			// 모든 매니저정보를 담는 배열
+			employees: []			// 최근 입사한 사원정보를 담는 배열
+		},
+		// beforeCreate 함수에 정의된 작업은 Vue인스턴스가 생성되고, 데이터가 화면에 표시되기 전에 수행할 작업을 정의하는 곳이다.
+		// 주로, 화면 구성에 필요한 초기 데이타를 서버에 요청하는 작업을 정의한다.
+		beforeCreate: function() {
+			// 모든 부서정보를 요청
+			axios.get("/hr/depts")
+			.then(function(response) {
+				app.departments = response.data;	// 조회된 부서정보를 data의 departments에 대입
+			});
+			// 모든 직종정보를 요청
+			axios.get("/hr/jobs")
+			.then(function(response) {
+				app.jobs = response.data;			// 조회된 직종정보를 data의 jobs에 대입	
+			});
+			// 모든 매니저정보를 요청
+			axios.get("/hr/managers")
+			.then(function(response) {
+				app.managers = response.data;		// 조회된 매니저정보를 data의 managers에 대입
+			});
+			// 최근 입사한 사원정보를 요청
+			axios.get("/hr/employees")
+			.then(function(response) {
+				app.employees = response.data;		// 조회된 사원정보를 data의 employees에 대입
+			});
+		},
+		methods: {
+			// 선택한 사원의 상세정보를 입력폼에 표시한다.
+			showEmployeeDetail: function(employee) {
+				app.emp = employee;			// 클릭한 사원의 정보를 전달받아서 입력폼과 데이터바인딩을 하고 있는 data의 emp에 대입한다.
+				app.openForm();
+			},
+			// 입력폼에서 입력한 신규 사원정보를 서버로 보낸다.
+			insertEmployee: function(newEmp) {
+				// 서버로 요청데이터 보내기
+				// axios.post(url, 데이터).then(함수);
+				// 데이터는 서버로 보내는 요청데이터 
+				//					newEmp는 자바스크립트 객체다 -> {firstName:'홍', lastName:'길동'}
+				//					서버로 전달될 때 newEmp 자바스크립트 객체가 json형식의 텍스트로 변해서 전달된다.
+				//					{firstName:'홍', lastName:'길동'} --> '{"firstName":"홍", "lastName":"길동"}'
+				//                  javascript객체                                    -->  json형식의 텍스트
+				// 함수는 서버로부터 성공적인 응답이 올때 실행될 함수
+				// 함수는 서버가 보낸 응답을 response로 전달받는다.
+				axios.post("/hr/employees", newEmp).then(function(response) {
+					app.employees = response.data;
+					app.closeForm();
+				})
+			},
+			// 삭제할 사원의 아이디를 전달받아서 서버로 보낸다.
+			removeEmployee: function(empId) {
+				axios.delete("/hr/employees/" + empId).then(function(response) {
+					app.employees = response.data;
+					app.clearForm();
+				})
+			},
+			// 입력폼을 토글시킨다.(열려있으면 닫고, 닫혀있으면 연다)
+			toggleForm: function() {
+				if (app.isShowForm) {
+					app.closeForm();
+				} else {
+					app.openForm();
+				}
+			},
+			// 입력폼을 연다.
+			openForm: function() {
+				app.isShowForm = true;
+			},
+			// 입력폼을 닫는다.
+			closeForm: function() {
+				app.isShowForm = false;
+				app.clearForm();
+			},
+			// 입력폼의 필드를 클리어한다.
+			clearForm: function() {
+				app.emp = {}
+			}
+		}
+	})
+</script>
+</body>
+</html>

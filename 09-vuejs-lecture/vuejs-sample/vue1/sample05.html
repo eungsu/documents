@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>조건문 처리</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Vue.js에서 조건문 처리하기</h1>
+                <p>Vue.js에 내장된 v-if 지시어를 사용하면 엘리먼트의 표시여부를 제어할 수 있다.</p>
+            </div>
+
+            <div class="row" id="app-1">
+                <div class="col-sm-12">
+                    <h3>시험결과</h3>
+                    <p>{{ exam.name }}의 시험 결과입니다.</p>
+                    <p v-if="exam.passed"><strong>합격입니다.</strong> 점수는 {{ exam.score }}점 입니다.</p>
+                    <p v-else><strong>불합격입니다.</strong> 점수는 {{ exam.score }}점 입니다.</p>
+                </div>
+            </div>
+
+            <div class="row" id="app-2">
+                <div class="col-sm-12">
+                    <h3>당신의 성적을 확인하세요</h3>
+                    <p v-if="score >= 90">A학점입니다.</p>
+                    <p v-else-if="score >= 80">B학점입니다.</p>
+                    <p v-else-if="score >= 70">C학점입니다.</p>
+                    <p v-else-if="score >= 60">D학점입니다.</p>
+                    <p v-else="score >= 90">F학점입니다.</p>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app-1",
+                data: {
+                    exam: {name:"정보처리 기사", score:54, passed:false}
+                }
+            });
+
+            new Vue({
+                el: "#app-2",
+                data: {
+                    score: 87
+                }
+            })
+        </script>
+    </body>
+</html>

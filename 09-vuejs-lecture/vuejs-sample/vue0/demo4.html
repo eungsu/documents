@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h1>배열의 데이터 표현하기</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>순번</th>
+						<th>번호</th>
+						<th>제목</th>
+						<th>저자</th>
+						<th>가격</th>
+						<th>구매수량</th>
+						<th>구매가격</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(book, index) in books">
+						<td><span v-if="book.best" class="badge badge-success">베스트셀러</span></td>
+						<td>{{index + 1}}</td>
+						<td>{{book.no}}</td>
+						<td>{{book.title}}</td>
+						<td>{{book.writer}}</td>
+						<td>{{book.price | currency}} 원</td>
+						<td><input type="number" v-model="book.amount" style="width: 50px;"> 개</td>
+						<td>{{book.price * book.amount | currency}} 원</td>
+						
+						<td><button class="btn btn-danger btn-sm" @click="removeBook(index)">삭제</button></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="7">총 구매금액</td>
+						<td colspan="2">{{totalPrice | currency}} 원</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<script>
+	new Vue({
+		el: ".container",
+		data: {
+			books: [
+				{no:100, title:'스프링 인 액션', writer:'심재철', price:35000, amount: 3, best: true},
+				{no:104, title:'이것이 자바다', writer:'신용권', price:37000, amount: 5, best: false},
+				{no:112, title:'자바의 정석', writer:'남궁성', price:31000, amount: 5, best: true}
+			]
+		},
+		methods: {		
+			removeBook: function(removedIndex) {
+				// 배열.splice(삭제할 인덱스, 갯수)
+				this.books.splice(removedIndex, 1);
+			}
+		},
+		computed: {
+			totalPrice: function() {
+				var result = 0;
+				// 배열.forEach(function(아이템, 인덱스) { 수행문; });
+				// 배열에 저장된 아이템의 갯수만큼의 함수가 실행되고, 함수가 실행될 때마다 순서대로 배열의 아이템들이 함수의 첫번째 인자로 전달된다.
+				this.books.forEach(function(book, index) {
+					result += book.price * book.amount;
+				})
+				
+				return result;
+			}
+		},
+		filters: {
+			// 숫자를 금융통화 형식(3자리마다 ,가 포함된)으로 포맷팅하는 필터
+			currency: function(price) {
+				return new Number(price).toLocaleString();
+			}
+		}
+	});
+	
+/*
+	new Vue(옵션객체)
+		- 옵션객체의 주요 프로퍼티
+			el: Vue.js가 관리하는 영역 CSS선택자로 지정한다.
+			data: 화면에 표시될 데이터 혹은 화면에서 입력한 값 등을 담는다.
+			methods: 이벤트 발생시 실행될 함수 혹은 다른 함수들이 사용하는 함수를 정의한다. 
+			filters: 값이 화면에 표시될 때 값의 형태를 변형하는 함수를 정의한다.
+			computed : 계산된 결과를 제공하는 함수를 정의한다. 데이터가 변경되면 자동으로 함수들이 실행된다.
+		- this
+			this는 Vue 인스턴스(객체)를 참조하고 있다.
+				this.books 
+				this.removeBook()
+*/
+</script>
+</body>
+</html>

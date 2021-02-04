@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+	<title>HR Application</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	
+</head>
+<body>
+<div class="container" id="app">
+	<div class="page-header">
+		<h1>사원 조회 프로그램</h1>
+		<p>사원정보를 조회할 수 있습니다.</p>
+	</div>
+	
+	<div class="row" >
+		<div class="col-sm-12 text-right">
+			<form class="form-inline">
+				<div class='form-group'>
+					<select class="form-control" v-model="opt">
+						<option value="아이디"> 사원아이디</option>
+						<option value="이름"> 이름</option>
+						<option value="직종"> 직종</option>
+						<option value="부서아이디"> 부서아이디</option>
+						<option value="급여"> 급여</option>
+						<option value="관리자아이디"> 관리자아이디</option>
+					</select>
+					<input type="text" class="form-control" v-model="keyword">
+				</div>
+				<button type="button" class="btn btn-primary" @click="searchEmployees(opt, keyword)">검색</button>
+			</form>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table" id="employees-table">
+				<thead>
+					<tr>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>직종</th>
+						<th>매니저아이디</th>
+						<th>급여</th>
+						<th>소속부서아이디</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="emp in employees">
+						<td>{{emp.employee_id}}</td>
+						<td>{{emp.first_name}}</td>
+						<td>{{emp.job_id}}</td>
+						<td>{{emp.manager_id}}</td>
+						<td>{{emp.salary}}</td>
+						<td>{{emp.department_id}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el:"#app",
+		data: {
+			employees:[],
+			opt:'',
+			keyword:''
+		},
+		methods: {
+			searchEmployees: function(optValue, keywordValue) {
+				var param = {};
+				if (optValue) {
+					param.opt = optValue;
+				}
+				if (keywordValue) {
+					param.keyword = keywordValue;
+				}
+				
+				$.getJSON('/search', param, function(data) { app.employees = data;});
+			}
+		}
+	});
+	
+	app.searchEmployees();
+	
+	
+</script>
+</body>
+</html>

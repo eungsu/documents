@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h3>개설과목명</h3>
+		<ul>
+			<!-- 
+				v-for 지시어
+					- 배열의 데이터를 반복해서 표현할 수 있다.
+					- 형식
+						<el v-for="변수명 in 배열명">
+							{{변수명}}
+						</el>
+						* 해당 배열의 데이터 수 만큼 엘리먼트가 생성된다.
+						* 배열의 값들이 순서대로 지정된 변수에 저장된다.
+						* 변수에 저장된 값을 {{}}표현식으로 표현한다.
+			 -->
+			<li v-for="name in courses">{{name}}</li>
+		</ul>
+		
+		<!-- 기본형값의 표현  -->
+		<div>
+			<h3>기본형</h3>
+			<p>{{msg}}</p>
+		</div>
+		
+		<!-- 객체형값의 표현  -->
+		<div>
+			<h3>객체형</h3>
+			<p>{{book.title}}</p>
+			<p>{{book.writer}}</p>
+			<p>{{book.price}}</p>
+		</div>
+		
+		<!-- 배열형값의 표현  -->
+		<div>
+			<h3>배열형</h3>
+			<p v-for="dept in depts">{{dept}}</p>
+		</div>
+	</div>
+<script>
+	new Vue({
+		el: "#app",
+		data: {
+			// data의 msg 프로퍼티에 기본형의 값이 들어 있다.
+			msg: "안녕하세요",
+			// data의 book 프로퍼티에 객체형의 값이 들어 있다.
+			book: {
+				title: "이것이 vue.js다",
+				writer: "홍길동",
+				price: 35000
+			},
+			// data의 courses 프로퍼티에 배열형의 값이 들어 있다.
+			courses: ["소프트웨어 기본", "화면설계", "화면구현", "인터페이스설계 및 구현"],
+			depts: ["국어국문학과", "영어영문학과", "신문방송학과", "경영학과", "경제학과"]
+		}
+	});
+</script>
+</body>
+</html>

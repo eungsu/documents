@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>지원자 관리 프로그램</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container" id="app">
+        <div class="page-header">
+<!-- 
+    @click="changeFormStatus(false, !formStatus.isShow)"
+        - 버튼을 클리하면
+            false : Form을 입력모드로 설정
+            !formStatus.isShow : Form의 표시여부를 토글한다.
+    :disabled="formStatus.isShow"
+        - 버튼의 비활성화 여부를 지정한다.
+            formStatus.isShow의 값이 true인 경우 버튼을 비할성화한다.
+ -->
+            <h1>지원자 관리 프로그램 <button class="btn btn-primary pull-right" 
+                                            @click="changeFormStatus(false, !formStatus.isShow)" 
+                                            :disabled="formStatus.isShow">입력폼 열기</button></h1>
+        </div>
+<!-- 
+    v-if="formStatus.isShow"
+        - Form의 표시여부를 결정한다.
+            formStatus.isShow의 값이 true인 경우 Form을 표시한다.
+ -->
+        <div class="row" v-if="formStatus.isShow">
+            <div class="col-sm-12">
+                <h3>지원자 정보</h3>
+                <form class="form-horizontal well">
+                    <div class="form-group">
+                        <label class="control-label col-sm-1">이름</label>
+                        <div class="col-sm-11">
+<!-- 
+    v-model="applicant.name"
+        - 지원자의 이름을 application객체의 name 프로퍼티와 바인딩 시킨다.
+ -->
+                            <input type="text" class="form-control" v-model="applicant.name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-sm-1">이메일</label>
+                        <div class="col-sm-5">
+<!-- 
+    v-model="applicant.email"
+        - 지원자의 이메일을 applicant객체의 email 프로퍼티와 바인딩 시킨다.
+ -->
+                            <input type="text" class="form-control" v-model="applicant.email"/>
+                        </div>
+                        <div class="col-sm-5">
+<!-- 
+    v-model="applicant.agreement"
+        - 이메일 수집동의를 applicant객체의 email 프로퍼티와 바인딩 시킨다.
+        - 초기값은 unchecked 상태로 설정함.
+        - 사용자가 이메일수집동의 여부를 한번도 변경하지 않는 경우 서버로 값이 전달되지 않는 문제가 있었음
+ -->
+                            <label for="" class="checkbox-inline"><input type="checkbox" v-model="applicant.agreement" /> 이메일수집 동의 </label>
+                        </div>    
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-1">경력사항</label>
+                        <div class="col-sm-5">
+<!-- 
+    v-model="applicant.career"
+        - 경력사항을 applicant객체의 career 프로퍼티와 바인딩 시킨다.
+        - 초기값은 신입으로 지정한다.
+ -->
+                            <select class="form-control" v-model="applicant.career">
+                                <option value="0"> 신입</option>
+                                <option value="3"> 3년 이상</option>
+                                <option value="5"> 5년 이상</option>
+                                <option value="7"> 7년 이상</option>
+                            </select>
+                        </div>
+                        <label class="control-label col-sm-1">보유기술</label>
+                        <div class="col-sm-5">
+<!-- 
+    v-for="skill in skills"
+        - skills는 선택가능한 보유기술정보객체를 가지고 있는 배열이다.
+        - 보유기술정보객체는 {id:값, name:설명}로 구성된 객체다.
+        - skill은 skills배열의 각 항목이 순서대로 저장된다.
+    v-model="checkedSkills"
+        - 사용자가 체크한 보유기술의 id값이 저장되는 배열이다.
+    :value="skill.id"
+        - 보유기술정보객체의 id프로퍼티값을 체크박스의 value속성값으로 설정한다.
+    {{skill.name}}
+        - 보유기술정보객체의 name프로퍼티값을 체크박스의 label로 설정한다.
+ -->
+                            <label class="checkbox-inline" v-for="skill in skills"><input type="checkbox" v-model="checkedSkills" :value="skill.id"/> {{skill.label}}</label>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label col-sm-1">추가사항</label>
+                        <div class="col-sm-11">
+<!-- 
+    v-model="applicant.description"
+        - 추가사항은 application객체의 description 프로퍼티와 바인딩된다.
+ -->
+                            <textarea class="form-control" rows="3" v-model="applicant.description"></textarea>
+                        </div>
+                    </div>    
+                    <div class="form-group">
+                        <div class="col-sm-12 text-right">
+<!-- 
+    @click="changeFormStatus(false, false)"
+        - 취소버튼을 클릭하면 
+            false: Form을 입력모드로 설정
+            false: Form을 표시여부를 false로 설정한다.
+    v-if="!formStatus.isModify"
+        - formStatus.isModify 프로퍼티값이 false인 경우(입력모드)인 경우에만 등록버튼이 표시된다.
+    v-else
+        - formStatus.isModify 프로퍼티값이 true인 경우(수정모드)인 경우에만 수정버튼이 표시된다.
+    @click="addApplicant(applicant)"
+        - 등록버튼을 클릭하면 Form의 입력값과 바인딩된 application객체를 addApplicant() 메소드로 전달한다.
+    @click="modifyApplicant"
+        - 수정버튼을 클릭하면 Form의 입력값과 바인딩된 application객체를 modifyApplicant() 메소드로 전달한다.
+ -->
+                            <button type="button" class="btn btn-default btn-sm" @click="changeFormStatus(false, false)">취소</button>
+                            <button v-if="!formStatus.isModify" type="button" class="btn btn-primary btn-sm" @click="addApplicant(applicant)">등록</button>
+                            <button v-else type="button" class="btn btn-primary btn-sm" @click="modifyApplicant(applicant.id)">수정</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>지원자 리스트</h3>
+                <table class="table table-hover">
+                    <colgroup>
+                        <col style="width: 5%;">
+                        <col style="width: 10%;">
+                        <col style="width: 15%;">
+                        <col style="width: 15%;">
+                        <col style="width: 35%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                    </colgroup>
+                    <thead>
+                        <th>순번</th>
+                        <th>이름</th>    
+                        <th>이메일</th>
+                        <th>이메일수집 동의</th>
+                        <th>보유기술</th>
+                        <th>등록일자</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+<!-- 
+    v-for="applicant in applicants"
+        - applications는 지원자정보객체를 가진 배열이다.
+        - 배열에 저장된 지원자정보의 크기만큰 tr를 반복 생성한다.
+    :key="applicant.id"
+        - v-for의 실행성능을 향상시키기 위해서 applicant객체의 id 프로퍼티값을 key로 설정한다.
+        - key로 설정가능한 값은 unique한 값을 가진 프로퍼티가 적절하다.
+
+    {{}}
+        - 지원자정보객체의 각 프로퍼티값을 템플릿에 표시한다.
+    v-html="holdingSkillsToLabel(applicant.holdingSkills)"
+        - v-html은 html태그를 가진 컨텐츠를 해당 태그의 컨텐츠로 추가한다.
+        - applicant.holdingSkills는 지원자의 보유기술정보객체가 저장된 배열이다.
+        - holdingSkillsToLabel()은 전달받은 보유기술정보객체가 저장된 배열을
+          <span class="label label">보유기술명</span>의 연속된 html 컨텐츠로 반환한다.
+    {{applicant.createDateTime | formatedDate}}
+        - applicant.createDateTime은 지원자의 등록일에 대한 유닉스타입값이다. 
+        - formatedDate는 유닉스타임을 yyyy.M.d 형식으로 변환한다.
+    @click="removeApplicant(applicant.id)"
+        - 삭제버튼을 클릭하면 applicant.id를 removeApplicant()로 전달한다. 
+    @click="showApplicant(applicant)"
+        - 수정버튼을 클릭하면 applicant객체를 showApplicant()로 전달해서 수정폼에 표시하게 한다.
+ -->
+                        <tr v-for="applicant in applicants" :key="applicant.id">
+                            <td>{{applicant.id}}</td>
+                            <td>{{applicant.name}}</td>
+                            <td>{{applicant.email}}</td>
+                            <td v-html="agreeToLabel(applicant.agreement)"></td>
+                            <td v-html="holdingSkillsToLabel(applicant.holdingSkills)"></td>
+                            <td>{{applicant.createdDateTime | formatedDate}}</td>
+                            <td>
+                                <button class="btn btn-danger btn-xs" @click="removeApplicant(applicant.id)">삭제</button>
+                                <button class="btn btn-warning btn-xs" @click="showApplicant(applicant)">수정</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",                 // Vue 애플리케이션이 적용할 대상 엘리먼트
+            data: {                     // Vue 애플리케이션에서 사용되는 값을 저장하는 데이터모델객체다.
+                applicants: [],         // 지원자정보객체들을 저장하는 배열이다, 초기화 작업시 서버에서 지원자정보를 조회해서 저장한다.
+                applicant: {            // 입력폼/수정폼과 바인딩되는 지원자정보를 저장하는 객체다.
+                    agreement: false,   // 이메일수집동의 여부 초기값을 false로 지정한다.
+                    career: 0           // 경력의 초기값을 신입으로 설정한다.
+                },
+                skills: [],             // 보유기술정보객체들을 저장하는 배열이다. 초기화 작업시 서버에서 체크가능한 모든 기술정보를 조회해서 저장한다.
+                checkedSkills: [],      // 체크된 보유기술정보의 아이디를 저장하는 배열이다.
+                formStatus: {           // 입력폼/수정폼의 상태를 저장하는 객체다. isModify는 수정모드/입력모드 여부, isShow는 폼 표시여부를 나타낸다.
+                    isModify:false,     // 초기값은 입력모드다.
+                    isShow:false        // 초기값은 화면에 표시하지 않는 것이다.
+                }
+            },
+            beforeCreate: function() {  // Vue 인스턴스의 LifeCycle 메소드다. beforeCreate 싯점에 서버와 통신에서 현재 DB에 저장된 지원자정보와 기술정보를 조회해서 applications와 skills에 저장한다.
+                var _this = this;     
+
+                axios.get("/api/applicants")    // DB에 저장된 모든 지원자정보를 조회해서 데이터모델객체의 applicants에 저장한다.
+                    .then(function(response) {
+                        if (response.data.resultCode == "OK") {
+                            _this.applicants = response.data.items;
+                        } else {
+                            _this.applicants = [];
+                            _this.errorMessage = response.data.errorMessage;
+                        }
+                    });
+                axios.get("/api/skills")        // DB에 저장된 체크가능한 모든 기술정보를 조회해서 데이터모델객체의 skills에 저장한다.  
+                    .then(function(response) {
+                        if (response.data.resultCode == "OK") {
+                            _this.skills = response.data.items;
+                        }
+                    });
+            },
+            methods: {                          // Vue 애플리케이션에서 사용되는 기능을 포함하는 객체다. 이벤트 핸들러메소드나 기타 메소드들이 정의된다.
+                changeFormStatus: function(isModify, isShow) {  // 입력폼/수정폼의 상태(수정/입력모드 여부, 화면표시여부)를 변경한다.
+                    this.formStatus.isModify = isModify;
+                    this.formStatus.isShow = isShow;
+                },
+                showApplicant: function(applicant) {    // 리스트의 수정버튼을 클릭했을 때 실행되는 메소드다. 
+                    this.applicant = applicant;         // 전달받은 지원자정보객체를 폼과 바인딩된 this.applicant에 저장한다.
+                    this.checkedSkills = this.holdingSkillsToId(applicant.holdingSkills);   // 지원자의 보유기술을 폼의 체크박스와 바인딩된 this.checkedSkills에 저장한다.
+                    this.changeFormStatus(true, true);  // 폼의 상태를 수정모드, 표시하기로 변경한다.
+                },
+                addApplicant: function() {              // 입력폼에서 등록버튼을 클릭했을 때 실행되는 메소드다.
+                    var _this = this;
+                    _this.applicant.skills = _this.checkedSkills;   // 폼의 보유기술 체크항목을 applicant의 skills에 저장한다.
+                    axios.post("/api/applicants", _this.applicant)  // 서버로 지원자정보를 전송해서 저장시킨다.
+                        .then(function(response) {
+                            _this.applicants.unshift(response.data.items[0]);   // 새 지원자정보를 applicants 배열의 첫번째에 추가한다.
+                        })
+                        .catch(function(error) {
+                            alert("서버 에러", error);
+                        })
+                        .then(function() {
+                            _this.changeFormStatus(false, false);   // 폼의 상태를 입력모드, 표시하지 않음으로 변경한다.
+                        })
+                    
+                },
+                removeApplicant: function(applicantId) {    // 삭제버튼을 클릭했을 때 실행되는 메소드다.
+                    var _this = this;
+                    axios.delete("/api/applicants/" + applicantId)  // 전달받은 지원자 아이디를 서버로 전송해서 해당 지원자정보를 삭제시킨다.
+                        .then(function(response) {
+                            _this.applicants = _this.applicants.filter(function(item, index) {  // 전체 지원자정보가 저장된 배열에서 지금 삭제된 지원자만 제외시키고 applicants에 저장한다.
+                                return applicantId != item.id;
+                            });
+                        })
+                        .catch(function(error) {
+                            alert("서버 에러", error);
+                        })
+                },
+                modifyApplicant: function(applicantId) {    // 폼의 수정버튼을 클릭했을 때 실행되는 메소드다.
+                    var _this = this;
+                    _this.applicant.skills = _this.checkedSkills;   // 폼의 보유기술 체크항목을 applicant의 skills에 저장한다.
+                    axios.put("/api/applicants/" + applicantId, _this.applicant)    // 지원자의 아이디와 지원자정보를 서버로 전송해서 해당 지원자정보를 수정하게 한다.
+                        .then(function(response) {
+                            var foundIndex = -1;
+                            _this.applicants.forEach(function(item, index) {    // applicants 배열에서 수정한 지원자정보가 위치한 인덱스를 조회한다.
+                                if (item.id == applicantId) {
+                                    foundIndex = index;
+                                }
+                            });
+                            _this.applicants.splice(foundIndex, 1, response.data.items[0]); // applicants 배열에서 해당 인덱스의 지원자정보를 수정된 지원자정보로 대체시킨다.
+                        })
+                        .catch(function(error) {
+                            alert("서버 에러", error);
+                        })
+                        .then(function() {
+                            _this.changeFormStatus(false, false);   // 폼의 상태를 입력모드, 표시하지 않음으로 변경한다.
+                        })
+                },
+                agreeToLabel: function(value) { // 이메일수집 동의 여부를 <span> 태그를 포함하는 html 컨텐츠로 반환한다.
+                    return value ? "<span class='label label-success'>동의</span>" : "<span class='label label-danger'>거절</span>";
+                },
+                holdingSkillsToLabel: function(holdingSkills) { // 지원자의 보유기술을 <span> 태그를 포함하는 html 컨텐츠롤 반환한다.
+                    var labelStyles = ["label-primary", "label-success", "label-info", "label-warning", "label-danger"];
+                    return holdingSkills.map(function(item, index) {
+                        return '<span class="label '+labelStyles[index%labelStyles.length]+'">' + item.skillLabel + '</span>';
+                    }).join(" ");
+                },
+                holdingSkillsToId: function(holdingSkills) {    // 사용자의 보유기술정보 배열을 보유기술아이디 배열로 변환해서 반환한다.
+                    return holdingSkills.map(function(item, index) {
+                        return item.skillId;
+                    });
+                }
+            },
+            filters: {  // Vue 애플리케이션에서 사용되는 필터 기능을 포함하는 객체다.
+                formatedDate: function(datetime) { // 유닉스 타임을 yyyy.m.d. 로 변환해서 반환한다.
+                    return new Date(datetime).toLocaleDateString(); 
+                }
+            }
+        });
+
+        // 폼의 상태정보 중 isShow의 값이 변경될 때 마다 실행되는 watch 함수다. 폼이 입력모드로 화면에 표시될 때 입력폼을 초기화 시킨다.
+        vm.$watch("formStatus.isShow", function(isModifyNewValue, isModifyOldValue) {
+            if (!isModifyNewValue) {    
+                vm.applicant = {       // 입력폼과 바인딩된 applicant객체의 이메일수집 동의, 경력을 초기화한다.
+                    agreement: false,
+                    career: 0
+                };
+                vm.checkedSkills = [];  // 보유기술아이디를 저장하는 checkedSkills을 초기화 시킨다.
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component></my-component>
+  </div>
+  <script>
+    const Component = {
+      template: '<div>지역 컴포넌트 연습</div>'
+    }
+
+    new Vue({
+      el: "#app",
+      components: {myComponent: Component}
+    });
+  </script>
+</body>
+</html>

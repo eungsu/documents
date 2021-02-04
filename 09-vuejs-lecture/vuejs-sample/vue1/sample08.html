@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>양뱡향 데이터 바인딩</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>양방향 데이터 바인딩</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12" id="app">
+                    <h3>
+                        상품 리스트
+                        <select class="form-control pull-right" style="width: 200px;" v-model="orderBy" @change="sort()">
+                            <option value="title"> 제목순</option>
+                            <option value="date"> 최신 상품순</option>
+                            <option value="low"> 낮은 가격순</option>
+                            <option value="high"> 비싼 가격순</option>
+                        </select>
+                    </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>순번</th>
+                                <th>제목</th>
+                                <th>가격</th>
+                                <th>등록일</th>
+                            </tr>
+                        </thead>    
+                        <tbody>
+                            <tr v-for="(book, index) in books">
+                                <td>{{index+1}}</td>
+                                <td>{{book.title}}</td>
+                                <td>{{book.price | currency}} 원</td>
+                                <td>{{book.date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app",
+                data: {
+                    orderBy: "date",
+                    books:[
+                       {no:10, title:"This is Java", price:30000, date:"2020-01-25"},
+                       {no:12, title:"Spring in Action", price:32000, date:"2020-01-31"},
+                       {no:13, title:"Effective Java", price:27000, date:"2020-02-01"},
+                       {no:14, title:"Pro React", price:21000, date:"2019-10-23"},
+                       {no:15, title:"Node.js Practice", price:23000, date:"2020-02-05"},
+                       {no:16, title:"Oracl SQL and PL/SQL", price:18000, date:"2019-12-24"},
+                       {no:17, title:"JPA Programming", price:36000, date:"2019-11-12"},
+                       {no:18, title:"Spring Boot Project", price:28000, date:"2020-01-03"}
+                    ]
+                },
+                created: function() {
+                    this.sort();
+                },
+                methods: {
+                    sort: function() {
+                        if (this.orderBy == "title") {
+                            this.books.sort(function(one, two) {
+                                return one.title.localeCompare(two.title);
+                            });
+                        } else if (this.orderBy == "date") {
+                            this.books.sort(function(one, two) {
+                                return two.date.localeCompare(one.date);
+                            })
+                        } else if (this.orderBy == "high") {
+                            this.books.sort(function(one, two) {
+                                return two.price - one.price;
+                            })
+                        } else if (this.orderBy == "low") {
+                            this.books.sort(function(one, two) {
+                                return one.price - two.price;
+                            })
+                        }             
+                    }
+                },
+                filters: {
+                    currency: function(value) {
+                        if (isNaN(value)) {
+                            return value;
+                        }
+                        return new Number(value).toLocaleString();
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

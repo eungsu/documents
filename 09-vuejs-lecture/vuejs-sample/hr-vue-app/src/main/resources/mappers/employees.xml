@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.demo.dao.EmployeeDao">
+
+	<select id="getEmployees" parameterType="int" resultType="Employee">
+		select
+			*
+		from (
+			select
+				employee_id id,
+				first_name firstName,
+				last_name lastName,
+				email,
+				phone_number phoneNumber,
+				hire_date hireDate,
+				job_id jobId,
+				salary,
+				commission_pct commissionPct,
+				manager_id managerId,
+				department_id departmentId
+			from 
+				employees
+			order by
+				employee_id desc
+		)
+		where rownum &lt;= #{value}
+	</select>
+	
+	<select id="getManagers" resultType="Employee">
+		select
+			employee_id id,
+			first_name firstName,
+			last_name lastName,
+			email,
+			phone_number phoneNumber,
+			hire_date hireDate,
+			job_id jobId,
+			salary,
+			commission_pct commissionPct,
+			manager_id managerId,
+			department_id departmentId
+		from 
+			employees
+		where 
+			employee_id in (select distinct manager_id
+							from employees
+							where manager_id is not null)
+	</select>
+	
+	<select id="getEmployee" parameterType="int" resultType="Employee">
+		select
+			employee_id id,
+			first_name firstName,
+			last_name lastName,
+			email,
+			phone_number phoneNumber,
+			hire_date hireDate,
+			job_id jobId,
+			salary,
+			commission_pct commissionPct,
+			manager_id managerId,
+			department_id departmentId
+		from 
+			employees
+		where 
+			employee_id = #{value}
+	</select>
+	
+	<insert id="insertEmployee" parameterType="Employee">
+		insert into employees
+		(employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, commission_pct, manager_id, department_id)
+		values
+		(employees_seq.nextval, #{firstName}, #{lastName}, #{email}, #{phoneNumber}, sysdate, #{jobId}, #{salary}, #{commissionPct}, #{managerId}, #{departmentId})
+	</insert>
+	
+	<delete id="deleteEmployee" parameterType="int">
+		delete from
+			employees
+		where
+			employee_id = #{value}
+	</delete>
+	
+	<update id="updateEmployee" parameterType="Employee">
+		update employees
+		set
+			first_name = #{firstName},
+			last_name = #{lastName},
+			email = #{email},
+			phone_number = #{phoneNumber},
+			job_id = #{jobId},
+			salary = #{salary},
+			commission_pct = #{commissionPct},
+			manager_id = #{managerId},
+			department_id = #{departmentId}
+		where
+			employee_id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.demo.dao.DepartmentDao">
+	
+	<select id="getAllDepartments" resultType="Department">
+		select 
+			department_id id,
+			department_name name
+		from
+			departments
+		where
+			manager_id is not null
+		order by
+			department_id
+	</select>
+	
+</mapper>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+	<title>HR Application</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+	<div class="page-header">
+		<h1>사원 조회 프로그램</h1>
+		<p>사원정보를 조회할 수 있습니다.</p>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12 text-right">
+			<form class="form-inline">
+				<div class='form-group'>
+					<select class="form-control" name="opt" id="search-opt">
+						<option value="아이디"> 사원아이디</option>
+						<option value="이름"> 이름</option>
+						<option value="직종"> 직종</option>
+						<option value="부서아이디"> 부서아이디</option>
+						<option value="급여"> 급여</option>
+						<option value="관리자아이디"> 관리자아이디</option>
+					</select>
+					<input type="text" class="form-control" name="keyword" id="search-keyword">
+				</div>
+				<button type="button" class="btn btn-primary" id="btn-search-emp">검색</button>
+			</form>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table" id="employees-table">
+				<thead>
+					<tr>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>직종</th>
+						<th>매니저아이디</th>
+						<th>급여</th>
+						<th>소속부서아이디</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+	$("#btn-search-emp").click(function() {
+		var optValue = $("#search-opt").val();
+		var keywordValue = $("#search-keyword").val();
+		
+		if (!optValue || !keywordValue) {
+			return;
+		}
+		
+		runAjax(optValue, keywordValue);
+	});
+
+
+	function runAjax(optValue, keywordValue) {
+		
+		var param = {};
+		if (optValue) {
+			param.opt = optValue;
+		}
+		if (keywordValue) {
+			param.keyword = keywordValue;
+		}
+		
+		$.ajax({
+			type:"get",
+			url:"/search",
+			data:param,
+			dataType:"json",
+			success:function(employees) {
+				var $tbody = $("#employees-table tbody").empty();
+				
+				$.each(employees, function(index, emp) {
+					var row = "<tr>";
+					row += "<td>"+emp.employee_id+"</td>";
+					row += "<td>"+emp.first_name+"</td>";
+					row += "<td>"+emp.job_id+"</td>";
+					row += "<td>"+emp.manager_id+"</td>";
+					row += "<td>"+emp.salary+"</td>";
+					row += "<td>"+emp.department_id+"</td>";
+					row += "</tr>";
+					
+					$tbody.append(row);
+				})
+			}
+		})
+	};
+	
+	runAjax();
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <book-component :books="books">
+      <template v-slot:header>
+        <h1>{{header}}</h1>
+      </template>
+      <template v-slot:main="{ book }">
+        <div><strong>{{book.title}}</strong> <small>{{book.author}}</small></div>
+      </template>
+    </book-component>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const BookComponent = {
+      template: `
+        <div>
+          <slot name="header"></slot>
+          <slot name="main"
+            v-for="item in books"
+            :book="item"></slot>
+        </div>
+      `,
+      props:['books']
+    };
+
+    new Vue({
+      el: "#app",
+      components: {"book-component": BookComponent},
+      data() {
+        return {
+          header: "책 목록",
+          books: [
+            {author: 'John Smith', title: 'Best of Times'},
+            {author: 'Jane Doe', title: 'Go West Young Man'},
+            {author: 'Avery Katz', title: 'The Life And Times Of Avery'}
+          ]
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+[
+    {"label":"자바", "key":"Java"}, 
+    {"label":"C, C++", "key":"C"}, 
+    {"label":"파이썬", "key":"Python"}, 
+    {"label":"머신러닝", "key":"ML"}, 
+    {"label":"인공지능", "key":"AI"}
+]

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>데이터 바인딩</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            dd {margin-left: 40px;}
+        </style>
+    </head>
+    <body>
+        <div class="container" id="app">
+            <div class="page-header">
+                <h1>데이터 바인딩</h1>
+                <p>Vue.js는 Vue 인스턴스의 데이터 모델객체에 저장된 값을 화면에 표현할 수 있다.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>{{ book.title }}</h3>
+                    <p>{{ book.description }}</p>
+                    <dl>
+                        <dt>제목</dt><dd>{{ book.title }}</dd>
+                        <dt>저자</dt><dd>{{ book.writer }}</dd>
+                        <dt>출판사</dt><dd>{{ book.publisher }}</dd>
+                        <dt>가격</dt><dd>{{ book.price }} 원</dd>
+                        <dt>할인가격</dt><dd>{{ book.discountPrice }} 원</dd>
+                        <dt>재고현황</dt><dd>{{ book.stock }}</dd>
+                        <dt>절판여부</dt><dd>{{ book.soldOut }} 권</dd>
+                        <dt>발행일</dt><dd>{{ book.pubDate }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app",
+                data: {
+                    book: {
+                        description: "[혼자 공부하는 자바]를 소개합니다. 전자정부 표준 프레임워크의 기반 기술은 자바를 공부하기 위한 최선의 선택",
+                        title: "혼자 공부하는 자바",
+                        writer: "신용권",
+                        publisher: "한빛미디어",
+                        price: 35000,
+                        discountPrice: 32000,
+                        stock: 100,
+                        soldOut: false,
+                        pubDate: new Date()
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

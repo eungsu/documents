@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>반복처리</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Vue.js에서 배열 데이터 처리하기</h1>
+                <p>Vue.js에 내장된 v-for 지시어를 사용하면 배열에 포함된 요소의 갯수만큼 엘리먼트를 반복해서 생성할 수 있다.</p>
+            </div>
+
+            <div class="row" id="app">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ title }}</h3>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="subjectName in subjects">
+                                {{subjectName}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app",
+                data: {
+                    title: "강의 과목",
+                    subjects: ["자바 기본", "객체지향 프로그래밍", "자바의 자료구조", "SQL 활용 및 응용", "프론트 엔드 애플리케이션 개발", "자바의 웹", "스프링 프레밍워크", "파이널 프로젝트"]
+                }
+            });
+        </script>
+    </body>
+</html>
