@@ -82,12 +82,14 @@
     ```
     * 교수테이블에서 교수정보를 조회하기, 교수번호, 교수이름, 직급, 해당직급의 평균급여 정보를 조회하기
     ```sql
-      select A.profno, A.name, A.position, A.pay, (select avg(B.pay) from professor B where B.position = A.position) position_avg_pay
+      select A.profno, A.name, A.position, A.pay, 
+             (select avg(B.pay) from professor B where B.position = A.position) position_avg_pay
       from professor;
     ```
     * 교수테이블에서 교수정보를 조회하기. 교수번호, 교수이름, 직급, 해당교수가 지도하는 학생숫자를 조회하기
     ```sql
-      select A.profno, A.name, A.position, (select count(*) from student B where B.profno = A.profno) student_cnt
+      select A.profno, A.name, A.position, 
+             (select count(*) from student B where B.profno = A.profno) student_cnt
       from professor;
     ```
 - 스칼라 서브쿼리
