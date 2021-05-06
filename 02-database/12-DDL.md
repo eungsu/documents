@@ -106,7 +106,7 @@
     * CURRVAL을 사용하려면 해당 시퀀스에 대한 NEXTVAL이 실행된 후에만 가능한다.
 ```sql
   -- 새로운 일련번호 조회하기
-  select documents_seq.nextval from dual;
+  select product_seq.nextval from dual;
   
   -- 테이블에 새로운 행을 추가할 때 일련번호 활용하기
   insert into sample_products
