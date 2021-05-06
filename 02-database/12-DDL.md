@@ -104,6 +104,16 @@
   + 시퀀스명.CURRVAL
     * 현재 연결된 세션에서 nextval를 통해서 발행했던 번호를 다시 .
     * CURRVAL을 사용하려면 해당 시퀀스에 대한 NEXTVAL이 실행된 후에만 가능한다.
+```sql
+  -- 새로운 일련번호 조회하기
+  select documents_seq.nextval from dual;
+  
+  -- 테이블에 새로운 행을 추가할 때 일련번호 활용하기
+  insert into sample_products
+  (product_no, product_name, product_company, product_price)
+  values
+  (product_seq.nextval, '아이패드 프로', '애플', 1200000);
+```
 
 ### 뷰
 - 테이블 혹은 다른 뷰를 기반으로 하는 가상의 테이블(논리적인 테이블)이다.
