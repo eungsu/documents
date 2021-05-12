@@ -102,13 +102,13 @@
     * 중국어:zh
     * 프랑스어:fr
     * 독일어:de
-- &lt;head&gt; ~ &lt;head&gt;
+- &lt;head&gt; ~ &lt;/head&gt;
   + 웹브라우져가 문서를 해석하는데 필요한 정보를 제공하는 태그
     * 문서의 제목 : &lt;title&gt;문서의 제목&lt;/title&gt;
     * 문자 인코딩 방식 : &lt;meta charset="utf-8"&gt;
     * 스타일시트 : &lt;link rel="style" href="style.css"&gt;
     * 기타 : 자바스크립트소스
-  + &lt;head*gt;태그에 정의된 태그는 화면에 표시되지 않는다.
+  + &lt;head&gt;태그에 정의된 태그는 화면에 표시되지 않는다.
 - &lt;body&gt; ~ &lt;/body&gt;
   + 웹브라우저에 실제로 표시될 내용을 포함하는 태그
   + 앞으로 배우게 될 태그들은 대부분 &lt;body&gt; 태그 안에서 사용하게 될 태그
