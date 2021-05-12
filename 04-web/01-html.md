@@ -88,12 +88,12 @@
 - &lt;!doctype html&gt;
   + html 문서의 유형을 선언하는 선언문이다.
   + "이 문서는 html5 작성규칙을 준수하는 HTML 문서다"라는 의미를 나타냄
-- &lt;html&gt; ~ &lt;html&gt;
+- &lt;html&gt; ~ &lt;/html&gt;
   + html 문서의 루트 태그
   + 모든 html문서는 루트 태그를 오직 하나만 가질 수 있다. 	
-  + 모든 태그는 <html>태그 안에 작성해야 한다.
-  + <html>태그는 <head>와 <body>태그를 자식태그로 가진다.
-  + <html>태그는 lang속성을 가진다.
+  + 모든 태그는 &lt;html&gt;와 &lt;/html&gt;태그 안에 작성해야 한다.
+  + &lt;html&gt;태그는  &lt;head&gt;와  &lt;body&gt;태그를 자식태그로 가진다.
+  + &lt;html&gt;태그는 lang속성을 가진다.
   + lang 속성은 문서에서 사용되는 언어를 지정할 수 있다.
   + lang 속성에 지정된 언어와 브라우저의 기본언어가 다르면 번역옵션이 표시된다.
     * 한국어:ko
