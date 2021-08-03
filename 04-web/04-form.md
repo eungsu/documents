@@ -16,7 +16,7 @@
     <label>아이디</label>
     <input type="text" />		
     
-    <label비밀번호</label>
+    <label>비밀번호</label>
     <input type="password" />
     
     <label>나이</label>
