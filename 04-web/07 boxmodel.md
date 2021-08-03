@@ -9,15 +9,13 @@
   + contents : 박스모델이 가지는 실제 내용(텍스트 혹은 이미지) 
 
 + 박스모델에서 엘리먼트의 실제 너비와 높이
-  + box-sizing이 content-box인 경우 
+  + box-sizing이 content-box인 경우
+    + css에서 정의한 width가 contents의 너비로 정의 된다. 
   ```
     디폴트너비 = leftmargin + leftborder + leftpadding  + content(width) + rightpadding + rightborder + rightmargin
   ```  
-		+ css에서 정의한 width가 contents의 너비로 정의 된다.
-  
   + boz-sizing이 border-box인 경우
+    + css에서 정의한 width가 border와 padding, content의 너비를 합한 것으로 정의된다.
   ```
-  너비 = leftmargin + width + rightmargin
+    너비 = leftmargin + width + rightmargin
   ```
-	  + css에서 정의한 width가 border와 padding, content의 너비를 합한 것으로 정의된다.
-                          
