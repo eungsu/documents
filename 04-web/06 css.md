@@ -5,45 +5,45 @@
 + HTML 문서에 대한 디자인적인 요소를 담당한다.
 + 문법
 ```
-	Selector(선택자)	Declaration(CSS 선언)
-	h1                {color:blue;  font-size:12px;}
+  Selector(선택자)	Declaration(CSS 선언)
+  h1                {color:blue;  font-size:12px;}
 
-	* 선택자
-		스타일을 적용할 대상 엘리먼트(태그)를 지정한다.
-	* CSS 선언
-		선택자에서 지정한 엘리먼트에 적용할 스타일을 선언한다.
-		각각의 CSS선언은 세미콜론으로 구분한다.
-		CSS선언은 PropertyName:PropertyValue로 구성된다.
+  * 선택자
+    스타일을 적용할 대상 엘리먼트(태그)를 지정한다.
+  * CSS 선언
+    선택자에서 지정한 엘리먼트에 적용할 스타일을 선언한다.
+    각각의 CSS선언은 세미콜론으로 구분한다.
+    CSS선언은 PropertyName:PropertyValue로 구성된다.
 ```
 ## CSS 적용하기
 + Inline CSS
-	+ 하나의 엘리먼트에만 적용할 스타일을 정의할 때 사용한다.
-	+ 엘리먼트에 CSS선언을 정의하는 것
+  + 하나의 엘리먼트에만 적용할 스타일을 정의할 때 사용한다.
+  + 엘리먼트에 CSS선언을 정의하는 것
   ```html
-		<h1 style="color:red; font-size:12px;">컨텐츠</h1>
-		<!-- CSS선언이 정의된 그 태그에만 스타일이 적용된다. --> 
-	```
+    <h1 style="color:red; font-size:12px;">컨텐츠</h1>
+    <!-- CSS선언이 정의된 그 태그에만 스타일이 적용된다. --> 
+  ```
 + Internal CSS
   + 하나의 HTML문서에만 적용할 스타일을 정의할 때 사용한다.
   + HTML문서의 헤더부분에서 &lt;style&gt;태그 안에 CSS선언을 정의하는 것
-	```html
-		<style>
-			h1 {color:red; font-size:12px;}
-			p {margin: 10px; padding:6px;}
-		</style>
-		<!-- HTML문서에 있는 모든 <h1>, <p> 태그에 스타일이 적용된다. -->
-	```
+  ```html
+    <style>
+      h1 {color:red; font-size:12px;}
+      p {margin: 10px; padding:6px;}
+    </style>
+    <!-- HTML문서에 있는 모든 <h1>, <p> 태그에 스타일이 적용된다. -->
+  ```
 + External CSS
-	+ 프로젝트 내의 모든 HTML문서에 적용할 스타일을 정의할 때 사용한다.
+  + 프로젝트 내의 모든 HTML문서에 적용할 스타일을 정의할 때 사용한다.
   + 별도의 css파일에 CSS선언을 정의하고, &lt;link&gt;태그를 이용해서 css파일을 html문서와 연결시킨다.
   + 하나의 css파일만 변경하면 프로젝트 내의 모든 HTML문서의 스타일을 변경할 수 있다.
   ```css
-		h1 {color:red; font-size:12px;}
-		p {margin: 10px; padding:6px;}
-	```
-	```html
-		<link rel="stylesheet" type="text/css" href="style.css">
-	```
+    h1 {color:red; font-size:12px;}
+    p {margin: 10px; padding:6px;}
+  ```
+  ```html
+    <link rel="stylesheet" type="text/css" href="style.css">
+  ```
 
 ## CSS 선택자
 + HTML문서에서 스타일을 적용할 대상을 선택할 때 사용한다.
