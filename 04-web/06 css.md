@@ -100,20 +100,3 @@
 |a:link|a:link|a엘리먼트 중에서 방문적이 없는 링크|
 |a:visited|a:visited|a엘리먼트 중에서 방문한적인 있는 링크|
 |a:active|a:active|a엘리먼트 중에서 지금 선택한 링크|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
