@@ -37,6 +37,11 @@
     * 커서를 다음행으로 이동시킨다. 데이터행이 존재하면 true를 반환한다.
   + XXX getXXX(String columnName)
     * 컬럼명에 해당하는 값을 반환한다.
+    * String getString(String columnName);
+    * int getInt(String columnName);
+    * long getLong(String columnName);
+    * double getDouble(String columnName);
+    * Date getDate(String columnName);
   + void close()
     * DB 연결 자원을 해제한다.
 - DriverManager 클래스
