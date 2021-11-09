@@ -10,9 +10,9 @@
 
 ## Dynamic Web Project 구성
 ```
-  java Resources의 src
+  src/main/java
     자바패키지 및 자바 클래스 정의
-  WebContent
+  src/main/webapp
     웹관련 리소스가 위치하는 폴더
   html, css, images, jsp등을 정의하거나 혹은 저장한다.
     (각각 파일마다 별도의 폴더를 만들어서 저장하는 것도 가능)
