@@ -22,24 +22,24 @@
     ibatis, jdbc driver, log4j 등의 jar파일을 저장함
 ```
 ## JSP의 실행 순서
-1 브라우저의 주소창에 JSP의 실행을 요청하는 URL을 적는다.
-2 브라우저는 주소창의 URL이 포함된 HTTP 요청메세지를 만들어서 서버로 보낸다.
-3 Tomcat의 브라우저의 요청메세지를 접수받는다.
-4 요청객체(HttpServletRequest)와 응답객체(HttpServletResponse)객체를 생성한다.
+1. 브라우저의 주소창에 JSP의 실행을 요청하는 URL을 적는다.
+2. 브라우저는 주소창의 URL이 포함된 HTTP 요청메세지를 만들어서 서버로 보낸다.
+3. Tomcat의 브라우저의 요청메세지를 접수받는다.
+4. 요청객체(HttpServletRequest)와 응답객체(HttpServletResponse)객체를 생성한다.
   + 요청메세지를 분석해서 요청객체에 전부 저장한다.
   + 응답메세지 제공을 책임질 응답객체도 함께 생성한다.
-5 Tomcat이 요청URL을 분석해서 JSP 파일을 찾아서 로드한다.
-6 JSP파일을 java파일로 변환한다
-7 java파일을 컴파일해서 class파일을 만든다.
-8 컴파일된 class파일 로드해서 객체를 생성한다.
-9 Tomcat이 \_jspService(HttpServletRequest request, HttpServletResponse response)를 실행한다.
+5. Tomcat이 요청URL을 분석해서 JSP 파일을 찾아서 로드한다.
+6. JSP파일을 java파일로 변환한다
+7. java파일을 컴파일해서 class파일을 만든다.
+8. 컴파일된 class파일 로드해서 객체를 생성한다.
+9. Tomcat이 \_jspService(HttpServletRequest request, HttpServletResponse response)를 실행한다.
   + 실행시 4번에서 생성된 요청객체와 응답객체를 각각 request와 response 변수에 전달한다.
     * \_jspService 메소드는 jsp에서 진입점이 되는 메소드다.
     * \_jspService 메소드에는 jsp파일에서 작성한 모든 자바코드와 html 태그가 포함되어 있다.
     * jsp의 실행을 요청하는 것은 결국, \_jspService 메소드의 실행을 요청하는 것이다
     * jsp 파일을 작성한다는 것은 결국, \_jspService 메소드에 포함될 코드 및 태그를 작성하는 것이다.
-10 \_jspService 메소드가 실행되면 응답컨텐츠가 스트림을 통해서 클라이언트로 보내진다.
-11 브라우저는 응답메세지에 포함된(응답컨텐츠)를 화면에 표시한다.
+10. \_jspService 메소드가 실행되면 응답컨텐츠가 스트림을 통해서 클라이언트로 보내진다.
+11. 브라우저는 응답메세지에 포함된(응답컨텐츠)를 화면에 표시한다.
 
 ## JSP의 구성요소
 - 디렉티브(지시어)
