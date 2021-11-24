@@ -110,11 +110,11 @@
 
 #### Method
 
-| 반환값 | 메소드명 | 설명 |
-|---|---|---|
-| | **preventDefault()** |  해당 엘리먼트에 특정 이벤트 발생시 실행할 기본동작이 지정되어 있는 경우 그 동작의 실행을 취소시킨다.<br> &lt;form&gt; 태그 안에서 button, submit 버튼 클릭시 폼이 전송되는 것 &lt;a&gt; 태그 클릭시 지정된 링크로 이동하는 것 |
-| | stopPropagation() | 이벤트 버블링을 중지시킨다. |
-| | **stopImmediatePropagation()** | 이벤트 버블링을 중지시킨다. |
+| 메소드명 | 설명 |
+|---|---|
+| **preventDefault()** |  해당 엘리먼트에 특정 이벤트 발생시 실행할 기본동작이 지정되어 있는 경우 그 동작의 실행을 취소시킨다.<br> &lt;form&gt; 태그 안에서 button, submit 버튼 클릭시 폼이 전송되는 것 &lt;a&gt; 태그 클릭시 지정된 링크로 이동하는 것 |
+| stopPropagation() | 이벤트 버블링을 중지시킨다. |
+| **stopImmediatePropagation()** | 이벤트 버블링을 중지시킨다. |
 
 ## BOM(Browser Object Model)
 - Browser Object Model
