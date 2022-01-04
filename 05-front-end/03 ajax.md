@@ -135,7 +135,9 @@ map.put("items", books)	<- List<Book> books = bookDao.searchBooks(title);
 ```
 
 ## 자바와 자바스크립트에서 JSON
+
 |--|--|--|--|
+
 | Java | json 텍스트 | JavaScript | 타입 |
 | VO, Map | {"name":value, "name":value} |  JSON.parse(text) | 객체 |
 | 배열,List | [value, value, value, value] | JSON.parse(text) | 배열 |
