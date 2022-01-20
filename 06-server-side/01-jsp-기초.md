@@ -45,77 +45,77 @@
 - 디렉티브(지시어)
   + &lt;%@ jsp 페이지 설정 정보%&gt;
 	+ JSP 페이지에 대한 설정정보를 정의하는 JSP의 구성요소다.
-  ```jsp
-    <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
-    <%@ include file="common/header.jsp" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-  ```
+```jsp
+  <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
+  <%@ include file="common/header.jsp" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+```
 - 스크립틀릿
   + &lt;% 자바 코드 %&gt;
   + JSP 페이지에서 java 코딩영역을 생성하는 JSP의 구성요소다.
-  ```jsp
-    <%
-      BookService bookService = BookService.getInstance();
-      List<Book> books = bookService.getAllBooks();
+```jsp
+  <%
+    BookService bookService = BookService.getInstance();
+    List<Book> books = bookService.getAllBooks();
       
-      for (Book book : books) {
+    for (Book book : books) {
       
-      }
-    %>
-  ```
+    }
+  %>
+```
 - 표현식
   + &lt;%=변수명 혹은 반환값이 있는 메소드%&gt;
   + 변수의 값을 출력에 포함시킬 때 사용하는 JSP의 구성요소다.
-  ```jsp
-    <%
-      int bookNo = Integer.parseInt(request.getParameter("no"));
-      BookService bookService = BookService.getInstance();
-      Book book = bookService.getBookInfo(bookNo);
-    %>
-    <dl>
-      <dt>제목</dt><dd><%=book.getTitle() %></dd>
-      <dt>저자</dt><dd><%=book.getWrite() %></dd>
-      <dt>쟝르</dt><dd><%=book.getGenre() %></dd>
-      <dt>가격</dt><dd><%=book.getPrice() %></dd>
-      <dt>재고량</dt><dd><%=book.getStock() %></dd>
-      <dt>상태</dt><dd><%=book.getStatus() %></dd>
-    </dl>
-  ```
+```jsp
+  <%
+    int bookNo = Integer.parseInt(request.getParameter("no"));
+    BookService bookService = BookService.getInstance();
+    Book book = bookService.getBookInfo(bookNo);
+  %>
+  <dl>
+    <dt>제목</dt><dd><%=book.getTitle() %></dd>
+    <dt>저자</dt><dd><%=book.getWrite() %></dd>
+    <dt>쟝르</dt><dd><%=book.getGenre() %></dd>
+    <dt>가격</dt><dd><%=book.getPrice() %></dd>
+    <dt>재고량</dt><dd><%=book.getStock() %></dd>
+    <dt>상태</dt><dd><%=book.getStatus() %></dd>
+  </dl>
+```
 - 선언식	
   + &lt;%! 변수 선언 혹은 메소드 정의 %&gt;
   + 스크립틀릿이나 표현식에서 사용가능한 메소드를 작성할 때 사용하는 JSP의 구성요소다.
-  ```jsp
-    <%-- 스크립틀릿과 표현식에서 사용할 수 있는 메소드 정의 --%>
-    <%!
-      private DecimalFormat df = new DecimalFormat("##,###");
-      private String numberToCurrency(long number) {
-        return df.format(number);
-      }
-    %>
+```jsp
+  <%-- 스크립틀릿과 표현식에서 사용할 수 있는 메소드 정의 --%>
+  <%!
+    private DecimalFormat df = new DecimalFormat("##,###");
+    private String numberToCurrency(long number) {
+      return df.format(number);
+    }
+  %>
     
-    <%-- 선언식에 정의한 메소드 사용하기 --%>
-    <%
-      int bookNo = Integer.parseInt(request.getParameter("no"));
-      BookService bookService = BookService.getInstance();
-      Book book = bookService.getBookInfo(bookNo);
+  <%-- 선언식에 정의한 메소드 사용하기 --%>
+  <%
+    int bookNo = Integer.parseInt(request.getParameter("no"));
+    BookService bookService = BookService.getInstance();
+    Book book = bookService.getBookInfo(bookNo);
       
-      String currency = numerToCurrency(book.getPrice());
-    %>
-    <dl>
-      <dt>제목</dt><dd><%=currency %> 원</dd>
-    </dl>
-  ```
+    String currency = numerToCurrency(book.getPrice());
+  %>
+  <dl>
+    <dt>제목</dt><dd><%=currency %> 원</dd>
+  </dl>
+```
 - 주석	
   + &lt;%-- 주석문--%&gt; 
   + JSP 페이지의 코드를 주석처리할 때 사용하는 JSP의 구성요소다.
-  ```jsp
-    <%-- jsp 주석을 여기에 적는다. -->
+```jsp
+  <%-- jsp 주석을 여기에 적는다. -->
     
-    <%-- 아래의 모든 코드는 주석처리되어서 실행되지 않는다. --%>
-    <%--
-      int bookNo = Integer.parseInt(request.getParameter("no"));
-      BookService bookService = BookService.getInstance();
-      Book book = bookService.getBookInfo(bookNo);
-    --%>
-  ```
+  <%-- 아래의 모든 코드는 주석처리되어서 실행되지 않는다. --%>
+  <%--
+    int bookNo = Integer.parseInt(request.getParameter("no"));
+    BookService bookService = BookService.getInstance();
+    Book book = bookService.getBookInfo(bookNo);
+  --%>
+```
 	
