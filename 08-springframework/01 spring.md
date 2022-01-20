@@ -251,7 +251,7 @@
     @Value("${mail.port}")
     private int port
   }
-....
+...
 
 
 ## 스프링의 데이터베이스 엑세스 처리
