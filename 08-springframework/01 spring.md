@@ -209,43 +209,34 @@
     // setter 메소드를 작성한다.
   }
 ```
-    * 수동으로 주입하기
-      * spring 환경설정파일에서 직접 값을 설정한다.
 ```xml
+  <!-- 수동으로 주입하기 -->
   <bean class="x.y.z.MailService">
     <property name="host" value="smtp.google.com"/>
     <property name="port" value="587" />	
   </bean>	
 ```
-    * 프로그램 실행에 필요한 정보를 별도의 properties 파일로 관리하는 경우
-      * &lt;context:property-placeholder location="설정파일의 전체경로 및 이름"/&gt; 태그를 사용한다.
-      * 해당  설정파일을 읽어서 PropertyPlaceholder객체를 생성하고, 설정된 값을 보관한다.
-      * ${표현식}을 사용해서 PropertyPlaceholder가 보관하고 있는 값을 조회할 수 있다.
-      * 설정파일 작성
+* propertis 파일로 설정정보 관리하기
 ```properties
   # config.properties
   mail.host=smtp.google.com
   mail.port=587
 ```
-      * 스프링 컨테이너가 설정파일 로드
 ```xml
+  <!-- 스프링 컨테이너가 설정파일 로드 -->
   <context:property-placeholder location="config.properties" />
 ```
-      * ${표현식}으로 설정파일의 값으로 치환시키기
 ```xml
+  <!-- ${표현식}으로 설정파일의 값으로 치환시키기 -->
   <bean class="x.y.z.MailService">
     <property name="host" value="${mail.host}"/>
     <property name="port" value="${mail.port}" />	
   </bean>
 ```
-    * 자동으로 주입하기
-      * &lt;context:component-scan /&gt;을 사용해서 자동으로 스프링 빈으로 등록하는 경우
-      * @Value("${표현식}")을 사용해서 설정파일에 정의된 값을 주입할 수 있다.
-      * 작성예
 ```java
   @Service
   public class MainService {
-
+    //  @Value("${표현식}")을 사용해서 설정파일에 정의된 값을 주입할 수 있다.
     @Value("${mail.host}")
     private String host;
     @Value("${mail.port}")
@@ -283,20 +274,20 @@
       * Select sql을 실행한다.
       * 여러 건의 데이터를 조회한다.
   * 구현 절차
-    1. pom.xml에 의존성 추가
+    - pom.xml에 의존성 추가
       - spring-context, spring-jdbc, jdbc driver
-    2. 어플리케이션 설정 파일 추가
+    - 어플리케이션 설정 파일 추가
       - src/main/resource/META-INF/config/application.properties
-        * DB 연결 정보 설정
-    3. Spring Bean Configuration  파일 추가
+    - DB 연결 정보 설정
+    - Spring Bean Configuration  파일 추가
       - src/main/resource/META-INF/spring/context.xml
-    4. Spring Bean Configuration 파일에 Connection Pool 빈으로 등록하기
-     - 개발할 때는 DriverManagerDataSource를 스프링 빈으로 등록하기
-     - DB 연결정보는 application.properties로부터 읽어온다.
-     - &lt; context:property-placeholder location="설정파일 경로 및 파일명" /&gt;
-    5. CRUD 기능을 포함하고 있는 JdbcTemplate를 스프링 빈으로 등록하기
+    - Spring Bean Configuration 파일에 Connection Pool 빈으로 등록하기
+      - 개발할 때는 DriverManagerDataSource를 스프링 빈으로 등록하기
+    - DB 연결정보는 application.properties로부터 읽어온다.
+      - &lt; context:property-placeholder location="설정파일 경로 및 파일명" /&gt;
+    - CRUD 기능을 포함하고 있는 JdbcTemplate를 스프링 빈으로 등록하기
       - CRUD작업시 필요한 Connection 획득을 위해서 Connection Pool빈을 참조해야 한다.
-    6. 각각의 테이블에 대해서 데이터 엑세스 작업이 구현된 xxxDaoImpl을 스프링의 빈으로 등록
+    - 각각의 테이블에 대해서 데이터 엑세스 작업이 구현된 xxxDaoImpl을 스프링의 빈으로 등록
       - CRUD작업의 실행을 위해서 JdbcTemplate빈을 참조해야 한다.
 
 
