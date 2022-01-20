@@ -1,8 +1,0 @@
-[
-    {"no":1001, "name":"이순신", "email":"leesh@gmail.com", "agree":true, "skill":["Java", "C", "Python"], "career":"3"},
-    {"no":1002, "name":"김유신", "email":"kimys@naver.com", "agree":true, "skill":["Java", "C", "ML", "AI"], "career":"7"},
-    {"no":1003, "name":"강감찬", "email":"kanggc@hanmail.net", "agree":false, "skill":["Java", "Python"], "career":"5"},
-    {"no":1004, "name":"류관순", "email":"ryuks@daum.net", "agree":true, "skill":["Python", "AI"], "career":"5"},
-    {"no":1005, "name":"유성룡", "email":"ryusl@jhta.co.kr", "agree":false, "skill":["Java"], "career":"0"},
-    {"no":1006, "name":"안창호", "email":"ahnch@gmail.com", "agree":false, "skill":["Python", "ML", "AI"], "career":"7"}
-]
