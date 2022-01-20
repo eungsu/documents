@@ -223,7 +223,7 @@
       * ${표현식}을 사용해서 PropertyPlaceholder가 보관하고 있는 값을 조회할 수 있다.
       * 설정파일 작성
 ```properties
-  config.properties
+  # config.properties
   mail.host=smtp.google.com
   mail.port=587
 ```
