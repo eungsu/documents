@@ -3,7 +3,7 @@
 - Key와 Value의 쌍을 표현하는 객체는 Entry<K, V>다.
 - Map<K, V>객체는 Entry<K, V>객체를 여러 개 저장하는 객체다.
 - Key는 값을 대표하는 값이다. Key는 중복될 수 없다. Key의 타입은 보통 String, Integer, Long 타입이 주로 사용된다.
-- Value는 실제로 Map에 저장할 정보를 가지고 있는 객체다. 보통 ValueObject가 Vaule의 타입으로 주로 사용된다.
+- Value는 실제로 Map에 저장할 정보를 가지고 있는 객체다. 
 - Key와 Value의 예
   | Key | Value | Map<K, V> |
   | --- | --- | --- |
