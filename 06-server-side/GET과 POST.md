@@ -92,7 +92,7 @@
 - 요청 메세지의 바디부에 폼입력값이 포함되어 있다.
 ```
   POST register.jsp HTTP/1.1
-  Accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9		
+  Accept=text/html,application/xhtml+xml,application/xml;q=0.9,	
   Accept-Encoding=gzip, deflate, br
   Accept-Language=ko,en;q=0.9,en-US;q=0.8
   
