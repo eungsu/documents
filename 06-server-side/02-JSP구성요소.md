@@ -28,26 +28,26 @@
     * jsp 파일에서 사용되는 클래스에 대한 import문 역할 수행
     * 설정예)
     ```jsp
-      <% page import="java.util.List"%>
-      <% page import="java.util.List,java.util.ArrayList"%>
+      <%@ page import="java.util.List"%>
+      <%@ page import="java.util.List,java.util.ArrayList"%>
     ```
   + errorPage
     * jsp파일 실행 중 에러 발생시 표시할 페이지를 설정
     * 설정예)
     ```jsp
-      <% page errorPage="serverError.jsp" %>
+      <%@ page errorPage="serverError.jsp" %>
     ```
   + isErrorPage
     * 에러페이지로 사용되는 jsp 페이지인지 여부를 설정
     * 설정예)
     ```jsp
-      <% page isErrorPage="true" %>
+      <%@ page isErrorPage="true" %>
     ```
   + trimDirectiveWhiteSpace
     * 디렉티브 정의로 발생되는 빈줄을 삭제할지 여부를 설정
     * 설정예)
     ```jsp
-      <% page trimDirectiveWhiteSpace="true" %>
+      <%@ page trimDirectiveWhiteSpace="true" %>
     ```
 
 ### include 디렉티브
@@ -148,7 +148,7 @@
 
 ### 주석
 ```jsp
-  <%-- jsp 주석을 여기에 적는다. -->
+  <%-- jsp 주석을 여기에 적는다. --%>
   
   <%-- 아래의 모든 코드는 주석처리되어서 실행되지 않는다. --%>
   <%--

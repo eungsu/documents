@@ -51,7 +51,7 @@
 | **value** | input, select, textarea Element의 값을 조회/변경할 수 있다.|
 | **disabled** | input, select, textarea, button Element의 비활성화 여부를 조회/변경할 수 있다. <br> true는 비활성화, false는 활성화 |
 | readOnly |  input, select, textarea, button Element의 읽기전용 여부를 조회/변경할 수 있다. <br>true는 읽기전용, false는 편집가능 |
-| **checked** | checkbox, radio Element의 비활성화 여부를 조회/변경할 수 있다. <br> true는 체크상태, false는 체그상태아님 |
+| **checked** | checkbox, radio Element의 체크여부를 조회/변경할 수 있다. <br> true는 체크상태, false는 체그상태아님 |
 | options | select Element의 모든 option Element객체를 HTMLCollection에 담아서를 반환한다.|
 | selectedIndex | select Element의 현재 선택된 옵션의 인덱스를 조회/변경할 수 있다. |
 	
