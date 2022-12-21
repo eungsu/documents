@@ -31,8 +31,8 @@
 | Attr | createAttribute("속성명", "속성값")| 지정된 속성정보를 가진 Attr 객체를 생성한다. |
 | TextNode | createTextNode("텍스트컨텐츠")| 지정된 텍스트내용을 가지는 TextNode객체를 생성한다. |
 | Element | **getElementById("id")** |지정된 id에 해당하는 Element객체를 반환한다. |
-| HTMLCollection | getElementsByTagName("태그명")| 지정된 태그명에 해당하는 모든 Element객체를 HTMLCollection에 담아서 반환한다.|
-| HTMLCollection | getElementsByClassName("클래스")| 지정된 클래스를 가지고 있는 모든 Element객체를 HTMLCollection에 담아서 반환한다.|
+| HTMLCollection | **getElementsByTagName("태그명")** | 지정된 태그명에 해당하는 모든 Element객체를 HTMLCollection에 담아서 반환한다.|
+| HTMLCollection | **getElementsByClassName("클래스")** | 지정된 클래스를 가지고 있는 모든 Element객체를 HTMLCollection에 담아서 반환한다.|
 | Element | **querySelector("CSS선택자")** | 지정된 선택자로 검색된 첫번째 Elemenet객체를 반환한다.|
 | HTMLCollection | **querySelectorAll("CSS선택자")** | 지정된 선택자로 검색된 모든 Element객체를 HTMLCollection에 담아서 반환한다.|
 
