@@ -45,6 +45,8 @@
 | **textContent** | Element의 텍스트 컨텐츠를 조회/변경할 수 있다.|
 | **innerHTML** | Element의 html 컨텐츠를 조회/변경할 수 있다. |
 | id | Element의 id값을 반환한다. |
+| name | Element의 name값을 반환한다. |
+| classList | Element의 class 속성값을 배열 유사객체에 담아서 반환한다. |
 | style | 해당 엘리먼트의 style 정보가 포함된 객체를 반환한다 | 
 | children | 해당 엘리먼트의 자식엘리먼트들을 반환한다 |
 | parentElement | 해당 엘리먼트의 부모 엘리먼트를 반환한다. |
