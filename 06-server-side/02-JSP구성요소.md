@@ -50,7 +50,7 @@
       <%@ page trimDirectiveWhiteSpace="true" %>
     ```
   + session
-    * JSP의 내장객체인 HttpSession객체를 자동으로 생성하거나 검색해서 내장객체를 저장하는 session변수에 대입시킬지 여부를 설정
+    * JSP 내장객체인 session의 사용여부를 설정
     * 기본값은 true다.
     * 설정예)
     ```jsp
