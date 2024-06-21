@@ -2,7 +2,7 @@
 - 문자열을 표현하는 객체다.
 - 문자열(String)은 불변객체다.
   + 한번 생성된 문자열은 절대로 변하지 않는다.
-- String객체를 생성하는 방법
+- String객체를 생성하고 초기화하는 방법
   ```java
     String s = "abc";
     String s = new String("abc");
