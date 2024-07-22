@@ -40,7 +40,7 @@
   ```
   + 컬럼삭제
   ```sql
-    ALTER TABLE 테이블명 DROP 컬럼명;
+    ALTER TABLE 테이블명 DROP COLUMN 컬럼명;
   ```
   + 테이블 이름 변경
   ```sql
